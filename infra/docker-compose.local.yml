@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  core-back:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: lexorbital-back-ring
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+    volumes:
+      - ../backend:/app
+      - /app/node_modules
+    networks:
+      - lexorbital-network
+
+  core-front:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: lexorbital-front-ring
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BACKEND_URL=http://core-back:4000
+    depends_on:
+      - core-back
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    networks:
+      - lexorbital-network
+
+networks:
+  lexorbital-network:
+    driver: bridge

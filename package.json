@@ -1,0 +1,68 @@
+{
+  "name": "lexorbital-core",
+  "version": "0.1.0",
+  "description": "The core engine for LexOrbital - boot system, module loader, and shared contracts",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "lexorbital.module.json"
+  ],
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc --project tsconfig.json",
+    "clean": "rm -rf dist",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:ui": "vitest",
+    "coverage": "vitest run --coverage",
+    "prepare": "node .husky/install.mjs",
+    "release": "standard-version",
+    "commit": "commit"
+  },
+  "keywords": [
+    "lexorbital",
+    "core",
+    "module",
+    "typescript",
+    "infrastructure",
+    "ecosystem"
+  ],
+  "author": "@YohanGH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YohanGH/lexorbital-core"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "*.{js,jsx,ts,tsx}": [
+    "prettier --write"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@commitlint/types": "^20.0.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "prettier": "3.6.2",
+    "semantic-release": "^25.0.2",
+    "vitest": "^4.0.12"
+  }
+}
