@@ -33,7 +33,13 @@
     "backend:dev": "pnpm --filter @lexorbital/back-ring dev",
     "backend:build": "pnpm --filter @lexorbital/back-ring build",
     "frontend:dev": "pnpm --filter @lexorbital/front-ring dev",
-    "frontend:build": "pnpm --filter @lexorbital/front-ring build"
+    "frontend:build": "pnpm --filter @lexorbital/front-ring build",
+    "depcruise": "depcruise --config .dependency-cruiser.cjs frontend/src backend/src config tests scripts",
+    "depcruise:validate": "depcruise --config .dependency-cruiser.cjs --output-type err frontend/src backend/src config tests scripts",
+    "depcruise:text": "depcruise --config .dependency-cruiser.cjs --output-type text -f docs/dependency-graphs/dependency-report.txt frontend/src backend/src config tests scripts",
+    "depcruise:html": "depcruise --config .dependency-cruiser.cjs --output-type err-html -f docs/dependency-graphs/dependency-graph.html frontend/src backend/src config tests scripts",
+    "depcruise:graph": "depcruise --config .dependency-cruiser.cjs --output-type dot -f docs/dependency-graphs/dependency-graph.dot frontend/src backend/src config tests scripts",
+    "depcruise:archi": "depcruise --config .dependency-cruiser.cjs --output-type archi -f docs/dependency-graphs/dependency-archi.svg frontend/src backend/src config tests scripts"
   },
   "keywords": [
     "lexorbital",

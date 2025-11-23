@@ -129,4 +129,38 @@ if [ $LINT_STAGED_STATUS -ne 0 ]; then
   exit $LINT_STAGED_STATUS
 fi
 
+# Dependency cruiser validation (only if code files were modified)
+if [ "$CODE_MODIFIED" = true ]; then
+  echo "🔗 Running dependency-cruiser validation..."
+
+  if command -v pnpm >/dev/null 2>&1 && grep -q '"depcruise:validate"' package.json 2>/dev/null; then
+    pnpm depcruise:validate 2>&1
+    DEPCRUISE_STATUS=$?
+
+    if [ $DEPCRUISE_STATUS -ne 0 ]; then
+      echo "❌ Dependency validation failed!"
+      echo "   Fix dependency violations before committing."
+      exit $DEPCRUISE_STATUS
+    fi
+
+    echo "✅ Dependency validation passed"
+  elif command -v npx >/dev/null 2>&1; then
+    # Fallback to npx if pnpm is not available
+    npx --no-install depcruise --config .dependency-cruiser.cjs --output-type err frontend/src backend/src config tests scripts 2>&1
+    DEPCRUISE_STATUS=$?
+
+    if [ $DEPCRUISE_STATUS -ne 0 ]; then
+      echo "❌ Dependency validation failed!"
+      echo "   Fix dependency violations before committing."
+      exit $DEPCRUISE_STATUS
+    fi
+
+    echo "✅ Dependency validation passed"
+  else
+    echo "⚠️  Dependency-cruiser not found - skipping dependency validation"
+  fi
+else
+  echo "⏭️  Skipping dependency validation (no code files modified)"
+fi
+
 echo "✅ All pre-commit checks passed!"

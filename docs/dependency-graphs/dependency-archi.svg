@@ -1,0 +1,24 @@
+strict digraph "dependency-cruiser output"{
+    rankdir="LR" splines="true" overlap="false" nodesep="0.16" ranksep="0.18" fontname="Helvetica-bold" fontsize="9" style="rounded,bold,filled" fillcolor="#ffffff" compound="true"
+    node [shape="box" style="rounded, filled" height="0.2" color="black" fillcolor="#ffffcc" fontcolor="black" fontname="Helvetica" fontsize="9"]
+    edge [arrowhead="normal" arrowsize="0.6" penwidth="2.0" color="#00000033" fontname="Helvetica" fontsize="9"]
+
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" "backend/src/index.ts" [label=<index.ts> tooltip="index.ts" URL="backend/src/index.ts" fillcolor="#ddfeff"] } }
+    "backend/src/index.ts" -> "node_modules/.pnpm" [penwidth="1.0"]
+    subgraph "cluster_config" {label="config" subgraph "cluster_config/commitlint" {label="commitlint" "config/commitlint/base.ts" [label=<base.ts> tooltip="base.ts" URL="config/commitlint/base.ts" fillcolor="#ddfeff"] } }
+    "config/commitlint/base.ts" -> "config/commitlint/types.ts"
+    "config/commitlint/base.ts" -> "node_modules/@commitlint/types" [penwidth="1.0"]
+    subgraph "cluster_config" {label="config" subgraph "cluster_config/commitlint" {label="commitlint" "config/commitlint/types.ts" [label=<types.ts> tooltip="types.ts" URL="config/commitlint/types.ts" fillcolor="#ddfeff"] } }
+    subgraph "cluster_frontend" {label="frontend" subgraph "cluster_frontend/src" {label="src" "frontend/src/App.tsx" [label=<App.tsx> tooltip="App.tsx" URL="frontend/src/App.tsx" fillcolor="#bbfeff"] } }
+    "frontend/src/App.tsx" -> "node_modules/.pnpm" [penwidth="1.0"]
+    subgraph "cluster_frontend" {label="frontend" subgraph "cluster_frontend/src" {label="src" "frontend/src/index.css" [label=<index.css> tooltip="index.css" URL="frontend/src/index.css" ] } }
+    subgraph "cluster_frontend" {label="frontend" subgraph "cluster_frontend/src" {label="src" "frontend/src/main.tsx" [label=<main.tsx> tooltip="main.tsx" URL="frontend/src/main.tsx" fillcolor="#bbfeff"] } }
+    "frontend/src/main.tsx" -> "frontend/src/App.tsx"
+    "frontend/src/main.tsx" -> "frontend/src/index.css"
+    "frontend/src/main.tsx" -> "node_modules/.pnpm" [penwidth="1.0"]
+    subgraph "cluster_node_modules" {label="node_modules" "node_modules/.pnpm" [label=<.pnpm> tooltip=".pnpm" URL="https://www.npmjs.com/package/.pnpm" shape="box3d" fillcolor="#c40b0a1a" fontcolor="#c40b0a"] }
+    subgraph "cluster_node_modules" {label="node_modules" subgraph "cluster_node_modules/@commitlint" {label="@commitlint" "node_modules/@commitlint/types" [label=<types> tooltip="types" URL="https://www.npmjs.com/package/@commitlint/types" shape="box3d" fillcolor="#c40b0a1a" fontcolor="#c40b0a"] } }
+    subgraph "cluster_node_modules" {label="node_modules" "node_modules/vitest" [label=<vitest> tooltip="vitest" URL="https://www.npmjs.com/package/vitest" shape="box3d" fillcolor="#c40b0a1a" fontcolor="#c40b0a"] }
+    subgraph "cluster_tests" {label="tests" "tests/example.test.ts" [label=<example.test.ts> tooltip="example.test.ts" URL="tests/example.test.ts" fillcolor="#ddfeff"] }
+    "tests/example.test.ts" -> "node_modules/vitest" [penwidth="1.0"]
+}
