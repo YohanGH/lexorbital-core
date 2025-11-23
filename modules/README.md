@@ -1,24 +1,24 @@
 # Modules Directory
 
-Ce répertoire contient les modules LexOrbital intégrés via **git subtree**.
+This directory contains LexOrbital modules integrated via **git subtree**.
 
 ## Structure
 
-Les modules seront organisés comme suit :
+Modules will be organized as follows:
 
 ```
 modules/
-├── lexorbital-module-auth/     # Module d'authentification
-├── lexorbital-module-audit/    # Module d'audit
-├── lexorbital-module-mailer/   # Module d'envoi d'emails
+├── lexorbital-module-auth/     # Authentication module
+├── lexorbital-module-audit/    # Audit module
+├── lexorbital-module-mailer/   # Email sending module
 └── ...
 ```
 
-## Intégration via Git Subtree
+## Integration via Git Subtree
 
-Les modules sont développés dans des dépôts séparés (ex: `lexorbital-module-auth`) puis intégrés dans ce répertoire via `git subtree`.
+Modules are developed in separate repositories (e.g., `lexorbital-module-auth`) then integrated into this directory via `git subtree`.
 
-### Ajouter un nouveau module
+### Add a new module
 
 ```bash
 git subtree add --prefix=modules/lexorbital-module-<name> \
@@ -26,7 +26,7 @@ git subtree add --prefix=modules/lexorbital-module-<name> \
   main --squash
 ```
 
-### Mettre à jour un module
+### Update a module
 
 ```bash
 git subtree pull --prefix=modules/lexorbital-module-<name> \
@@ -34,7 +34,7 @@ git subtree pull --prefix=modules/lexorbital-module-<name> \
   main --squash
 ```
 
-### Pousser des modifications locales
+### Push local changes
 
 ```bash
 git subtree push --prefix=modules/lexorbital-module-<name> \
@@ -42,9 +42,9 @@ git subtree push --prefix=modules/lexorbital-module-<name> \
   main
 ```
 
-## Format des modules
+## Module format
 
-Chaque module doit exposer un fichier `module.json` à sa racine avec la structure suivante :
+Each module must expose a `module.json` file at its root with the following structure:
 
 ```json
 {
@@ -57,9 +57,9 @@ Chaque module doit exposer un fichier `module.json` à sa racine avec la structu
 }
 ```
 
-Le BackRing lira ces manifests pour découvrir et charger les modules.
+BackRing will read these manifests to discover and load modules.
 
-## Note pour la POC V1
+## Note for POC V1
 
-Pour l'instant, les modules sont **mockés** dans le BackRing.  
-L'implémentation de la lecture réelle des manifests viendra dans une version ultérieure.
+For now, modules are **mocked** in BackRing.  
+Real manifest reading implementation will come in a later version.
