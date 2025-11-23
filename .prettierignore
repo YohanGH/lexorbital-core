@@ -1,4 +1,9 @@
-#Ignore artifacts:
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+
+# Build outputs
+dist/
 build/
 coverage/
 
@@ -6,9 +11,10 @@ coverage/
 **/*.html
 **/*.yaml
 
-node_modules/
-dist/
+# Git
 .git
+
+# Logs
 out
 *.log
 *.lock

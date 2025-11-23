@@ -1,5 +1,3 @@
-// config/eslint/eslint.config.cjs
-
 const tsParser = require("@typescript-eslint/parser");
 const tsPlugin = require("@typescript-eslint/eslint-plugin");
 const importPlugin = require("eslint-plugin-import");
@@ -15,6 +13,8 @@ const baseIgnoreConfig = {
     "build/**",
     "coverage/**",
     ".next/**",
+    "docs/templates/**",
+    "docs/generated/**",
   ],
 };
 
