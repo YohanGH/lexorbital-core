@@ -10,18 +10,32 @@
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit"
   },
+  "keywords": [
+    "lexorbital",
+    "front-ring",
+    "react",
+    "typescript",
+    "vite"
+  ],
+  "author": "@YohanGH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YohanGH/lexorbital-core"
+  },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "@tailwindcss/vite": "4.1.17",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
+    "@vitejs/plugin-react": "4.3.4",
+    "tailwindcss": "4.1.17",
+    "vite": "7.2.4"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=24.11.1"
   }
 }

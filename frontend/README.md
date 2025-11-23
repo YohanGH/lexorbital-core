@@ -1,20 +1,21 @@
 # LexOrbital FrontRing
 
-Frontend console du Meta-Kernel LexOrbital.
+Frontend console of the LexOrbital Meta-Kernel.
 
-Console orbitale minimale qui affiche :
-- Le statut du service (`/health`)
-- La liste des modules (`/modules`)
+Minimal orbital console that displays:
 
-## Développement
+- Service status (`/health`)
+- List of modules (`/modules`)
+
+## Development
 
 ```bash
 pnpm install
-pnpm dev      # Développement avec hot-reload (http://localhost:3000)
-pnpm build    # Build de production
-pnpm preview  # Preview du build de production
+pnpm dev      # Development with hot-reload (http://localhost:3000)
+pnpm build    # Production build
+pnpm preview  # Preview production build
 ```
 
-## Variables d'environnement
+## Environment variables
 
-- `VITE_API_URL` : URL du backend (défaut: `http://localhost:4000`)
+- `VITE_API_URL` : Backend URL (default: `http://localhost:4000`)

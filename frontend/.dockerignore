@@ -1,11 +1,58 @@
-node_modules
-dist
-*.log
+# Security: Exclude sensitive files
 .env
 .env.local
-.DS_Store
-.git
+.env.*.local
+*.key
+*.pem
+*.crt
+secrets/
+*.secret
+
+# Development files
+node_modules/
+.git/
 .gitignore
+.gitattributes
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artifacts (will be built in container)
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Documentation
+README.md
 *.md
-!README.md
-.vite
+docs/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Docker files (don't copy into itself)
+Dockerfile*
+docker-compose*.yml
+.dockerignore

@@ -1,17 +1,17 @@
 # LexOrbital BackRing
 
-Backend API du Meta-Kernel LexOrbital.
+Backend API of the LexOrbital Meta-Kernel.
 
 ## Endpoints
 
-- `GET /health` - Statut du service
-- `GET /modules` - Liste des modules (mockée pour la POC)
+- `GET /health` - Service status
+- `GET /modules` - List of modules (mocked for POC)
 
-## Développement
+## Development
 
 ```bash
 pnpm install
-pnpm dev      # Développement avec hot-reload
-pnpm build    # Build de production
-pnpm start    # Lancer en production
+pnpm dev      # Development with hot-reload
+pnpm build    # Production build
+pnpm start    # Run in production
 ```
