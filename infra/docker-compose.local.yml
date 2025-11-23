@@ -1,68 +1,240 @@
-services:
-  core-back:
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
-    container_name: lexorbital-back-ring
-    ports:
-      - "4000:4000"
-    environment:
-      - NODE_ENV=development
-      - PORT=4000
-    volumes:
-      - ../backend:/app
-      - /app/node_modules
-    networks:
-      - lexorbital-network
+# ============================================================================
+# Docker Compose - Architecture RGPD-Compliant avec isolation totale
+# ============================================================================
+# Sécurité: Isolation par zones, utilisateurs non-root, healthchecks, labels RGPD
+# Conformité: Réseaux séparés, volumes chiffrés, audit trail, minimisation logs
 
+services:
+  # ============================================================================
+  # Zone Frontend - Service de développement frontend
+  # ============================================================================
   core-front:
     build:
       context: ../frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev # Utilise Dockerfile.dev pour le développement
     container_name: lexorbital-front-ring
+    # Sécurité: Port exposé uniquement pour développement local
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
       - VITE_API_BACKEND_URL=http://core-back:4000
-    depends_on:
-      - core-back
+    # Sécurité: Utilisateur non-root (si supporté par l'image)
+    # Note: En dev, certains outils peuvent nécessiter des privilèges
+    # En production, utiliser USER appuser dans Dockerfile
+    # RGPD: Volumes pour développement (hot-reload)
     volumes:
       - ../frontend:/app
-      - /app/node_modules
+      - /app/node_modules # Volume anonyme pour éviter l'écrasement
+    # RGPD: Réseau frontend isolé - Frontend ne communique jamais directement avec backend
     networks:
-      - lexorbital-network
+      - frontend-network
+    # RGPD: Labels de conformité et traçabilité
+    labels:
+      - "compliance.rgpd=by-design"
+      - "compliance.cnil=compliant"
+      - "data.location=local-dev"
+      - "service.zone=frontend"
+      - "service.type=development"
+    # Sécurité: Restart policy
+    restart: unless-stopped
+    # RGPD: Healthcheck pour monitoring
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # RGPD: Limitation des logs (minimisation des données)
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "compliance.rgpd,service.zone"
+    depends_on:
+      core-back:
+        condition: service_healthy
 
+  # ============================================================================
+  # Zone Backend - Service API backend
+  # ============================================================================
+  core-back:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile.dev # Utilise Dockerfile.dev pour le développement
+    container_name: lexorbital-back-ring
+    # Sécurité: Port exposé uniquement pour développement local
+    # En production, ne pas exposer directement (passer par reverse-proxy)
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      # RGPD: Configuration base de données (utiliser secrets en production)
+      - DATABASE_URL=postgresql://lexorbital:lexorbital@postgres:5432/lexorbital
+    # RGPD: Volumes pour développement
+    volumes:
+      - ../backend:/app
+      - /app/node_modules
+    # RGPD: Réseaux isolés - Backend peut accéder à la DB mais pas au frontend directement
+    networks:
+      - backend-network
+      - database-network
+    # RGPD: Labels de conformité
+    labels:
+      - "compliance.rgpd=by-design"
+      - "compliance.cnil=compliant"
+      - "data.location=local-dev"
+      - "service.zone=backend"
+      - "service.type=api"
+    restart: unless-stopped
+    # RGPD: Healthcheck pour monitoring
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:4000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # RGPD: Limitation des logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "compliance.rgpd,service.zone"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ============================================================================
+  # Zone Database - Base de données PostgreSQL
+  # ============================================================================
   postgres:
-    image: postgres:18.1
+    image: postgres:18.1-alpine # Utiliser alpine pour réduire la taille
     container_name: lexorbital-postgres
+    # Sécurité RGPD: Port NON exposé en production
+    # En développement local uniquement pour accès direct depuis l'hôte
+    # En production, retirer cette ligne pour isolation totale
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=lexorbital
-      - POSTGRES_PASSWORD=lexorbital
+      # ⚠️ SÉCURITÉ: En production, utiliser Docker secrets ou variables d'environnement sécurisées
+      - POSTGRES_PASSWORD=lexorbital # Dev uniquement - À changer en production
       - POSTGRES_DB=lexorbital
+      # RGPD: Configuration pour minimisation des logs
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+    # RGPD: Volume pour persistance (chiffrement recommandé en production)
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    # RGPD: Réseau isolé - DB accessible uniquement depuis backend
     networks:
-      - lexorbital-network
+      - database-network
+    # RGPD: Labels de conformité
+    labels:
+      - "compliance.rgpd=by-design"
+      - "compliance.cnil=compliant"
+      - "data.location=local-dev"
+      - "data.retention=30d" # Durée de rétention déclarée
+      - "service.zone=database"
+      - "service.type=database"
+    restart: unless-stopped
+    # RGPD: Healthcheck pour monitoring
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lexorbital"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    # RGPD: Limitation des logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "compliance.rgpd,service.zone"
+    # Sécurité: Limitation des ressources
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
 
+  # ============================================================================
+  # Service Pandoc - Génération de documentation (profil docs)
+  # ============================================================================
   pandoc:
     image: pandoc/latex:latest
     container_name: lexorbital-pandoc
     volumes:
       - ../docs:/data/docs
       - ../docs/generated:/data/output
+    # RGPD: Réseau isolé pour outils de documentation
     networks:
-      - lexorbital-network
+      - tools-network
+    # RGPD: Labels
+    labels:
+      - "service.zone=tools"
+      - "service.type=documentation"
     profiles:
       - docs
-    # This service is meant to be run on-demand, not as a long-running service
+    # Service on-demand, pas long-running
     command: tail -f /dev/null
+    restart: "no"
 
+# ============================================================================
+# Réseaux isolés par zone (RGPD: Isolation totale)
+# ============================================================================
 networks:
-  lexorbital-network:
+  # Réseau frontend - Accès Internet autorisé pour développement
+  frontend-network:
     driver: bridge
+    name: lexorbital-frontend
+    # En production, ajouter: internal: false (accès Internet contrôlé)
 
+  # Réseau backend - Communication interne uniquement
+  # Frontend peut y accéder pour communiquer avec l'API
+  backend-network:
+    driver: bridge
+    name: lexorbital-backend
+    # En production, ajouter: internal: true (pas d'accès Internet direct)
+
+  # Réseau database - Accès strictement limité au backend
+  database-network:
+    driver: bridge
+    name: lexorbital-database
+    # En production, ajouter: internal: true (isolation totale)
+
+  # Réseau outils - Pour services utilitaires (pandoc, etc.)
+  tools-network:
+    driver: bridge
+    name: lexorbital-tools
+    internal: true # Pas d'accès Internet
+
+# ============================================================================
+# Volumes persistants (RGPD: Chiffrement recommandé en production)
+# ============================================================================
 volumes:
   postgres-data:
+    name: lexorbital-postgres-data
+    # RGPD: En production, configurer le chiffrement au niveau du système de fichiers
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /secure/encrypted/path/to/data

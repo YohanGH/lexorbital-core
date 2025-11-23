@@ -18,23 +18,23 @@
 
 ### 🎯 By Role
 
-| Role | Start Here |
-|------|------------|
-| **Architect** | [Architecture Overview](./FR/01-architecture/README.md) / [EN](./EN/01-architecture/README.md) |
-| **Developer** | [Developer Guide](./FR/03-guides/developer-guide.md) / [EN](./EN/03-guides/developer-guide.md) |
-| **DPO / Legal** | [Compliance Guide](./FR/02-compliance/README.md) / [EN](./EN/02-compliance/README.md) |
+| Role              | Start Here                                                                                          |
+| ----------------- | --------------------------------------------------------------------------------------------------- |
+| **Architect**     | [Architecture Overview](./FR/01-architecture/README.md) / [EN](./EN/01-architecture/README.md)      |
+| **Developer**     | [Developer Guide](./FR/03-guides/developer-guide.md) / [EN](./EN/03-guides/developer-guide.md)      |
+| **DPO / Legal**   | [Compliance Guide](./FR/02-compliance/README.md) / [EN](./EN/02-compliance/README.md)               |
 | **Product Owner** | [Project Overview](./FR/00-introduction/00-overview.md) / [EN](./EN/00-introduction/00-overview.md) |
 
 ### 🗂️ By Topic
 
-| Topic | Description |
-|-------|-------------|
+| Topic            | Description                                |
+| ---------------- | ------------------------------------------ |
 | **Introduction** | Philosophy, concepts, origin of LexOrbital |
-| **Architecture** | Meta-Kernel, rings, modules, patterns |
-| **Compliance** | RGPD/GDPR, French law, security by design |
-| **Guides** | Step-by-step tutorials, how-to guides |
-| **Reference** | API docs, manifests, contracts |
-| **Contributing** | How to contribute to the ecosystem |
+| **Architecture** | Meta-Kernel, rings, modules, patterns      |
+| **Compliance**   | RGPD/GDPR, French law, security by design  |
+| **Guides**       | Step-by-step tutorials, how-to guides      |
+| **Reference**    | API docs, manifests, contracts             |
+| **Contributing** | How to contribute to the ecosystem         |
 
 ---
 
@@ -85,26 +85,31 @@ docs/
 ## 🎯 Documentation Principles
 
 ### 1. **Clarity First**
+
 - Technical precision without jargon overload
 - Visual diagrams complement written explanations
 - Examples for every concept
 
 ### 2. **Modular Like the Code**
+
 - Each document is self-contained
 - Cross-references create a knowledge graph
 - Templates ensure consistency
 
 ### 3. **Compliance-Aware**
+
 - Legal implications documented alongside technical choices
 - RGPD/GDPR considerations integrated, not appended
 - Security patterns explained and justified
 
 ### 4. **Living Documentation**
+
 - Updated with code changes
 - Auto-generated where possible
 - Versioned and changelog-tracked
 
 ### 5. **Exemplary Quality**
+
 - Serves as a reference for other projects
 - Multilingual by design
 - Accessible to technical and non-technical audiences
@@ -235,4 +240,3 @@ The LexOrbital code is licensed under [MIT License](../LICENSE).
 Made with 🚀 by the LexOrbital community
 
 </div>
-

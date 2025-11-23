@@ -187,7 +187,7 @@ export const moduleManifest = {
   version: "1.0.0",
   type: "back",
   // ...
-};
+}
 ```
 
 ### Diagrams
@@ -239,4 +239,3 @@ See the [French documentation](../FR/README.md).
 Made with 🚀 by the LexOrbital community
 
 </div>
-

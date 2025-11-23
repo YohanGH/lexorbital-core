@@ -1,0 +1,146 @@
+# ============================================================================
+# Reverse Proxy Nginx - RGPD-Compliant Configuration
+# ============================================================================
+# Usage: Service nginx séparé pour router le trafic entre frontend et backend
+# Port: 80 (HTTP) et 443 (HTTPS)
+# 
+# ⚠️ FICHIER D'EXEMPLE - À adapter selon votre environnement
+# ============================================================================
+
+user nginx;
+worker_processes auto;
+pid /var/run/nginx.pid;
+error_log /var/log/nginx/error.log warn;
+
+events {
+    worker_connections 1024;
+    use epoll;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    # Security: Hide nginx version
+    server_tokens off;
+
+    # RGPD: Logging format minimal (pas de collecte de données personnelles)
+    log_format minimal '$remote_addr - [$time_local] "$request" $status $body_bytes_sent';
+    access_log /var/log/nginx/access.log minimal;
+
+    # Security: Timeouts
+    keepalive_timeout 65;
+    client_body_timeout 12;
+    client_header_timeout 12;
+    send_timeout 10;
+
+    # Security: Buffer sizes
+    client_body_buffer_size 128k;
+    client_max_body_size 10m;
+    client_header_buffer_size 1k;
+    large_client_header_buffers 4 4k;
+
+    # Security: Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css text/xml text/javascript application/javascript application/json;
+
+    # ============================================================================
+    # HTTP → HTTPS Redirect (RGPD: TLS obligatoire)
+    # ============================================================================
+    server {
+        listen 80;
+        server_name _;
+        
+        # RGPD: Redirection permanente vers HTTPS
+        return 301 https://$host$request_uri;
+    }
+
+    # ============================================================================
+    # HTTPS Server - Frontend + Backend Routing
+    # ============================================================================
+    server {
+        listen 443 ssl http2;
+        server_name lexorbital.local;  # ⚠️ Adapter selon votre domaine
+
+        # Security: SSL Configuration (RGPD: TLS 1.2+ obligatoire)
+        ssl_certificate /etc/nginx/ssl/cert.pem;
+        ssl_certificate_key /etc/nginx/ssl/key.pem;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+        ssl_session_cache shared:SSL:10m;
+        ssl_session_timeout 10m;
+
+        # Security: HSTS (RGPD: Sécurité renforcée)
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+
+        # Security: Security headers (OWASP Top 10, RGPD compliance)
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+        # RGPD: Privacy-focused headers
+        add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()" always;
+
+        # Security: Content Security Policy
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self';" always;
+
+        # ============================================================================
+        # Frontend Routing (SPA)
+        # ============================================================================
+        location / {
+            proxy_pass http://core-front:8080;  # Service frontend dans Docker
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_cache_bypass $http_upgrade;
+            
+            # RGPD: Pas de logs d'accès pour minimiser les données
+            access_log off;
+        }
+
+        # ============================================================================
+        # Backend API Routing
+        # ============================================================================
+        location /api/ {
+            proxy_pass http://core-back:4000/;  # Service backend dans Docker
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # Security: Timeouts pour API
+            proxy_connect_timeout 60s;
+            proxy_send_timeout 60s;
+            proxy_read_timeout 60s;
+            
+            # RGPD: Logs minimisés pour API
+            access_log off;
+        }
+
+        # ============================================================================
+        # Health Check Endpoint
+        # ============================================================================
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+
+        # Security: Deny access to hidden files
+        location ~ /\. {
+            deny all;
+            access_log off;
+            log_not_found off;
+        }
+    }
+}
+

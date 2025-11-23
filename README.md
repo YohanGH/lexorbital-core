@@ -23,11 +23,11 @@
 
 **Complete documentation available** in [`docs/`](./docs):
 
-| Section | Description | Link |
-|---------|-------------|------|
-| 🇫🇷 **French Documentation** | Complete guide in French | [📖 docs/FR/](./docs/FR) |
-| 🇬🇧 **English Documentation** | Complete guide in English | [📖 docs/EN/](./docs/EN) |
-| 📑 **Index** | Comprehensive navigation | [📑 docs/INDEX.md](./docs/INDEX.md) |
+| Section                      | Description               | Link                                |
+| ---------------------------- | ------------------------- | ----------------------------------- |
+| 🇫🇷 **French Documentation**  | Complete guide in French  | [📖 docs/FR/](./docs/FR)            |
+| 🇬🇧 **English Documentation** | Complete guide in English | [📖 docs/EN/](./docs/EN)            |
+| 📑 **Index**                 | Comprehensive navigation  | [📑 docs/INDEX.md](./docs/INDEX.md) |
 
 **Recommended paths:**
 
@@ -62,6 +62,7 @@ pnpm docker:dev:down
 ```
 
 **Access:**
+
 - 🔹 **BackRing**: http://localhost:4000
 - 🔹 **FrontRing**: http://localhost:3000
 
@@ -94,13 +95,13 @@ Every LexOrbital module **MUST**:
 
 ## 🛠️ Tech Stack
 
-| Layer | Technologies |
-|-------|-------------|
-| **Backend** | Node.js, TypeScript, Express |
-| **Frontend** | React, TypeScript, Vite |
-| **Database** | PostgreSQL |
-| **Orchestration** | Docker, Docker Compose |
-| **CI/CD** | GitHub Actions |
+| Layer             | Technologies                 |
+| ----------------- | ---------------------------- |
+| **Backend**       | Node.js, TypeScript, Express |
+| **Frontend**      | React, TypeScript, Vite      |
+| **Database**      | PostgreSQL                   |
+| **Orchestration** | Docker, Docker Compose       |
+| **CI/CD**         | GitHub Actions               |
 
 ---
 
@@ -121,6 +122,7 @@ Contributions are welcome! Before contributing:
 3. Follow the [Contribution Standards](./docs/EN/05-contributing/01-contribution-guide.md)
 
 **Types of contributions:**
+
 - 🐛 Fix a bug
 - ✨ Add a feature
 - 📝 Improve documentation

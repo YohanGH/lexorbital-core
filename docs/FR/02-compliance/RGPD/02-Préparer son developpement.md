@@ -7,8 +7,8 @@
 ---
 
 > **📘 Note**  
-> Dans une démarche agile, on renforce la sécurité **progressivement** : on traite d'abord les risques les plus critiques lorsque le produit n'a qu'un faible nombre d'utilisateurs, puis on élargit et durcit le périmètre de sécurité à mesure que l'adoption augmente et que l'exposition au risque grandit.  
-> 
+> Dans une démarche agile, on renforce la sécurité **progressivement** : on traite d'abord les risques les plus critiques lorsque le produit n'a qu'un faible nombre d'utilisateurs, puis on élargit et durcit le périmètre de sécurité à mesure que l'adoption augmente et que l'exposition au risque grandit.
+>
 > C'est l'application directe du principe de l'ANSSI : **évaluer le risque en continu et l'adapter à la maturité du produit**.
 
 ---
@@ -29,12 +29,12 @@ Un **événement redouté** est un scénario dont la survenue porte atteinte à 
 
 ### 📊 Exemple LexOrbital — Tableau initial
 
-| Événement redouté | Impact métier | Gravité |
-|-------------------|---------------|:-------:|
-| **Compromission d'un module arrimé** (ex. module Auth) | Atteinte à l'intégrité des comptes, responsabilité légale | 🔴 **Critique** |
-| **Corruption d'un manifest** (`module.json` / `rgpd-manifest.json`) | Perte du contrat module-core → station incohérente | 🟠 **Élevée** |
-| **Absence d'audit trail** pour actions sensibles | Non-conformité RGPD, perte de traçabilité | 🟠 **Élevée** |
-| **Fuite de secrets du Meta-Kernel** | Rupture de sécurité globale | 🔴 **Critique** |
+| Événement redouté                                                   | Impact métier                                             |     Gravité     |
+| ------------------------------------------------------------------- | --------------------------------------------------------- | :-------------: |
+| **Compromission d'un module arrimé** (ex. module Auth)              | Atteinte à l'intégrité des comptes, responsabilité légale | 🔴 **Critique** |
+| **Corruption d'un manifest** (`module.json` / `rgpd-manifest.json`) | Perte du contrat module-core → station incohérente        |  🟠 **Élevée**  |
+| **Absence d'audit trail** pour actions sensibles                    | Non-conformité RGPD, perte de traçabilité                 |  🟠 **Élevée**  |
+| **Fuite de secrets du Meta-Kernel**                                 | Rupture de sécurité globale                               | 🔴 **Critique** |
 
 ---
 
@@ -153,29 +153,32 @@ Dans une architecture orbitale distribuée, les **scénarios intentionnels** son
 
 ### 7.1 Sources de risque (adaptées à l'écosystème)
 
-| Source de risque | Description |
-|------------------|-------------|
-| **Idéologie, agitation, propagande** | Motivations politiques ou idéologiques |
-| **Jeu, défi, exploitation opportuniste** | Exploitation de vulnérabilités par curiosité |
-| **Prépositionnement stratégique** | Préparation d'attaques futures |
-| **Espionnage, renseignement, intelligence économique** | Vol d'informations sensibles |
-| **Neutralisation, sabotage, destruction** | Attaques visant à perturber le service |
-| **Fraude, intérêt lucratif** | Motivations financières |
-| **Malveillance, vengeance** | Actions de représailles |
-| **Erreur humaine** | Fortement présente dans les manifests |
+| Source de risque                                       | Description                                  |
+| ------------------------------------------------------ | -------------------------------------------- |
+| **Idéologie, agitation, propagande**                   | Motivations politiques ou idéologiques       |
+| **Jeu, défi, exploitation opportuniste**               | Exploitation de vulnérabilités par curiosité |
+| **Prépositionnement stratégique**                      | Préparation d'attaques futures               |
+| **Espionnage, renseignement, intelligence économique** | Vol d'informations sensibles                 |
+| **Neutralisation, sabotage, destruction**              | Attaques visant à perturber le service       |
+| **Fraude, intérêt lucratif**                           | Motivations financières                      |
+| **Malveillance, vengeance**                            | Actions de représailles                      |
+| **Erreur humaine**                                     | Fortement présente dans les manifests        |
 
 ### 7.2 Identifier les composants vulnérables
 
 #### Infrastructure physique
+
 - Serveurs
 - Conteneurs
 
 #### Organisation
+
 - Dépôts Git
 - CI/CD
 - Secrets partagés
 
 #### Système numérique
+
 - **Meta-Kernel**
 - **BackRing / FrontRing**
 - **Modules plug'n'play**
@@ -195,20 +198,20 @@ Après traitement, certains risques demeurent ; ils doivent être **explicitemen
 ### 8.1 Sources de risque → Modes opératoires → Vraisemblances
 
 | Source | Mode opératoire | Vraisemblance |
-|--------|-----------------|---------------|
+| ------ | --------------- | ------------- |
 |        |                 |               |
 |        |                 |               |
 
 ### 8.2 Événements redoutés → Impacts métier → Gravité
 
 | Événement | Impact | Gravité |
-|-----------|--------|---------|
+| --------- | ------ | ------- |
 |           |        |         |
 
 ### 8.3 Risques résiduels majeurs → Mesures à prendre
 
 | Risque résiduel | Mesures compensatoires |
-|-----------------|------------------------|
+| --------------- | ---------------------- |
 |                 |                        |
 
 ---
@@ -270,21 +273,21 @@ Les cas concernés : santé, biométrie, profiling RH, alertes professionnelles,
 
 #### 9.2.1 Description du périmètre
 
-| Élément | Description |
-|---------|-------------|
-| **Nom du traitement** | "Traitements opérés par la plateforme LexOrbital et ses modules plug'n'play" |
+| Élément                       | Description                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------- |
+| **Nom du traitement**         | "Traitements opérés par la plateforme LexOrbital et ses modules plug'n'play"          |
 | **Responsable de traitement** | Variable selon projet utilisant LexOrbital (LexOrbital est un _framework_, pas un RT) |
-| **Sous-traitant éventuel** | Hébergement / CI / monitoring |
+| **Sous-traitant éventuel**    | Hébergement / CI / monitoring                                                         |
 
 #### 9.2.2 Structuration orbitale du traitement
 
 Aligné avec les notes internes :
 
-| Composant | Rôle dans le traitement |
-|-----------|-------------------------|
-| **Meta-Kernel** | • Gestion des manifests<br>• Application des normes RGPD by design<br>• Journalisation technique |
-| **BackRing** | • Exécution des traitements métiers des modules<br>• Validation des schémas, application TTL, audit |
-| **FrontRing** | • Collecte minimale<br>• Affichage / consentement / UI légale |
+| Composant             | Rôle dans le traitement                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Meta-Kernel**       | • Gestion des manifests<br>• Application des normes RGPD by design<br>• Journalisation technique                |
+| **BackRing**          | • Exécution des traitements métiers des modules<br>• Validation des schémas, application TTL, audit             |
+| **FrontRing**         | • Collecte minimale<br>• Affichage / consentement / UI légale                                                   |
 | **Modules-vaisseaux** | • Traitements autonomes<br>• Déclarés via `rgpd-manifest.json` (finalité / base légale / durée / destinataires) |
 
 ---
@@ -304,14 +307,14 @@ La CNIL distingue :
 
 D'après l'infographie CNIL :
 
-| Source de risque | Exemple LexOrbital |
-|------------------|-------------------|
-| **Accès non autorisé aux données** | BackRing mal protégé |
-| **Modification ou altération non désirée** | Module corrompu, mise à jour incorrecte |
-| **Disparition de données** | Module sans TTL cohérent ou perte lors de detach |
-| **Croisement de données non prévu** | Modules interconnectés sans contrôle |
-| **Collecte excessive** | Module mal écrit → non respect de minimisation |
-| **Transferts non maîtrisés** | Module Infra, service externe |
+| Source de risque                           | Exemple LexOrbital                               |
+| ------------------------------------------ | ------------------------------------------------ |
+| **Accès non autorisé aux données**         | BackRing mal protégé                             |
+| **Modification ou altération non désirée** | Module corrompu, mise à jour incorrecte          |
+| **Disparition de données**                 | Module sans TTL cohérent ou perte lors de detach |
+| **Croisement de données non prévu**        | Modules interconnectés sans contrôle             |
+| **Collecte excessive**                     | Module mal écrit → non respect de minimisation   |
+| **Transferts non maîtrisés**               | Module Infra, service externe                    |
 
 #### 9.3.2 Typologie des données (exemples de modules LexOrbital)
 

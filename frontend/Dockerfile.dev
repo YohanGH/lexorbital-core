@@ -1,0 +1,40 @@
+# ============================================================================
+# Development Dockerfile - Security-by-design
+# ============================================================================
+# Security: Use specific version tags and update regularly to patch vulnerabilities
+# Check for updates: docker scout cves node:24-alpine
+FROM node:24-alpine
+
+# Security & Compliance: Metadata labels
+LABEL org.opencontainers.image.title="LexOrbital FrontRing (Development)"
+LABEL org.opencontainers.image.description="LexOrbital FrontRing - Development environment"
+LABEL org.opencontainers.image.vendor="LexOrbital"
+LABEL security.scanning="enabled"
+
+WORKDIR /app
+
+# Security: Enable corepack for pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Security: Create non-root user for development
+RUN addgroup -g 1001 -S appuser && \
+    adduser -S -u 1001 -G appuser appuser
+
+# Security: Copy package files first for better layer caching
+COPY --chown=appuser:appuser package.json pnpm-lock.yaml* ./
+
+# Security: Install dependencies with frozen lockfile
+RUN pnpm install --frozen-lockfile
+
+# Security: Copy source code (will be overridden by volume in dev)
+COPY --chown=appuser:appuser . .
+
+# Security: Switch to non-root user
+USER appuser
+
+# Security: Expose port
+EXPOSE 3000
+
+# Security: Run Vite dev server with host binding for Docker
+# Note: In production, use the production Dockerfile with nginx
+CMD ["pnpm", "dev", "--host", "0.0.0.0"]

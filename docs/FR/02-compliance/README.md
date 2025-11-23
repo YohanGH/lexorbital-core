@@ -6,14 +6,14 @@
 
 ## 📖 Dans cette section
 
-| Document | Description | Audience |
-|----------|-------------|----------|
-| [**00 - Vue d'ensemble**](./00-overview.md) | Compliance dans LexOrbital | Tous |
-| [**01 - RGPD by design**](./01-rgpd-by-design.md) | Intégration RGPD dans l'architecture | DPO, Architectes |
-| [**02 - Patterns de confidentialité**](./02-privacy-patterns.md) | Minimisation, TTL, chiffrement | Développeurs |
-| [**03 - Audit et journalisation**](./03-audit-logging.md) | Traçabilité et logs RGPD | Développeurs, DPO |
-| [**04 - Sécurité par défaut**](./04-security-by-default.md) | Security patterns intégrés | Développeurs |
-| [**05 - Droits des utilisateurs**](./05-user-rights.md) | Accès, rectification, oubli | Développeurs, DPO |
+| Document                                                         | Description                          | Audience          |
+| ---------------------------------------------------------------- | ------------------------------------ | ----------------- |
+| [**00 - Vue d'ensemble**](./00-overview.md)                      | Compliance dans LexOrbital           | Tous              |
+| [**01 - RGPD by design**](./01-rgpd-by-design.md)                | Intégration RGPD dans l'architecture | DPO, Architectes  |
+| [**02 - Patterns de confidentialité**](./02-privacy-patterns.md) | Minimisation, TTL, chiffrement       | Développeurs      |
+| [**03 - Audit et journalisation**](./03-audit-logging.md)        | Traçabilité et logs RGPD             | Développeurs, DPO |
+| [**04 - Sécurité par défaut**](./04-security-by-default.md)      | Security patterns intégrés           | Développeurs      |
+| [**05 - Droits des utilisateurs**](./05-user-rights.md)          | Accès, rectification, oubli          | Développeurs, DPO |
 
 ### Sous-dossier spécialisé
 
@@ -119,6 +119,7 @@ Les modules implémentent :
 La protection des données est intégrée **dès la conception**.
 
 **Application :**
+
 - Le Meta-Kernel impose des règles RGPD
 - Les modules héritent de ces contraintes
 - Les manifestes RGPD documentent les traitements
@@ -128,6 +129,7 @@ La protection des données est intégrée **dès la conception**.
 La sécurité est **activée par défaut**, pas en option.
 
 **Application :**
+
 - Chiffrement activé par défaut
 - Validation stricte des entrées
 - Sanitisation automatique
@@ -139,6 +141,7 @@ La sécurité est **activée par défaut**, pas en option.
 Ne collecter que le **strict nécessaire**.
 
 **Application :**
+
 - Schémas de données minimaux
 - Champs optionnels par défaut
 - Validation stricte des types
@@ -149,6 +152,7 @@ Ne collecter que le **strict nécessaire**.
 Les données ont une **durée de vie maximale**.
 
 **Application :**
+
 - Chaque type de donnée a un TTL défini
 - Nettoyage automatique des données expirées
 - Logs conservés selon la réglementation
@@ -158,6 +162,7 @@ Les données ont une **durée de vie maximale**.
 Les utilisateurs peuvent **accéder, rectifier, supprimer** leurs données.
 
 **Application :**
+
 - API d'accès aux données
 - Endpoints de rectification
 - Mécanisme de droit à l'oubli (anonymisation ou suppression)
@@ -166,13 +171,13 @@ Les utilisateurs peuvent **accéder, rectifier, supprimer** leurs données.
 
 ## 🛡️ Modules de conformité LexOrbital
 
-| Module | Rôle | Status |
-|--------|------|--------|
-| `lexorbital-module-audit` | Journalisation RGPD | ✅ Prioritaire |
-| `lexorbital-module-consent` | Gestion des consentements | 🚧 Roadmap |
-| `lexorbital-module-privacy-dashboard` | Dashboard utilisateur (droits) | 🚧 Roadmap |
-| `lexorbital-module-data-export` | Export des données utilisateur | 🚧 Roadmap |
-| `lexorbital-module-right-to-forget` | Droit à l'oubli | 🚧 Roadmap |
+| Module                                | Rôle                           | Status         |
+| ------------------------------------- | ------------------------------ | -------------- |
+| `lexorbital-module-audit`             | Journalisation RGPD            | ✅ Prioritaire |
+| `lexorbital-module-consent`           | Gestion des consentements      | 🚧 Roadmap     |
+| `lexorbital-module-privacy-dashboard` | Dashboard utilisateur (droits) | 🚧 Roadmap     |
+| `lexorbital-module-data-export`       | Export des données utilisateur | 🚧 Roadmap     |
+| `lexorbital-module-right-to-forget`   | Droit à l'oubli                | 🚧 Roadmap     |
 
 ---
 
@@ -202,4 +207,3 @@ Les utilisateurs peuvent **accéder, rectifier, supprimer** leurs données.
 **[⬅️ Architecture](../01-architecture/README.md)** | **[⬆️ Sommaire](../README.md)** | **[Suivant : Guides →](../03-guides/README.md)**
 
 </div>
-

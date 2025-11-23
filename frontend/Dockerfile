@@ -1,6 +1,8 @@
 # ============================================================================
 # Stage 1: Builder - Build the application
 # ============================================================================
+# Security: Use specific version tags and update regularly to patch vulnerabilities
+# Check for updates: docker scout cves node:24-alpine
 FROM node:24-alpine AS builder
 
 # Security: Set build arguments for non-root user
@@ -27,6 +29,8 @@ RUN pnpm run build
 # ============================================================================
 # Stage 2: Production - Serve with nginx
 # ============================================================================
+# Security: Use specific version tags and update regularly to patch vulnerabilities
+# Check for updates: docker scout cves nginx:1.27-alpine
 FROM nginx:1.27-alpine AS production
 
 # Security & Compliance: Metadata labels for traceability and compliance
@@ -72,12 +76,12 @@ RUN chown -R appuser:appuser /etc/nginx && \
 # Security: Switch to non-root user
 USER appuser
 
-# Security: Expose port
-EXPOSE 80
+# Security: Expose port (8080 for non-root user)
+EXPOSE 8080
 
 # Security: Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost/health || exit 1
+    CMD curl -f http://localhost:8080/health || exit 1
 
 # Security: Run nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]

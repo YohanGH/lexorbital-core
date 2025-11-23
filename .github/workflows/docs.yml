@@ -5,9 +5,9 @@ on:
     branches:
       - develop
     paths:
-      - 'docs/**'
-      - 'scripts/generate-docs.sh'
-      - '.github/workflows/docs.yaml'
+      - "docs/**"
+      - "scripts/generate-docs.sh"
+      - ".github/workflows/docs.yaml"
   workflow_dispatch: # Allow manual trigger
 
 # Explicit permissions for security
