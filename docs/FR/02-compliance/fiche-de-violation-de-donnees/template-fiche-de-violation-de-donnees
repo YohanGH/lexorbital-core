@@ -1,0 +1,197 @@
+# Fiche de violation de données personnelles — LexOrbital
+
+version: 1.0.0
+date_incident: "AAAA-MM-JJ HH:MM"
+etat: "En cours / Clos"
+
+
+# 1. Informations générales
+
+**Date et heure de découverte :**  
+...
+
+**Personne ayant découvert l'incident :**  
+(Nom, rôle, équipe)
+
+**Environnement concerné :**  
+- [ ] Production
+- [ ] Préproduction
+- [ ] Développement
+- [ ] Module spécifique : ...
+
+**Systèmes impliqués :**  
+(Meta-Kernel, BackRing, FrontRing, Modules : auth, audit, mailer, etc.)
+
+---
+
+# 2. Nature de la violation  
+*(Classification RGPD — art. 4 & 33)*
+
+> Cochez toutes les natures pertinentes.
+
+- [ ] Perte de disponibilité (ex : données devenues inaccessibles)
+- [ ] Atteinte à l’intégrité (ex : données altérées)
+- [ ] Atteinte à la confidentialité (ex : divulgation, accès non autorisé)
+- [ ] Exfiltration / fuite
+- [ ] Suppression non autorisée
+- [ ] Accès frauduleux à un compte
+- [ ] Compromission de credentials (token, session, mot de passe hashé)
+- [ ] Autre : ...
+
+**Description factuelle de la violation (sans spéculations) :**  
+Expliquer ce qui s’est passé, comment cela a été détecté, et quels composants LexOrbital ont été touchés.
+
+---
+
+# 3. Catégories de données personnelles concernées
+
+Lister précisément :
+
+- Identité : e-mail, pseudonyme, nom…  
+- Données d’accès : IP, user-agent, logs de connexion  
+- Logs audit : who / what / when  
+- Données issues de modules spécifiques  
+- Données sensibles (si applicable)  
+- Autres : …
+
+---
+
+# 4. Catégories et nombre de personnes concernées
+
+**Catégories :**
+- Utilisateurs finaux
+- Administrateurs / opérateurs
+- Partenaires
+- Comptes techniques
+- Autre : ...
+
+**Nombre approximatif de personnes affectées :**  
+- Minimum :  
+- Maximum estimé :  
+- Méthode d’estimation :  
+
+---
+
+# 5. Catégories et nombre d’enregistrements concernés
+
+**Type d’enregistrements :**  
+(ex : lignes de logs, comptes utilisateurs, tokens expirés, e-mails envoyés…)
+
+**Volume estimé :**  
+- Nombre minimal :  
+- Nombre maximal :  
+- Justification :  
+
+---
+
+# 6. Causes probables de l’incident
+
+- [ ] Mauvaise configuration  
+- [ ] Vulnérabilité logicielle  
+- [ ] Erreur humaine  
+- [ ] Défaillance matérielle  
+- [ ] Intrusion / action malveillante  
+- [ ] Défaillance sous-traitant  
+- [ ] Autre : …
+
+**Description des causes / vecteurs :**  
+...
+
+---
+
+# 7. Conséquences possibles ou avérées pour les personnes
+
+- Perte de confidentialité  
+- Accès non autorisé à un compte  
+- Risque d’usurpation d’identité  
+- Préjudice financier potentiel  
+- Atteinte à la réputation  
+- Exposition de données sensibles  
+- Autres conséquences : …
+
+---
+
+# 8. Mesures immédiates prises (contre-mesures)
+
+> Documenter ce qui a été fait dans les premières heures.
+
+**Mesures techniques**  
+- Blocage d’accès  
+- Rotation de clés / tokens  
+- Suspension du module impacté  
+- Analyse via Audit Trail (lexorbital-module-audit)  
+- Restauration de sauvegardes  
+- Patch / reconfiguration  
+- Autre : …
+
+**Mesures organisationnelles**  
+- Alerte interne  
+- Mise en astreinte de l’équipe sécurité  
+- Contention de l’incident  
+- Documentation centralisée  
+- Autre : …
+
+---
+
+# 9. Notification
+
+## 9.1. Notification CNIL (si requise)
+
+**Date limite (72h après découverte) :**  
+...
+
+**Date d’envoi à la CNIL :**  
+...
+
+Lien vers la procédure CNIL utilisée :  
+https://www.cnil.fr/
+
+## 9.2. Notification aux personnes concernées  
+*(uniquement si risque élevé pour leurs droits)*
+
+**Obligation d'informer les personnes :**  
+- [ ] Oui  
+- [ ] Non  
+- Justification : ...
+
+**Message de notification (résumé) :**  
+...
+
+---
+
+# 10. Suivi post-incident (post 72 heures)
+
+- Analyse complète de logs  
+- Diagnostic de sécurité  
+- Rapport d’audit interne  
+- Revue des configurations  
+- Vérification sous-traitants  
+- Automatisation/renforcement dans Meta-Kernel (policy, TTL, règles RBAC)  
+- Documentation finale  
+
+**Actions complémentaires planifiées :**  
+...
+
+---
+
+# 11. Clôture de l’incident
+
+**Date :**  
+...
+
+**Responsable :**  
+...
+
+**Actions restant à mener :**  
+...
+
+---
+
+# 12. Annexes
+
+- Extraits de logs (anonymisés)  
+- Timeline complète horodatée  
+- Preuves techniques  
+- Liste des personnes impliquées dans la gestion de crise  
+- Copie des notifications CNIL et utilisateur  
+

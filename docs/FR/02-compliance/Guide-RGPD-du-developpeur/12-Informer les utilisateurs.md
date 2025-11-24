@@ -1,7 +1,5 @@
 # FICHE N°12 — INFORMER LES PERSONNES
 
-**Format 100% tableaux — Transparence RGPD-by-design**
-
 > 📘 **Contexte RGPD**  
 > L'article 13 du RGPD impose d'informer les personnes sur le traitement de leurs données personnelles. LexOrbital intègre cette obligation de transparence directement dans son architecture, via des manifests déclaratifs et des interfaces utilisateur générées automatiquement.
 

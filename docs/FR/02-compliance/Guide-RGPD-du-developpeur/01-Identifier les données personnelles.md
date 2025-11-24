@@ -2,8 +2,6 @@
 
 > **Version LexOrbital — Vue opérationnelle RGPD-by-design**
 
-**Format** : 100% tableaux — Classification automatique des données personnelles
-
 **Objectif** : Identifier et classifier toutes les données personnelles traitées dans LexOrbital pour garantir la conformité RGPD.
 
 ---

@@ -1,7 +1,5 @@
 # FICHE N°10 — QUALITÉ DU CODE & DOCUMENTATION
 
-**Format 100% tableaux — Vue DevSecOps / RGPD-by-design**
-
 > 📘 **Contexte RGPD**  
 > La qualité du code et la documentation sont essentielles pour garantir la sécurité, la maintenabilité et la conformité RGPD. LexOrbital intègre ces exigences directement dans son processus de développement via des outils automatisés et des conventions strictes.
 

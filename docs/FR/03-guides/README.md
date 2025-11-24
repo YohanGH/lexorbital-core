@@ -6,9 +6,9 @@
 
 ## 📖 Dans cette section
 
-| Document                                                           | Description                              | Niveau        |
-| ------------------------------------------------------------------ | ---------------------------------------- | ------------- |
-| [**01 - Démarrage rapide**](./01-quick-start.md)                   | Installer et lancer votre premier module | Débutant      |
+| Document                                         | Description                              | Niveau   |
+| ------------------------------------------------ | ---------------------------------------- | -------- |
+| [**01 - Démarrage rapide**](./01-quick-start.md) | Installer et lancer votre premier module | Débutant |
 
 ---
 
