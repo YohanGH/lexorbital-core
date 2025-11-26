@@ -66,38 +66,13 @@ pnpm docker:dev:down
 - 🔹 **BackRing**: http://localhost:4000
 - 🔹 **FrontRing**: http://localhost:3000
 
-**Option 2: Without Docker**
-
-```bash
-# Backend
-cd backend && pnpm install && pnpm dev
-
-# Frontend (another terminal)
-cd frontend && pnpm install && pnpm dev
-```
-
----
-
-## 📐 Development Rules
-
-Every LexOrbital module **MUST**:
-
-- ✅ Use **Conventional Commits** (`feat:`, `fix:`, `docs:`…)
-- ✅ Include a **Dockerfile**
-- ✅ Provide **tests** (healthcheck + functional)
-- ✅ Expose a **`module.json`** manifest
-- ✅ Have a clear **README**
-- ✅ Pass **CI** without errors
-
-➡️ See [Coding Standards](./docs/EN/05-contributing/04-coding-standards.md)
-
 ---
 
 ## 🛠️ Tech Stack
 
 | Layer             | Technologies                 |
 | ----------------- | ---------------------------- |
-| **Backend**       | Node.js, TypeScript, Express |
+| **Backend**       | Node.js, TypeScript, NestJS  |
 | **Frontend**      | React, TypeScript, Vite      |
 | **Database**      | PostgreSQL                   |
 | **Orchestration** | Docker, Docker Compose       |

@@ -176,20 +176,6 @@ Comment participer à l'écosystème LexOrbital.
 
 > **🚀 Performance** — Optimisations et considérations de performance
 
-### Exemples de code
-
-Tous les exemples sont en **TypeScript** sauf indication contraire.
-
-```typescript
-// Exemple : déclaration d'un manifest de module
-export const moduleManifest = {
-  name: "auth",
-  version: "1.0.0",
-  type: "back",
-  // ...
-}
-```
-
 ### Diagrammes
 
 Cette documentation utilise **Mermaid** pour les diagrammes :
@@ -213,22 +199,16 @@ La documentation est vivante et s'améliore grâce à la communauté.
 - **Traduire en anglais** : aidez-nous à rendre LexOrbital accessible
 - **Améliorer la clarté** : si quelque chose n'est pas clair, dites-le
 
-Voir [Guide de contribution à la documentation](./05-contributing/02-documentation.md).
+Voir [Guide de contribution à la documentation](../CONTRIBUTING.md).
 
 ---
 
 ## 📚 Ressources complémentaires
 
-- [Sources et références](../sources-and-references.md) — Bibliographie complète
+- [Sources et références](./04-reference/sources-and-references.md) — Bibliographie complète
 - [Changelog du projet](../../CHANGELOG.md) — Historique des versions
 - [Code of Conduct](../../CODE_OF_CONDUCT.md) — Charte de la communauté
 - [Security Policy](../../SECURITY.md) — Politique de sécurité
-
----
-
-## 🌐 Version anglaise
-
-Consultez la [documentation en anglais](../EN/README.md).
 
 ---
 
