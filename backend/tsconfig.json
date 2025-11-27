@@ -1,24 +1,58 @@
 {
+  // Backend TypeScript configuration for LexOrbital BackRing
+  // Extends the base configuration and adds Node.js/backend-specific settings
+  //
+  // Visit https://aka.ms/tsconfig to read more about TypeScript configuration
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "lib": ["ES2022"],
-    "moduleResolution": "node",
+    // ============================================================================
+    // Backend-Specific Overrides
+    // ============================================================================
+
+    // File Layout: Backend-specific paths
     "rootDir": "./src",
     "outDir": "./dist",
-    "strict": true,
+
+    // Target: ES2022 for Node.js 18+ compatibility
+    // Node.js 18+ supports ES2022 features natively
+    "target": "ES2022",
+
+    // Module: ESNext for modern Node.js ESM support
+    "module": "ESNext",
+
+    // Lib: ES2022 library types
+    // Includes all ES2022 standard library types
+    "lib": ["ES2022"],
+
+    // Module Resolution: Node.js style resolution
+    // Required for Node.js module resolution (node_modules, etc.)
+    "moduleResolution": "node",
+
+    // ES Module Interop: Enable interoperability between CommonJS and ES modules
+    // Required when using CommonJS packages in ESM code
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+
+    // Experimental Decorators: Enable decorator support
+    // Required for frameworks like NestJS, TypeORM, etc.
+    "experimentalDecorators": true,
+
+    // Emit Decorator Metadata: Generate metadata for decorators
+    // Required for runtime decorator reflection (used by some frameworks)
+    "emitDecoratorMetadata": true,
+
+    // Types: Include Node.js types
+    // Automatically includes @types/node when installed
+    "types": ["node"]
+
+    // ============================================================================
+    // Inherited from base (via extends):
+    // - All strict checking options (noUncheckedIndexedAccess, exactOptionalPropertyTypes, etc.)
+    // - Code quality options (noUnusedLocals, noUnusedParameters, etc.)
+    // - Output options (sourceMap, declaration, declarationMap)
+    // - Compatibility options (forceConsistentCasingInFileNames, skipLibCheck, etc.)
+    // - Module options (isolatedModules, verbatimModuleSyntax, moduleDetection)
+    // ============================================================================
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

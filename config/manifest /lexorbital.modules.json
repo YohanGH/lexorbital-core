@@ -1,22 +1,21 @@
 {
-    "version": 1,
-    "modules": [
-      {
-        "name": "lexorbital-module-auth",
-        "path": "modules/auth",
-        "remote": "git@github.com:lexorbital/lexorbital-module-auth.git",
-        "branch": "main",
-        "role": "core-auth",
-        "tags": ["security", "users"]
-      },
-      {
-        "name": "lexorbital-module-audit",
-        "path": "modules/audit",
-        "remote": "git@github.com:lexorbital/lexorbital-module-audit.git",
-        "branch": "main",
-        "role": "compliance",
-        "tags": ["logging", "rgpd"]
-      }
-    ]
-  }
-  
+  "version": 1,
+  "modules": [
+    {
+      "name": "lexorbital-module-auth",
+      "path": "modules/auth",
+      "remote": "git@github.com:lexorbital/lexorbital-module-auth.git",
+      "branch": "main",
+      "role": "core-auth",
+      "tags": ["security", "users"]
+    },
+    {
+      "name": "lexorbital-module-audit",
+      "path": "modules/audit",
+      "remote": "git@github.com:lexorbital/lexorbital-module-audit.git",
+      "branch": "main",
+      "role": "compliance",
+      "tags": ["logging", "rgpd"]
+    }
+  ]
+}
