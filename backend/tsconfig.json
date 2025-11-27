@@ -40,6 +40,10 @@
     // Required for runtime decorator reflection (used by some frameworks)
     "emitDecoratorMetadata": true,
 
+    // Verbatim Module Syntax: Disable for NestJS decorators compatibility
+    // NestJS decorators need to be transformed, not preserved verbatim
+    "verbatimModuleSyntax": false,
+
     // Types: Include Node.js types
     // Automatically includes @types/node when installed
     "types": ["node"]
