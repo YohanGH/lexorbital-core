@@ -11,12 +11,14 @@ Clarifier les différences entre l'approche microservices classique et l'archite
 ### 2.1. Architecture microservices : forces et limites
 
 #### Forces
+
 - **Isolation forte** : chaque service a son propre runtime, base de données, cycle de déploiement
 - **Scalabilité indépendante** : on peut scaler uniquement les services sous charge
 - **Résilience** : la panne d'un service n'affecte pas les autres (en théorie)
 - **Polyglot** : chaque service peut utiliser une stack différente
 
 #### Limites (qui motivent LexOrbital)
+
 - **Complexité opérationnelle** : orchestration (Kubernetes), service mesh (Istio), observabilité distribuée
 - **Latence réseau** : chaque appel inter-service passe par le réseau (sérialisation, désérialisation)
 - **Transactions distribuées** : gestion complexe de la cohérence (Saga pattern, eventual consistency)
@@ -26,40 +28,44 @@ Clarifier les différences entre l'approche microservices classique et l'archite
 ### 2.2. Modules plug'n'play LexOrbital : principes
 
 #### Un seul runtime, plusieurs modules
+
 - Tous les modules tournent dans **le même process Node.js** (NestJS)
 - Communication **in-memory** (appels de fonctions directs ou event bus local)
 - **Pas de sérialisation réseau** pour les appels inter-modules
 
 #### Isolation logique, pas physique
+
 - Chaque module a son propre **contexte DI** (Dependency Injection)
 - Les modules ne s'importent **jamais** directement : tout passe par le Meta-Kernel
 - Sandboxing possible via **VM contexts** ou **Worker Threads** pour les modules non-trustés
 
 #### Déploiement simplifié
+
 - **Un seul déploiement** pour l'ensemble de la station
 - Ajout/retrait de modules sans redémarrage (hot reload)
 - Git subtree pour gérer les sources de modules externes
 
 ### 2.3. Tableau comparatif
 
-| Critère                     | Microservices              | Modules LexOrbital         |
-|-----------------------------|----------------------------|----------------------------|
-| **Isolation**               | Processus séparés          | Contextes DI isolés        |
-| **Communication**           | HTTP/gRPC (réseau)         | Appels in-memory           |
-| **Transactions**            | Saga / 2PC                 | ACID natif (même DB)       |
-| **Latence inter-modules**   | ~5-50ms (réseau)           | <1ms (mémoire)             |
-| **Scalabilité**             | Indépendante par service   | Verticale (toute la station)|
-| **Complexité ops**          | Élevée (K8s, mesh, etc.)   | Faible (monolithe)         |
-| **Déploiement**             | Multi-pipelines            | Pipeline unique            |
-| **Debugging**               | Distribué (tracing)        | Local (stack trace simple) |
-| **Polyglot**                | Oui                        | Non (JavaScript/TypeScript)|
-| **Résilience**              | Indépendance des pannes    | Redémarrage global         |
+| Critère                   | Microservices            | Modules LexOrbital           |
+| ------------------------- | ------------------------ | ---------------------------- |
+| **Isolation**             | Processus séparés        | Contextes DI isolés          |
+| **Communication**         | HTTP/gRPC (réseau)       | Appels in-memory             |
+| **Transactions**          | Saga / 2PC               | ACID natif (même DB)         |
+| **Latence inter-modules** | ~5-50ms (réseau)         | <1ms (mémoire)               |
+| **Scalabilité**           | Indépendante par service | Verticale (toute la station) |
+| **Complexité ops**        | Élevée (K8s, mesh, etc.) | Faible (monolithe)           |
+| **Déploiement**           | Multi-pipelines          | Pipeline unique              |
+| **Debugging**             | Distribué (tracing)      | Local (stack trace simple)   |
+| **Polyglot**              | Oui                      | Non (JavaScript/TypeScript)  |
+| **Résilience**            | Indépendance des pannes  | Redémarrage global           |
 
 ## 3. Implications techniques
 
 ### 3.1. Quand choisir LexOrbital (modules)
 
 ✅ **Cas d'usage adaptés** :
+
 - Applications **monométier** ou **mono-tenant** avec forte cohésion fonctionnelle
 - Équipes de **petite à moyenne taille** (pas de silos organisationnels)
 - Besoins de **transactions complexes** entre modules (cohérence forte)
@@ -69,6 +75,7 @@ Clarifier les différences entre l'approche microservices classique et l'archite
 ### 3.2. Quand privilégier les microservices
 
 ✅ **Cas d'usage adaptés** :
+
 - **Très grande échelle** (centaines de développeurs, dizaines de services)
 - Besoins de **scalabilité hétérogène** (certains services x100, d'autres x1)
 - **Multi-tenant** avec isolation forte par client

@@ -19,6 +19,7 @@ cd /Users/yohangh/Documents/Dev/lexorbital/lexorbital-core
 ```
 
 Cela génère :
+
 - `docs/generated/LexOrbital_Guide.html` - Guide complet HTML
 - `docs/generated/LexOrbital_Guide.docx` - Guide complet Word
 - `docs/generated/LexOrbital_Guide.pdf` - Guide complet PDF (si LaTeX installé)
@@ -58,10 +59,15 @@ start docs/generated/index.html
 > Résumé en 2-3 phrases.
 
 ## 1. Objectif de la fiche
+
 ## 2. Concepts et décisions clés
+
 ## 3. Implications techniques
+
 ## 4. Checklist de mise en œuvre
+
 ## 5. À retenir
+
 ## 6. Liens connexes
 ```
 
@@ -87,4 +93,3 @@ Le workflow GitHub Actions est déjà configuré dans `.github/workflows/docs.ym
 ```
 
 🛰️ **Bon voyage dans l'espace LexOrbital !**
-

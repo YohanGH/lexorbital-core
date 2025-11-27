@@ -70,13 +70,13 @@ pnpm docker:dev:down
 
 ## 🛠️ Tech Stack
 
-| Layer             | Technologies                 |
-| ----------------- | ---------------------------- |
-| **Backend**       | Node.js, TypeScript, NestJS  |
-| **Frontend**      | React, TypeScript, Vite      |
-| **Database**      | PostgreSQL                   |
-| **Orchestration** | Docker, Docker Compose       |
-| **CI/CD**         | GitHub Actions               |
+| Layer             | Technologies                |
+| ----------------- | --------------------------- |
+| **Backend**       | Node.js, TypeScript, NestJS |
+| **Frontend**      | React, TypeScript, Vite     |
+| **Database**      | PostgreSQL                  |
+| **Orchestration** | Docker, Docker Compose      |
+| **CI/CD**         | GitHub Actions              |
 
 ---
 

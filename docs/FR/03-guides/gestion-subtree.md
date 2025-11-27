@@ -11,12 +11,14 @@ Expliquer le workflow de gestion des modules via git subtree, les avantages par 
 ### 2.1. Git subtree vs Git submodule
 
 #### Problèmes des submodules
+
 - ❌ **Complexité** : `git submodule init`, `git submodule update --recursive`, etc.
 - ❌ **État détaché** : les submodules sont souvent en HEAD détaché (detached HEAD)
 - ❌ **Friction pour les contributeurs** : oubli fréquent de `--recurse-submodules`
 - ❌ **Commits fantômes** : références de commits qui peuvent disparaître
 
 #### Avantages des subtrees
+
 - ✅ **Transparence** : le code du module est **physiquement présent** dans le repo
 - ✅ **Clone simple** : `git clone` suffit, pas de commande supplémentaire
 - ✅ **Historique préservé** : l'historique du module externe est fusionné
@@ -58,6 +60,7 @@ git remote remove lexorbital-module-auth
 ```
 
 **Explication des flags** :
+
 - `--prefix=modules/lexorbital-module-auth` : où placer le module dans le monorepo
 - `lexorbital-module-auth` : nom du remote (peut être l'URL directement)
 - `main` : branche du module à ajouter
@@ -115,18 +118,21 @@ git subtree push --prefix=modules/auth-module auth-module main
 ## 4. Checklist de mise en œuvre
 
 ### Pour ajouter un module externe
+
 - [ ] Vérifier que le module a un `lexorbital.module.json` valide
 - [ ] Exécuter `./scripts/add-module.sh <nom> <url-repo>`
 - [ ] Vérifier que le Meta-Kernel charge bien le module (démarrer l'app)
 - [ ] Commit et push
 
 ### Pour mettre à jour un module
+
 - [ ] Exécuter `./scripts/update-module.sh <nom> <url-repo>`
 - [ ] Vérifier les breaking changes (lire CHANGELOG du module)
 - [ ] Exécuter les tests du monorepo : `npm test`
 - [ ] Commit et push
 
 ### Pour désamarrer un module
+
 - [ ] Vérifier qu'aucun autre module ne dépend de lui (check `dependencies` des manifestes)
 - [ ] Exécuter `./scripts/remove-module.sh <nom>`
 - [ ] Supprimer les références au module dans la config du Meta-Kernel
