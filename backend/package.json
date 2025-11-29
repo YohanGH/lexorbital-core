@@ -5,9 +5,9 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "sh dev.sh",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node --import reflect-metadata dist/index.js",
     "lint": "eslint . --ext .ts",
     "type-check": "tsc --noEmit"
   },
@@ -15,7 +15,7 @@
     "lexorbital",
     "back-ring",
     "api",
-    "express",
+    "nestjs",
     "typescript",
     "nodejs"
   ],
@@ -25,17 +25,18 @@
     "type": "git",
     "url": "https://github.com/YohanGH/lexorbital-core"
   },
-  "dependencies": {
-    "express": "4.21.2",
-    "cors": "2.8.5"
-  },
   "devDependencies": {
-    "@types/express": "4.17.21",
-    "@types/cors": "2.8.17",
     "@types/node": "24.10.1",
     "tsx": "4.19.2"
   },
   "engines": {
     "node": ">=24.11.1"
+  },
+  "dependencies": {
+    "@nestjs/common": "11.1.9",
+    "@nestjs/core": "11.1.9",
+    "@nestjs/platform-express": "11.1.9",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2"
   }
 }

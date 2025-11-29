@@ -1,24 +1,56 @@
 {
+  // Frontend TypeScript configuration for LexOrbital FrontRing
+  // Extends the base configuration and adds React/frontend-specific settings
+  //
+  // Visit https://aka.ms/tsconfig to read more about TypeScript configuration
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
+    // ============================================================================
+    // Frontend-Specific Overrides
+    // ============================================================================
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    // File Layout: Frontend-specific paths
+    "rootDir": ".",
+    "outDir": "./dist",
+
+    // JSX: Use React 17+ automatic JSX transform
+    // This eliminates the need to import React in every file
     "jsx": "react-jsx",
 
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    // Allow importing TypeScript extensions
+    // Required for some bundlers and development tools
+    "allowImportingTsExtensions": true,
+
+    // No emit: Let bundler (Vite) handle compilation
+    // TypeScript only does type checking, not compilation
+    "noEmit": true,
+
+    // Module resolution: Use bundler resolution for frontend
+    // This works best with modern bundlers like Vite, Webpack, etc.
+    "moduleResolution": "bundler",
+
+    // Types: Empty array means no automatic type inclusion
+    // Types will be included based on imports (recommended for frontend)
+    "types": []
+
+    // Lib: Not specified - will use default based on target
+    // Frontend bundlers typically handle polyfills
+
+    // ============================================================================
+    // Inherited from base (via extends):
+    // - All strict checking options
+    // - Code quality options
+    // - Output options (though noEmit overrides some)
+    // - Compatibility options
+    // ============================================================================
   },
-  "include": ["src"]
+  "include": ["src/**/*", "*.ts", "*.tsx"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ]
 }

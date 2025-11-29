@@ -87,3 +87,6 @@ Thumbs.db
 
 # Misc
 .cache/
+
+# Cursor
+.cursor/

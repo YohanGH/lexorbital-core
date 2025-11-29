@@ -1,0 +1,111 @@
+{
+  // Base TypeScript configuration for LexOrbital Core
+  // This file contains shared configuration options used by all projects
+  // Individual projects should extend this file and override as needed
+  //
+  // Visit https://aka.ms/tsconfig to read more about TypeScript configuration
+  "compilerOptions": {
+    // ============================================================================
+    // File Layout
+    // ============================================================================
+    "rootDir": ".",
+    "outDir": "./dist",
+
+    // ============================================================================
+    // Environment Settings
+    // ============================================================================
+    // Using 'bundler' for maximum flexibility (React, Node.js, bundlers)
+    // This allows the code to work with various bundlers and runtimes
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "esnext",
+
+    // Module detection: force explicit module detection
+    // This ensures all files are treated as modules
+    "moduleDetection": "force",
+
+    // Isolated modules: each file can be safely transpiled independently
+    // Required for better build performance and compatibility with tools like Babel
+    "isolatedModules": true,
+
+    // Verbatim module syntax: preserve import/export syntax exactly as written
+    // Important for ESM compatibility and tree-shaking
+    "verbatimModuleSyntax": true,
+
+    // ============================================================================
+    // Type Checking - Strict Mode
+    // ============================================================================
+    // Enable strict mode: activates all strict type checking options
+    // This is the foundation of TypeScript's type safety
+    "strict": true,
+
+    // Additional strict checking options (not included in "strict" flag)
+    // These provide extra layers of type safety
+
+    // No unchecked indexed access: array/object access returns T | undefined
+    // Prevents runtime errors from undefined array/object access
+    "noUncheckedIndexedAccess": true,
+
+    // Exact optional property types: undefined is distinct from missing property
+    // Provides more precise type checking for optional properties
+    "exactOptionalPropertyTypes": true,
+
+    // No implicit override: require explicit 'override' keyword
+    // Prevents accidental method overriding
+    "noImplicitOverride": true,
+
+    // No property access from index signature: require bracket notation
+    // Prevents accidental access to properties that might not exist
+    "noPropertyAccessFromIndexSignature": true,
+
+    // No unchecked side effect imports: require explicit side-effect imports
+    // Prevents accidental side effects from imports
+    "noUncheckedSideEffectImports": true,
+
+    // ============================================================================
+    // Code Quality Options
+    // ============================================================================
+    // No unused locals: error on unused local variables
+    "noUnusedLocals": true,
+
+    // No unused parameters: error on unused function parameters
+    // Use parameter prefix _ to indicate intentionally unused
+    "noUnusedParameters": true,
+
+    // No implicit returns: ensure all code paths return a value
+    "noImplicitReturns": true,
+
+    // No fallthrough cases in switch: prevent accidental fallthrough
+    "noFallthroughCasesInSwitch": true,
+
+    // ============================================================================
+    // Output Options
+    // ============================================================================
+    // Generate source maps for debugging
+    "sourceMap": true,
+
+    // Generate declaration files (.d.ts) for type definitions
+    "declaration": true,
+
+    // Generate declaration map files for better IDE navigation
+    "declarationMap": true,
+
+    // ============================================================================
+    // Compatibility Options
+    // ============================================================================
+    // Force consistent casing in file names
+    // Prevents issues on case-sensitive filesystems (Linux, macOS)
+    "forceConsistentCasingInFileNames": true,
+
+    // Skip type checking of declaration files
+    // Speeds up compilation, but rely on your own type checking
+    "skipLibCheck": true,
+
+    // Resolve JSON modules: allow importing JSON files
+    "resolveJsonModule": true
+  },
+
+  // Base configuration doesn't include specific files
+  // Child configs should define their own include/exclude
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+}

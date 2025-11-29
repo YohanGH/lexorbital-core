@@ -1,4 +1,4 @@
-# Guide Docker - Architecture RGPD-Compliant
+# Architecture Docker RGPD-Compliant
 
 **Isolation · Multi-stage builds · Sécurité par design**
 
@@ -71,24 +71,6 @@ Un **multi-stage build** permet d'utiliser plusieurs images Docker dans un même
 | **Isolation des outils**      | Les outils de build (Node, npm, etc.) ne sont pas dans l'image finale |
 | **Surface d'attaque réduite** | Seul nginx est exposé, pas Node.js ni les dépendances de dev          |
 | **Reproductibilité**          | Builds identiques grâce au frozen lockfile                            |
-
-### 2.3 Exemple concret
-
-```dockerfile
-# Stage 1: Builder (temporaire, jeté après le build)
-FROM node:24-alpine AS builder
-WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
-COPY . .
-RUN pnpm run build  # Génère /app/dist
-
-# Stage 2: Production (image finale)
-FROM nginx:1.27-alpine AS production
-# On copie SEULEMENT les fichiers compilés
-COPY --from=builder /app/dist /usr/share/nginx/html
-# L'image finale ne contient PAS Node.js ni les outils de build
-```
 
 **Résultat** :
 
@@ -439,40 +421,12 @@ services:
 
 ---
 
-## 🧩 7. Checklist RGPD pour docker-compose
-
-### ✅ Isolation et sécurité
-
-- [ ] Réseaux séparés par zone (frontend, backend, database)
-- [ ] Volumes chiffrés pour données sensibles
-- [ ] Utilisateurs non-root sur tous les conteneurs
-- [ ] Secrets gérés via Docker secrets ou Vault
-- [ ] Healthchecks sur tous les services critiques
-- [ ] Limitation des ressources (CPU, mémoire)
-
-### ✅ Conformité et traçabilité
-
-- [ ] Labels de conformité RGPD sur tous les services
-- [ ] Localisation des données déclarée (EU/US/etc.)
-- [ ] Durée de rétention configurée
-- [ ] Logs limités et rotatifs
-- [ ] Audit trail activé
-
-### ✅ Performance et disponibilité
-
-- [ ] Restart policies configurées
-- [ ] Healthchecks fonctionnels
-- [ ] Monitoring et alerting configurés
-- [ ] Backups automatisés des volumes
-
----
-
 ## 📚 Ressources complémentaires
 
 - [CNIL - Sécurité des données](https://www.cnil.fr/fr/securite-des-donnees)
 - [Docker Security Best Practices](https://docs.docker.com/engine/security/)
-- [Fiche 6 - Sécuriser vos sites web](./../02-compliance/RGPD/06-Sécuriser%20vos%20sites%20web,%20vos%20applications%20et%20vos%20serveurs.md)
-- [Fiche 5 - Architecture éclairée](./../02-compliance/RGPD/05-Faire%20un%20choix%20éclairé%20de%20son%20architecture.md)
+- [Fiche 6 - Sécuriser vos sites web](../02-compliance/Guide-RGPD-du-developpeur/06-Sécuriser%20vos%20sites%20web,%20vos%20applications%20et%20vos%20serveurs.md)
+- [Fiche 5 - Architecture éclairée](../02-compliance//Guide-RGPD-du-developpeur/05-Faire%20un%20choix%20éclairé%20de%20son%20architecture.md)
 
 ---
 

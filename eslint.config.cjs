@@ -9,9 +9,9 @@ const baseIgnoreConfig = {
   name: "global-ignores",
   ignores: [
     "node_modules/**",
-    "dist/**",
-    "build/**",
-    "coverage/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/coverage/**",
     ".next/**",
     "docs/templates/**",
     "docs/generated/**",
@@ -21,7 +21,7 @@ const baseIgnoreConfig = {
 // Config JS/TS "backend" (Node, ESM)
 const backendConfig = {
   name: "backend-node",
-  files: ["backend/**/*.{js,ts,mjs,cjs}"],
+  files: ["backend/src/**/*.{js,ts,mjs,cjs}"],
   languageOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
@@ -129,5 +129,47 @@ const frontendConfig = {
   },
 }
 
+// Config root-level TypeScript files (commitlint, config, scripts)
+const rootConfig = {
+  name: "root-typescript",
+  files: ["*.ts", "config/**/*.ts", "scripts/**/*.ts"],
+  languageOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    globals: {
+      process: "readonly",
+      __dirname: "readonly",
+      module: "readonly",
+    },
+    parser: tsParser,
+    parserOptions: {
+      project: ["./tsconfig.json"],
+      tsconfigRootDir: __dirname,
+    },
+  },
+  plugins: {
+    "@typescript-eslint": tsPlugin,
+    import: importPlugin,
+  },
+  rules: {
+    // TS
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+
+    // Imports
+    "import/order": [
+      "warn",
+      {
+        groups: [
+          ["builtin", "external"],
+          ["internal"],
+          ["parent", "sibling", "index"],
+        ],
+        "newlines-between": "always",
+      },
+    ],
+  },
+}
+
 // Export final: array of configuration objects
-module.exports = [baseIgnoreConfig, backendConfig, frontendConfig]
+module.exports = [baseIgnoreConfig, backendConfig, frontendConfig, rootConfig]

@@ -1,52 +1,21 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
+  // Root TypeScript configuration for LexOrbital Core
+  // This extends the base configuration and adds root-specific settings
+  //
+  // Note: This config is primarily for shared code and type definitions
+  // Frontend and backend projects should use their own tsconfig.json files
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    // File Layout
-    "rootDir": ".",
-    "outDir": "./dist",
-
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    // Using 'bundler' for maximum flexibility (React, Node.js, bundlers)
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "target": "esnext",
-    "types": [],
-    // For nodejs: uncomment these and run: pnpm install -D @types/node
-    // "lib": ["esnext"],
-    // "types": ["node"]
-
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-
-    // Style Options
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
-
-    // Recommended Options
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true
-  }
+    // Root-specific overrides can go here if needed
+    // Currently using all base options
+  },
+  "include": ["config/**/*", "scripts/**/*", "*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "frontend",
+    "backend",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
 }

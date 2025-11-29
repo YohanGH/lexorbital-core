@@ -55,7 +55,7 @@ jobs:
             --toc-depth=2 \
             --template=docs/templates/lexorbital.html \
             -H docs/templates/pandoc-styles.html \
-            --metadata title="LexOrbital Module Template Guide" \
+            --metadata title="LexOrbital Core Guide" \
             --metadata subtitle="Complete guide for module development" \
             --metadata author="LexOrbital Core Team" \
             --metadata date="$(date '+%d %B %Y')" \
@@ -75,7 +75,7 @@ jobs:
             --standalone \
             --toc \
             --toc-depth=2 \
-            --metadata title="LexOrbital Module Template Guide" \
+            --metadata title="LexOrbital Core Guide" \
             --metadata subtitle="Complete guide for module development" \
             --metadata author="LexOrbital Core Team" \
             --output=docs/generated/LexOrbital_Module_Guide.docx \
@@ -101,7 +101,7 @@ jobs:
             -V linkcolor=blue \
             -V urlcolor=blue \
             -V toccolor=blue \
-            --metadata title="LexOrbital Module Template Guide" \
+            --metadata title="LexOrbital Core Guide" \
             --metadata subtitle="Complete guide for module development" \
             --metadata author="LexOrbital Core Team" \
             --metadata date="$(date '+%d %B %Y')" \

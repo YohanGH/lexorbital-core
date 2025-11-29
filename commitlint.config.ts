@@ -1,4 +1,5 @@
 import type { UserConfig } from "@commitlint/types"
+
 import { baseConfig } from "./config/commitlint/base"
 
 const Configuration: UserConfig = {
