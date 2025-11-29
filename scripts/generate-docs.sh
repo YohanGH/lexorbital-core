@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# LexOrbital Module Template Documentation Generation Script
+# LexOrbital Core Documentation Generation Script
 # Automatically generates HTML, PDF, DOCX from Markdown files
 # =============================================================================
 
@@ -54,7 +54,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-print_status "🛰️  Generating LexOrbital Module Template documentation"
+print_status "🛰️  Generating LexOrbital Core documentation"
 echo ""
 
 # Create output directory if it doesn't exist
@@ -119,7 +119,7 @@ if [ -n "$CSS_FILE" ]; then
 fi
 
 PANDOC_ARGS+=(
-  --metadata "title=LexOrbital Module Template Guide"
+  --metadata "title=LexOrbital Core Guide"
   --metadata "subtitle=Complete guide for module development"
   --metadata "author=LexOrbital Core Team"
   --metadata "date=$(date '+%d %B %Y')"
@@ -153,7 +153,7 @@ DOCX_ARGS=(
   -s
   --toc
   --toc-depth=2
-  --metadata "title=LexOrbital Module Template Guide"
+  --metadata "title=LexOrbital Core Guide"
   --metadata "subtitle=Complete guide for module development"
   -o "docs/generated/LexOrbital_Module_Guide.docx"
   "docs/README.md"
@@ -188,7 +188,7 @@ PDF_ARGS=(
   -V "linkcolor=blue"
   -V "urlcolor=blue"
   -V "toccolor=blue"
-  --metadata "title=LexOrbital Module Template Guide"
+  --metadata "title=LexOrbital Core Guide"
   --metadata "subtitle=Complete guide for module development"
   --metadata "author=LexOrbital Core Team"
   --metadata "date=$(date '+%d %B %Y')"
