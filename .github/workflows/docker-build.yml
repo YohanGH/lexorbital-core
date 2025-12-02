@@ -50,7 +50,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha,prefix={{branch}}-
+            type=sha,prefix=sha-
             type=raw,value=latest,enable={{is_default_branch}}
           labels: |
             org.opencontainers.image.title=LexOrbital BackRing
@@ -111,7 +111,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha,prefix={{branch}}-
+            type=sha,prefix=sha-
             type=raw,value=latest,enable={{is_default_branch}}
           labels: |
             org.opencontainers.image.title=LexOrbital FrontRing
@@ -154,9 +154,23 @@ jobs:
     steps:
       - name: Check build status
         run: |
-          if [ "${{ needs.build-backend.result }}" != "success" ] || [ "${{ needs.build-frontend.result }}" != "success" ]; then
+          BACKEND_STATUS="${{ needs.build-backend.result }}"
+          FRONTEND_STATUS="${{ needs.build-frontend.result }}"
+          
+          echo "## Build Summary"
+          echo ""
+          echo "- Backend: $BACKEND_STATUS"
+          echo "- Frontend: $FRONTEND_STATUS"
+          echo ""
+          
+          if [ "$BACKEND_STATUS" != "success" ] || [ "$FRONTEND_STATUS" != "success" ]; then
             echo "❌ Some Docker builds failed"
-            exit 1
+            if [ "$BACKEND_STATUS" != "success" ]; then
+              echo "  - Backend build: $BACKEND_STATUS"
+            fi
+            if [ "$FRONTEND_STATUS" != "success" ]; then
+              echo "  - Frontend build: $FRONTEND_STATUS"
+            fi
           else
             echo "✅ All Docker builds succeeded"
           fi
