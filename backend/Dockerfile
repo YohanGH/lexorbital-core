@@ -14,7 +14,8 @@ RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
 # Security: Copy monorepo root files first for better layer caching
 # This allows Docker to cache the dependency installation layer
 # For pnpm workspaces, we need the root package.json, pnpm-lock.yaml, and pnpm-workspace.yaml
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+# Also copy tsconfig.base.json which is required for TypeScript compilation
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
 # Copy workspace package.json
 COPY backend/package.json ./backend/
 
