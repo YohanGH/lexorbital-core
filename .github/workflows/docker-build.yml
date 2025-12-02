@@ -15,12 +15,11 @@ name: Docker Build and Push
 # ============================================================================
 
 on:
-  push:
+  pull_request:
     branches:
       - main
       - staging
     paths:
-      # Only trigger when relevant files change
       - "backend/**"
       - "frontend/**"
       - "infra/**"
@@ -28,9 +27,6 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - ".github/workflows/docker-build.yml"
-  pull_request:
-    branches:
-      - main
 
 # Global environment variables
 env:
@@ -103,7 +99,7 @@ jobs:
             compliance.cnil=compliant
 
       - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -111,7 +107,7 @@ jobs:
           password: ${{ secrets.GIT_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Login to Docker Hub
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -123,7 +119,7 @@ jobs:
         with:
           context: .
           file: ./backend/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
           platforms: linux/amd64,linux/arm64
@@ -190,7 +186,7 @@ jobs:
             compliance.cnil=compliant
 
       - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -198,19 +194,18 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to Docker Hub
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-        continue-on-error: true  # Don't fail if Docker Hub credentials are not set
 
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./frontend/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'pull_request' }}
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
           platforms: linux/amd64,linux/arm64
