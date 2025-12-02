@@ -10,8 +10,8 @@ services:
   # ============================================================================
   core-front:
     build:
-      context: ../frontend
-      dockerfile: Dockerfile.dev # Utilise Dockerfile.dev pour le développement
+      context: .. # Contexte racine pour accéder à pnpm-lock.yaml et pnpm-workspace.yaml
+      dockerfile: frontend/Dockerfile.dev # Utilise Dockerfile.dev pour le développement
     container_name: lexorbital-front-ring
     # Sécurité: Port exposé uniquement pour développement local
     ports:
@@ -23,12 +23,21 @@ services:
     # Note: En dev, certains outils peuvent nécessiter des privilèges
     # En production, utiliser USER appuser dans Dockerfile
     # RGPD: Volumes pour développement (hot-reload)
+    # Mount frontend to /app/frontend to match monorepo structure
     volumes:
-      - ../frontend:/app
-      - /app/node_modules # Volume anonyme pour éviter l'écrasement
-    # RGPD: Réseau frontend isolé - Frontend ne communique jamais directement avec backend
+      - ../frontend:/app/frontend
+      - ../package.json:/app/package.json
+      - ../pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ../pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+      - ../tsconfig.base.json:/app/tsconfig.base.json
+      - /app/node_modules # Volume anonyme pour éviter l'écrasement des node_modules racine
+      - /app/frontend/node_modules # Volume anonyme pour éviter l'écrasement des node_modules frontend
+    # RGPD: Réseaux pour développement
+    # En développement, frontend peut accéder au backend directement
+    # En production, utiliser un reverse proxy nginx pour l'isolation
     networks:
       - frontend-network
+      - backend-network
     # RGPD: Labels de conformité et traçabilité
     labels:
       - "compliance.rgpd=by-design"
@@ -67,8 +76,8 @@ services:
   # ============================================================================
   core-back:
     build:
-      context: ../backend
-      dockerfile: Dockerfile.dev # Utilise Dockerfile.dev pour le développement
+      context: .. # Contexte racine pour accéder à pnpm-lock.yaml et pnpm-workspace.yaml
+      dockerfile: backend/Dockerfile.dev # Utilise Dockerfile.dev pour le développement
     container_name: lexorbital-back-ring
     # Sécurité: Port exposé uniquement pour développement local
     # En production, ne pas exposer directement (passer par reverse-proxy)
@@ -80,9 +89,15 @@ services:
       # RGPD: Configuration base de données (utiliser secrets en production)
       - DATABASE_URL=postgresql://lexorbital:lexorbital@postgres:5432/lexorbital
     # RGPD: Volumes pour développement
+    # Mount backend to /app/backend to match WORKDIR in Dockerfile
     volumes:
-      - ../backend:/app
-      - /app/node_modules
+      - ../backend:/app/backend
+      - ../package.json:/app/package.json
+      - ../pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ../pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+      - ../tsconfig.base.json:/app/tsconfig.base.json
+      - /app/node_modules # Volume anonyme pour éviter l'écrasement des node_modules racine
+      - /app/backend/node_modules # Volume anonyme pour éviter l'écrasement des node_modules backend
     # RGPD: Réseaux isolés - Backend peut accéder à la DB mais pas au frontend directement
     networks:
       - backend-network

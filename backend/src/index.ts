@@ -1,37 +1,22 @@
-import express from "express"
-import cors from "cors"
+import "reflect-metadata"
 
-const app = express()
-const PORT = process.env.PORT || 4000
+import { NestFactory } from "@nestjs/core"
 
-// Middleware
-app.use(cors())
-app.use(express.json())
+import { AppModule } from "./app.module.js"
 
-// Mocked modules data
-const mockedModules = [
-  { name: "demo-auth", type: "back", status: "mocked" },
-  { name: "demo-audit", type: "back", status: "mocked" },
-]
+const PORT = process.env["PORT"] || 4000
 
-// Health check endpoint
-app.get("/health", (_req, res) => {
-  res.json({
-    status: "ok",
-    service: "lexorbital-core",
-  })
-})
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule)
 
-// Modules endpoint (mocked for now)
-app.get("/modules", (_req, res) => {
-  res.json(mockedModules)
-})
+  // Enable CORS
+  app.enableCors()
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 LexOrbital BackRing running on http://localhost:${PORT}`)
-  console.log(`📡 Health: http://localhost:${PORT}/health`)
-  console.log(`📦 Modules: http://localhost:${PORT}/modules`)
-})
+  await app.listen(PORT)
 
-export default app
+  console.warn(`🚀 LexOrbital BackRing running on http://localhost:${PORT}`)
+  console.warn(`📡 Health: http://localhost:${PORT}/health`)
+  console.warn(`📦 Modules: http://localhost:${PORT}/modules`)
+}
+
+bootstrap()
