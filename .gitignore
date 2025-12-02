@@ -60,6 +60,7 @@ coverage/
 /*.d.ts
 /*.d.ts.map
 /*.js.map
+/css.d.ts
 /config/**/*.js
 /config/**/*.d.ts
 /config/**/*.d.ts.map
