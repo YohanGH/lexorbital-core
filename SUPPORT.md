@@ -1,4 +1,4 @@
-# Support – LexOrbital Module Template
+# Support – LexOrbital Core
 
 Thank you for using a module based on the **LexOrbital** template 🚀
 

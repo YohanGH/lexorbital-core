@@ -5,37 +5,60 @@
 # Check for updates: docker scout cves node:24-alpine
 FROM node:24-alpine
 
+# Security: Set build arguments for non-root user
+ARG UID=1001
+ARG GID=1001
+
 # Security & Compliance: Metadata labels
+# These labels help identify development images
 LABEL org.opencontainers.image.title="LexOrbital BackRing (Development)"
 LABEL org.opencontainers.image.description="LexOrbital BackRing - Development environment"
 LABEL org.opencontainers.image.vendor="LexOrbital"
 LABEL security.scanning="enabled"
 
-WORKDIR /app
+WORKDIR /app/backend
 
-# Security: Enable corepack for pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Security: Enable corepack for pnpm with specific version
+# Pin pnpm version for reproducible builds (update regularly for security patches)
+RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
 
 # Security: Create non-root user for development
-RUN addgroup -g 1001 -S appuser && \
-    adduser -S -u 1001 -G appuser appuser
+# Using fixed UID/GID for consistency with production
+RUN addgroup -g ${GID} -S appuser && \
+    adduser -S -u ${UID} -G appuser appuser && \
+    (deluser nginx 2>/dev/null || true)
 
-# Security: Copy package files first for better layer caching
-COPY --chown=appuser:appuser package.json pnpm-lock.yaml* ./
+# Security: Copy monorepo root files first for better layer caching
+# This allows Docker to cache the dependency installation layer
+# For pnpm workspaces, we need the root package.json, pnpm-lock.yaml, and pnpm-workspace.yaml
+# We copy to /app (root) to maintain monorepo structure
+COPY --chown=appuser:appuser package.json pnpm-lock.yaml pnpm-workspace.yaml /app/
+# Copy workspace package.json and source code
+# Note: In dev, we copy code before install to avoid conflicts with node_modules
+# The code will be overridden by volume mount anyway
+COPY --chown=appuser:appuser backend /app/backend
 
 # Security: Install dependencies with frozen lockfile
-RUN pnpm install --frozen-lockfile
+# This ensures consistent dependency versions across environments
+# In development, we install all dependencies including dev dependencies
+# pnpm will install dependencies for all workspaces defined in pnpm-workspace.yaml
+# --ignore-scripts: Skip lifecycle scripts (like husky install) that are not needed in Docker
+WORKDIR /app
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
-# Security: Copy source code (will be overridden by volume in dev)
-COPY --chown=appuser:appuser . .
+# Change to backend directory for CMD
+WORKDIR /app/backend
 
 # Security: Switch to non-root user
+# This limits the impact of potential security vulnerabilities
 USER appuser
 
 # Security: Expose port
+# Port 4000 is the default backend API port
 EXPOSE 4000
 
 # Security: Run dev server with watch mode
+# The dev server watches for file changes and automatically restarts
 # Note: In production, use the production Dockerfile
+# The dev server should handle SIGTERM gracefully for proper container shutdown
 CMD ["pnpm", "dev"]
-

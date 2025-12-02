@@ -1,0 +1,277 @@
+name: Docker Build and Push
+
+# ============================================================================
+# Docker Build and Push Workflow
+# ============================================================================
+# Purpose: Build and push Docker images for backend and frontend
+# Triggers:
+#   - Push to main/staging branches (when relevant files change)
+#   - Pull requests to main branch
+# Features:
+#   - Multi-platform builds (linux/amd64, linux/arm64)
+#   - GitHub Container Registry and Docker Hub
+#   - Build cache using GitHub Actions cache
+#   - Provenance and SBOM generation for security
+# ============================================================================
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+    paths:
+      - "backend/**"
+      - "frontend/**"
+      - "infra/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/docker-build.yml"
+
+# Global environment variables
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMAGE_NAME: ${{ github.repository }}/back-ring
+  FRONTEND_IMAGE_NAME: ${{ github.repository }}/front-ring
+  # Docker Hub images (username from secret or default)
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME || 'yohangh' }}
+  DOCKERHUB_BACKEND_IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME || 'yohangh' }}/lexorbital-back-ring
+  DOCKERHUB_FRONTEND_IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME || 'yohangh' }}/lexorbital-front-ring
+
+# Minimal required permissions
+permissions:
+  contents: read
+  packages: write  # Required to push to GitHub Container Registry
+
+jobs:
+  # ============================================================================
+  # Job: Build Backend Docker Image
+  # ============================================================================
+  # Builds the backend Docker image for multiple platforms
+  # Pushes to GitHub Container Registry and Docker Hub (on non-PR events)
+  # ============================================================================
+  build-backend:
+    name: Build Backend Docker Image
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better caching
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64,amd64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+            network=host
+
+      - name: Generate Docker metadata for backend
+        id: meta-backend
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}
+            ${{ env.DOCKERHUB_BACKEND_IMAGE }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable={{is_default_branch}}
+          labels: |
+            org.opencontainers.image.title=LexOrbital BackRing
+            org.opencontainers.image.description=LexOrbital BackRing - Meta-Kernel backend API
+            org.opencontainers.image.vendor=LexOrbital
+            org.opencontainers.image.licenses=MIT
+            compliance.rgpd=by-design
+            compliance.cnil=compliant
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to Docker Hub
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./backend/Dockerfile
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta-backend.outputs.tags }}
+          labels: ${{ steps.meta-backend.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
+          pull: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+          provenance: true
+          sbom: true
+
+  # ============================================================================
+  # Job: Build Frontend Docker Image
+  # ============================================================================
+  # Builds the frontend Docker image for multiple platforms
+  # Pushes to GitHub Container Registry and Docker Hub (on non-PR events)
+  # ============================================================================
+  build-frontend:
+    name: Build Frontend Docker Image
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better caching
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64,amd64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+            network=host
+
+      - name: Generate Docker metadata for frontend
+        id: meta-frontend
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}
+            ${{ env.DOCKERHUB_FRONTEND_IMAGE }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable={{is_default_branch}}
+          labels: |
+            org.opencontainers.image.title=LexOrbital FrontRing
+            org.opencontainers.image.description=LexOrbital FrontRing - Meta-Kernel frontend console
+            org.opencontainers.image.vendor=LexOrbital
+            org.opencontainers.image.licenses=MIT
+            compliance.rgpd=by-design
+            compliance.cnil=compliant
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to Docker Hub
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./frontend/Dockerfile
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta-frontend.outputs.tags }}
+          labels: ${{ steps.meta-frontend.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
+          pull: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+          provenance: true
+          sbom: true
+
+  # ============================================================================
+  # Job: Build Summary
+  # ============================================================================
+  # Provides a summary of build results
+  # Always runs (even if builds fail) to provide visibility
+  # ============================================================================
+  build-summary:
+    name: Build Summary
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [build-backend, build-frontend]
+    if: always()  # Always run, even if builds fail
+    permissions:
+      contents: read
+    steps:
+      - name: Generate build summary
+        run: |
+          BACKEND_STATUS="${{ needs.build-backend.result }}"
+          FRONTEND_STATUS="${{ needs.build-frontend.result }}"
+          
+          echo "## 🐳 Docker Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Component | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$BACKEND_STATUS" == "success" ]; then
+            echo "| Backend | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Backend | ❌ $BACKEND_STATUS |" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "$FRONTEND_STATUS" == "success" ]; then
+            echo "| Frontend | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Frontend | ❌ $FRONTEND_STATUS |" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Console output
+          echo "## Build Summary"
+          echo ""
+          echo "- Backend: $BACKEND_STATUS"
+          echo "- Frontend: $FRONTEND_STATUS"
+          echo ""
+          
+          if [ "$BACKEND_STATUS" != "success" ] || [ "$FRONTEND_STATUS" != "success" ]; then
+            echo "❌ Some Docker builds failed"
+            if [ "$BACKEND_STATUS" != "success" ]; then
+              echo "  - Backend build: $BACKEND_STATUS"
+            fi
+            if [ "$FRONTEND_STATUS" != "success" ]; then
+              echo "  - Frontend build: $FRONTEND_STATUS"
+            fi
+            exit 1  # Fail the summary job if any build failed
+          else
+            echo "✅ All Docker builds succeeded"
+          fi
+
