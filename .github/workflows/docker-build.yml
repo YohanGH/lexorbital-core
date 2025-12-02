@@ -1,11 +1,26 @@
 name: Docker Build and Push
 
+# ============================================================================
+# Docker Build and Push Workflow
+# ============================================================================
+# Purpose: Build and push Docker images for backend and frontend
+# Triggers:
+#   - Push to main/staging branches (when relevant files change)
+#   - Pull requests to main branch
+# Features:
+#   - Multi-platform builds (linux/amd64, linux/arm64)
+#   - GitHub Container Registry and Docker Hub
+#   - Build cache using GitHub Actions cache
+#   - Provenance and SBOM generation for security
+# ============================================================================
+
 on:
-  pull_request:
+  push:
     branches:
       - main
-      - develop
+      - staging
     paths:
+      # Only trigger when relevant files change
       - "backend/**"
       - "frontend/**"
       - "infra/**"
@@ -13,35 +28,58 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - ".github/workflows/docker-build.yml"
+  pull_request:
+    branches:
+      - main
 
+# Global environment variables
 env:
   REGISTRY: ghcr.io
   BACKEND_IMAGE_NAME: ${{ github.repository }}/back-ring
   FRONTEND_IMAGE_NAME: ${{ github.repository }}/front-ring
-  DOCKERHUB_BACKEND_IMAGE: docker.io/yohangh/lexorbital-back-ring
-  DOCKERHUB_FRONTEND_IMAGE: docker.io/yohangh/lexorbital-front-ring
+  # Docker Hub images (username from secret or default)
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME || 'yohangh' }}
+  DOCKERHUB_BACKEND_IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME || 'yohangh' }}/lexorbital-back-ring
+  DOCKERHUB_FRONTEND_IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME || 'yohangh' }}/lexorbital-front-ring
 
+# Minimal required permissions
 permissions:
   contents: read
-  packages: write
+  packages: write  # Required to push to GitHub Container Registry
 
 jobs:
+  # ============================================================================
+  # Job: Build Backend Docker Image
+  # ============================================================================
+  # Builds the backend Docker image for multiple platforms
+  # Pushes to GitHub Container Registry and Docker Hub (on non-PR events)
+  # ============================================================================
   build-backend:
     name: Build Backend Docker Image
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Full history for better caching
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64,amd64
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+            network=host
 
-      - name: Docker meta for backend
+      - name: Generate Docker metadata for backend
         id: meta-backend
         uses: docker/metadata-action@v5
         with:
@@ -70,7 +108,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GIT_TOKEN }}
+          password: ${{ secrets.GIT_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Login to Docker Hub
         if: github.event_name != 'pull_request'
@@ -78,6 +116,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+        continue-on-error: true  # Don't fail if Docker Hub credentials are not set
 
       - name: Build and push backend image
         uses: docker/build-push-action@v6
@@ -96,22 +135,38 @@ jobs:
           provenance: true
           sbom: true
 
+  # ============================================================================
+  # Job: Build Frontend Docker Image
+  # ============================================================================
+  # Builds the frontend Docker image for multiple platforms
+  # Pushes to GitHub Container Registry and Docker Hub (on non-PR events)
+  # ============================================================================
   build-frontend:
     name: Build Frontend Docker Image
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Full history for better caching
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64,amd64
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+            network=host
 
-      - name: Docker meta for frontend
+      - name: Generate Docker metadata for frontend
         id: meta-frontend
         uses: docker/metadata-action@v5
         with:
@@ -148,6 +203,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+        continue-on-error: true  # Don't fail if Docker Hub credentials are not set
 
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
@@ -166,17 +222,46 @@ jobs:
           provenance: true
           sbom: true
 
+  # ============================================================================
+  # Job: Build Summary
+  # ============================================================================
+  # Provides a summary of build results
+  # Always runs (even if builds fail) to provide visibility
+  # ============================================================================
   build-summary:
     name: Build Summary
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: [build-backend, build-frontend]
-    if: always()
+    if: always()  # Always run, even if builds fail
+    permissions:
+      contents: read
     steps:
-      - name: Check build status
+      - name: Generate build summary
         run: |
           BACKEND_STATUS="${{ needs.build-backend.result }}"
           FRONTEND_STATUS="${{ needs.build-frontend.result }}"
           
+          echo "## 🐳 Docker Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Component | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$BACKEND_STATUS" == "success" ]; then
+            echo "| Backend | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Backend | ❌ $BACKEND_STATUS |" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "$FRONTEND_STATUS" == "success" ]; then
+            echo "| Frontend | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| Frontend | ❌ $FRONTEND_STATUS |" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Console output
           echo "## Build Summary"
           echo ""
           echo "- Backend: $BACKEND_STATUS"
@@ -191,6 +276,8 @@ jobs:
             if [ "$FRONTEND_STATUS" != "success" ]; then
               echo "  - Frontend build: $FRONTEND_STATUS"
             fi
+            exit 1  # Fail the summary job if any build failed
           else
             echo "✅ All Docker builds succeeded"
           fi
+

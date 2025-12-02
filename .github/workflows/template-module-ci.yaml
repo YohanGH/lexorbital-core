@@ -1,100 +1,224 @@
 name: template-module-ci
 
+# ============================================================================
+# Template Module CI Workflow
+# ============================================================================
+# Purpose: Continuous Integration workflow for LexOrbital modules
+# Triggers:
+#   - Pull requests to develop/main branches
+#   - Pushes to branches (for commitlint and prettier checks)
+#   - Pushes to main branch (for semantic release)
+# ============================================================================
+
 on:
   pull_request:
     branches:
       - develop
       - main
+  push:
+    branches:
+      - '**'  # Run on all branch pushes
 
+# Global environment variables
+env:
+  PNPM_VERSION: '10.23.0'  # Pin pnpm version for reproducibility
+  NODE_VERSION: '24'  # Use Node.js 24 LTS
+
+# Default permissions (minimal required)
 permissions:
-  contents: write
+  contents: read
+  pull-requests: read
 
 jobs:
+  # ============================================================================
+  # Job: Check Branch Name
+  # ============================================================================
+  # Validates that branch names follow the LexOrbital naming convention
+  # Only runs on pull requests targeting develop branch
+  # ============================================================================
   check-branch-name:
+    name: Validate Branch Name
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    timeout-minutes: 5
+    # Only run on pull requests targeting develop branch
+    if: github.event_name == 'pull_request' && github.base_ref == 'develop'
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
-      - name: Check branch name
+      - name: Check branch name format
         run: |
           BRANCH_NAME="${{ github.head_ref }}"
-          PATTERN='^(feat|fix|chore|refactor|docs|ci|infra|security)\/[a-z0-9]+(-[a-z0-9]+)+$'
+          # Pattern: <type>/<scope>-<short-desc-kebab>
+          # Type: feat|fix|chore|refactor|docs|ci|infra|security
+          # Scope: minimum 3 alphanumeric characters
+          # Description: minimum 2 words separated by hyphens
+          PATTERN='^(feat|fix|chore|refactor|docs|ci|infra|security)\/[a-z0-9]{3,}(-[a-z0-9]{2,})+$'
+          
           if ! echo "$BRANCH_NAME" | grep -Eq "$PATTERN"; then
             echo "❌ LexOrbital: invalid branch name '$BRANCH_NAME'"
             echo "   Expected: <type>/<scope>-<short-desc-kebab>"
             echo "   type ∈ feat|fix|chore|refactor|docs|ci|infra|security"
+            echo "   scope: min 3 chars, description: min 2 words"
+            echo ""
+            echo "   Examples:"
+            echo "   ✅ feat/user-authentication"
+            echo "   ✅ fix/login-bug"
+            echo "   ❌ feat/a-b (too short)"
             exit 1
           fi
+          
           echo "✅ Branch name '$BRANCH_NAME' is valid"
 
+  # ============================================================================
+  # Job: Semantic Release
+  # ============================================================================
+  # Automatically releases new versions based on conventional commits
+  # Only runs on pushes to main branch
+  # Requires write permissions to create releases and tags
+  # ============================================================================
   release:
+    name: Semantic Release
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Only run on pushes to main branch
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write  # Required to create releases and tags
+      pull-requests: read
     env:
-      HUSKY: 0
+      HUSKY: 0  # Disable Git hooks in CI
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-      - name: Enable corepack
-        run: corepack enable
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-          run_install: false
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
-      - run: pnpm exec semantic-release
+          fetch-depth: 0  # Full history required for semantic-release
 
-  commitlint:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref_type == 'branch' && contains(github.ref, '/')
-    env:
-      HUSKY: 0
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
       - name: Enable corepack
         run: corepack enable
-      - uses: pnpm/action-setup@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
         with:
-          version: 9
+          version: ${{ env.PNPM_VERSION }}
           run_install: false
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Print versions
-        run: |
-          git --version
-          node --version
-          pnpm --version
-          pnpm exec commitlint --version
 
-      - name: Validate PR commits with commitlint
-        run: pnpm exec commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+      - name: Build project
+        run: pnpm run build
 
-  prettier:
+      - name: Run semantic-release
+        run: pnpm exec semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ============================================================================
+  # Job: Commitlint Validation
+  # ============================================================================
+  # Validates commit messages follow conventional commit format
+  # Only runs on pull requests (needs PR context for commit range)
+  # ============================================================================
+  commitlint:
+    name: Validate Commit Messages
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref_type == 'branch' && contains(github.ref, '/')
+    timeout-minutes: 10
+    # Only run on pull requests (needs PR context)
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request != null &&
+      contains(github.ref, '/')
+    permissions:
+      contents: read
+      pull-requests: read
     env:
-      HUSKY: 0
+      HUSKY: 0  # Disable Git hooks in CI
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          node-version: lts/*
+          fetch-depth: 0  # Full history required for commitlint
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
       - name: Enable corepack
         run: corepack enable
-      - uses: pnpm/action-setup@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
         with:
-          version: 9
+          version: ${{ env.PNPM_VERSION }}
           run_install: false
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec prettier . --check
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Print environment versions
+        run: |
+          echo "Git version: $(git --version)"
+          echo "Node.js version: $(node --version)"
+          echo "pnpm version: $(pnpm --version)"
+          echo "commitlint version: $(pnpm exec commitlint --version)"
+
+      - name: Validate commit messages
+        run: |
+          pnpm exec commitlint \
+            --from ${{ github.event.pull_request.base.sha }} \
+            --to ${{ github.event.pull_request.head.sha }} \
+            --verbose
+        continue-on-error: false
+
+  # ============================================================================
+  # Job: Prettier Format Check
+  # ============================================================================
+  # Validates code formatting using Prettier
+  # Runs on all branch pushes
+  # ============================================================================
+  prettier:
+    name: Check Code Formatting
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Run on all branch pushes (not tags)
+    if: github.event_name == 'push' && github.ref_type == 'branch' && contains(github.ref, '/')
+    permissions:
+      contents: read
+    env:
+      HUSKY: 0  # Disable Git hooks in CI
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check code formatting
+        run: pnpm exec prettier . --check
+        continue-on-error: false
+
