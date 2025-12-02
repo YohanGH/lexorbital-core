@@ -60,8 +60,6 @@ coverage/
 /*.d.ts
 /*.d.ts.map
 /*.js.map
-/css.d.ts
-/vite.env.d.ts
 /config/**/*.js
 /config/**/*.d.ts
 /config/**/*.d.ts.map
