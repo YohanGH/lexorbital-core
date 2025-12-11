@@ -43,7 +43,7 @@ export function Explanatory(): JSX.Element {
           <Link href={ROUTES.MODULES} style={{ marginRight: "1rem" }}>
             Modules
           </Link>
-          <Link href={ROUTES.LEGAL.ROOT}>Legal</Link>
+          <Link href={ROUTES.LEGAL.MENTIONS}>Legal</Link>
         </nav>
       </header>
 

@@ -89,7 +89,7 @@ export function Home(): JSX.Element {
           <Link href={ROUTES.MODULES} style={{ marginRight: "1rem" }}>
             Modules
           </Link>
-          <Link href={ROUTES.LEGAL.ROOT} style={{ marginRight: "1rem" }}>
+          <Link href={ROUTES.LEGAL.MENTIONS} style={{ marginRight: "1rem" }}>
             Legal
           </Link>
           <Link href={ROUTES.EXPLANATORY.ROOT}>Explanatory</Link>

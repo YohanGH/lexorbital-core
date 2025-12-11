@@ -15,7 +15,9 @@ import {
   Home,
   NotFound,
   Modules,
-  Legal,
+  MentionsLegales,
+  RGPD,
+  Cookies,
   Explanatory,
 } from "@/pages"
 import { ROUTES, defaultRouterConfig } from "@/lib/router"
@@ -32,10 +34,9 @@ function App(): JSX.Element {
           <Route path={ROUTES.MODULES} component={Modules} />
 
           {/* Legal routes */}
-          <Route path={ROUTES.LEGAL.ROOT} component={Legal} />
-          <Route path={ROUTES.LEGAL.MENTIONS} component={Legal} />
-          <Route path={ROUTES.LEGAL.RGPD} component={Legal} />
-          <Route path={ROUTES.LEGAL.COOKIES} component={Legal} />
+          <Route path={ROUTES.LEGAL.MENTIONS} component={MentionsLegales} />
+          <Route path={ROUTES.LEGAL.RGPD} component={RGPD} />
+          <Route path={ROUTES.LEGAL.COOKIES} component={Cookies} />
 
           {/* Explanatory routes */}
           <Route path={ROUTES.EXPLANATORY.ROOT} component={Explanatory} />
