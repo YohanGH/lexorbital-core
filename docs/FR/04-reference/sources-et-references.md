@@ -34,6 +34,12 @@ Ce document liste les sources consultées et les références utilisées pour la
   - Documentation officielle : https://vitejs.dev/
 - **TypeScript** : Langage de programmation
 
+- **Wouter** : Router pour React
+  - Documentation officielle : https://github.com/molefrog/wouter#readme
+
+- **React Testing Library** : Bibliothèque de test pour React
+  - Documentation officielle : https://testing-library.com/docs/react-testing-library/intro/
+
 ### Infrastructure
 
 - **Docker** : Conteneurisation
@@ -107,6 +113,10 @@ Ce document liste les sources consultées et les références utilisées pour la
 - **Awesome Guidelines** : Liste organisée de conventions et standards de style de codage
   - Dépôt : https://github.com/Kristories/awesome-guidelines
   - Collection complète de guides de style et meilleures pratiques pour divers langages de programmation et frameworks
+
+- **Libs.tech** : Liste de bibliothèques et frameworks open source
+  - Dépôt : https://libs.tech
+  - Collection complète de bibliothèques et frameworks open source
 
 ## Licences et conformité
 
