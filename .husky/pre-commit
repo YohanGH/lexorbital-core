@@ -27,8 +27,11 @@ check_git_repo() {
 
 # Helper function to run tests
 run_tests() {
-  if command -v pnpm >/dev/null 2>&1 && grep -q '"test"' package.json 2>/dev/null; then
-    pnpm test 2>&1
+  # Run tests from root (includes frontend tests via workspace)
+  # Frontend tests are executed from root using pnpm workspace filter
+  if command -v pnpm >/dev/null 2>&1 && grep -q '"tests"' package.json 2>/dev/null; then
+    echo "🧪 Running tests from root (includes frontend)..."
+    pnpm tests 2>&1
   elif command -v npx >/dev/null 2>&1; then
     npx --no-install vitest run 2>&1
   else

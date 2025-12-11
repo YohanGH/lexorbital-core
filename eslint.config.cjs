@@ -15,6 +15,9 @@ const baseIgnoreConfig = {
     ".next/**",
     "docs/templates/**",
     "docs/generated/**",
+    "**/*.config.{ts,js}",
+    "**/vite.config.ts",
+    "**/vitest.config.ts",
   ],
 }
 

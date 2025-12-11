@@ -75,7 +75,6 @@
     "@types/supertest": "6.0.3",
     "@typescript-eslint/eslint-plugin": "8.46.0",
     "@typescript-eslint/parser": "8.46.0",
-    "@vitest/coverage-v8": "4.0.12",
     "dependency-cruiser": "16.10.4",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
@@ -88,8 +87,11 @@
     "prettier-plugin-tailwindcss": "0.6.11",
     "semantic-release": "25.0.2",
     "standard-version": "^9.5.0",
-    "supertest": "7.1.4",
     "typescript": "5.9.3",
-    "vitest": "4.0.12"
+    "supertest": "7.1.4",
+    "vitest": "4.0.12",
+    "@vitest/coverage-v8": "4.0.12",
+    "@vitejs/plugin-react": "4.3.4",
+    "jsdom": "25.0.1"
   }
 }

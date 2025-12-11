@@ -91,7 +91,7 @@ fi
 # but as it's optional, we continue
 
 info "Running tests..."
-if ! pnpm test; then
+if ! pnpm tests; then
   error "Tests failed. Push aborted."
   exit 1
 fi

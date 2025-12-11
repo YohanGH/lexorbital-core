@@ -13,7 +13,10 @@ export type NavigateOptions = {
   replace?: boolean
 }
 
-export type LocationHook = () => [string, (to: string, options?: NavigateOptions) => void]
+export type LocationHook = () => [
+  string,
+  (to: string, options?: NavigateOptions) => void,
+]
 
 /**
  * Application route paths
@@ -84,7 +87,9 @@ export function navigateTo(
     // For nested objects, extract the first string value
     // This handles cases where ROUTES.LEGAL or ROUTES.EXPLANATORY are passed
     const values = Object.values(path)
-    const firstStringValue = values.find((v): v is string => typeof v === "string")
+    const firstStringValue = values.find(
+      (v): v is string => typeof v === "string"
+    )
     pathString = firstStringValue ?? String(path)
   }
   navigate(pathString, options)
@@ -106,7 +111,14 @@ export function navigateTo(
 export function matchesRoute(currentPath: string, pattern: string): boolean {
   // Simple exact match for now
   // For more complex patterns, use useRoute hook from Wouter
-  return currentPath === pattern || currentPath.startsWith(pattern + "/")
+  if (currentPath === pattern) {
+    return true
+  }
+  // Match sub-routes only if pattern is not empty
+  if (pattern !== "" && currentPath.startsWith(pattern + "/")) {
+    return true
+  }
+  return false
 }
 
 /**
