@@ -29,6 +29,12 @@
     // This works best with modern bundlers like Vite, Webpack, etc.
     "moduleResolution": "bundler",
 
+    // Path aliases: Use @ for src directory
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     // Types: Empty array means no automatic type inclusion
     // Types will be included based on imports (recommended for frontend)
     "types": []
