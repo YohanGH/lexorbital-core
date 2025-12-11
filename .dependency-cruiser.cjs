@@ -98,6 +98,9 @@ module.exports = {
       from: {},
       to: {
         couldNotResolve: true,
+        // Exclude type-only imports from wouter submodules (export conditionals)
+        // These are valid TypeScript imports that bundlers resolve correctly
+        pathNot: ["^wouter/use-location$"],
       },
     },
     {
@@ -309,7 +312,7 @@ module.exports = {
          the extensions you actually use (e.g. [".js", ".jsx"]). This can speed
          up module resolution, which is the most expensive step.
        */
-      // extensions: [".js", ".jsx", ".ts", ".tsx", ".d.ts"],
+      extensions: [".js", ".jsx", ".ts", ".tsx", ".d.ts", ".css"],
       /* What to consider a 'main' field in package.json */
       mainFields: ["module", "main", "types", "typings"],
       /* A list of alias fields in package.jsons

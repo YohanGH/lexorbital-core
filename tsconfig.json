@@ -4,10 +4,19 @@
   //
   // Note: This config is primarily for shared code and type definitions
   // Frontend and backend projects should use their own tsconfig.json files
+  //
+  // Path aliases are included here for dependency-cruiser resolution
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     // Root-specific overrides can go here if needed
     // Currently using all base options
+
+    // Path aliases for dependency-cruiser resolution
+    // These match the frontend tsconfig.json paths
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./frontend/src/*"]
+    }
   },
   "include": ["config/**/*", "scripts/**/*", "*.ts"],
   "exclude": [
