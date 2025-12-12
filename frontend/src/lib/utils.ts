@@ -5,23 +5,6 @@
  * Privacy-first: no external dependencies that could leak data.
  */
 
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-/**
- * Merges Tailwind CSS classes intelligently
- *
- * Combines clsx (for conditional classes) and tailwind-merge
- * (for resolving Tailwind class conflicts).
- *
- * @example
- * cn("px-2 py-1", "px-4") // → "py-1 px-4" (px-2 is overridden by px-4)
- * cn("bg-red-500", condition && "bg-blue-500") // → conditional class
- */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
 /**
  * Simple className merger - Zero Dependencies Version
  *
