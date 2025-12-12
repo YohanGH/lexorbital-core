@@ -9,21 +9,26 @@
  */
 
 import { Component, type ReactNode, type ErrorInfo } from "react"
-import { Link } from "wouter"
+import { withTranslation, type WithTranslation } from "react-i18next"
 
 import { ROUTES } from "@/lib/router"
 
-interface ErrorBoundaryProps {
+export interface ErrorBoundaryPublicProps {
   children: ReactNode
   fallback?: ReactNode
+  onNavigate?: (page: string) => void
 }
+
+interface ErrorBoundaryProps
+  extends ErrorBoundaryPublicProps,
+    WithTranslation<"errors"> {}
 
 interface ErrorBoundaryState {
   hasError: boolean
   error: Error | null
 }
 
-export class ErrorBoundary extends Component<
+class ErrorBoundaryBase extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
@@ -55,31 +60,33 @@ export class ErrorBoundary extends Component<
         return this.props.fallback
       }
 
+      const { t, onNavigate } = this.props
+      const errorMessage =
+        this.state.error?.message ?? t("errorBoundary.defaultMessage")
+
       return (
-        <div
-          style={{
-            padding: "2rem",
-            fontFamily: "system-ui, sans-serif",
-            textAlign: "center",
-          }}
-        >
-          <h1 style={{ color: "#c33" }}>Something went wrong</h1>
-          <p style={{ color: "#666", marginBottom: "2rem" }}>
-            {this.state.error?.message ?? "An unexpected error occurred"}
+        <div className="mx-auto flex min-h-[60vh] max-w-[1440px] flex-col items-center justify-center px-4 py-24 md:px-8 md:py-32 lg:px-16 lg:py-48">
+          <h1 className="mb-8 text-center text-red-600">
+            {t("errorBoundary.title")}
+          </h1>
+          <p className="mb-16 max-w-[600px] px-4 text-center opacity-75">
+            {errorMessage}
           </p>
-          <Link
-            href={ROUTES.HOME}
-            style={{
-              display: "inline-block",
-              padding: "0.75rem 1.5rem",
-              background: "#007bff",
-              color: "white",
-              textDecoration: "none",
-              borderRadius: "4px",
-            }}
-          >
-            Return to Home
-          </Link>
+          {onNavigate ? (
+            <button
+              onClick={() => onNavigate("home")}
+              className="border border-black px-8 py-4 transition-colors hover:bg-black hover:text-white"
+            >
+              {t("errorBoundary.backToHome")}
+            </button>
+          ) : (
+            <a
+              href={ROUTES.HOME}
+              className="border border-black px-8 py-4 transition-colors hover:bg-black hover:text-white"
+            >
+              {t("errorBoundary.backToHome")}
+            </a>
+          )}
         </div>
       )
     }
@@ -87,3 +94,7 @@ export class ErrorBoundary extends Component<
     return this.props.children
   }
 }
+
+export const ErrorBoundary = withTranslation<"errors">("errors")(
+  ErrorBoundaryBase
+) as React.ComponentType<ErrorBoundaryPublicProps>

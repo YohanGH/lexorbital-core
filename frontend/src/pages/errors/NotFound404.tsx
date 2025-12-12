@@ -1,17 +1,10 @@
-/**
- * 404 Not Found page component
- *
- * Displayed when a route doesn't match any defined route pattern.
- * Provides navigation back to the home page.
- */
-
-import type { JSX } from "react"
 import { useTranslation } from "react-i18next"
-import { Link } from "wouter"
 
-import { ROUTES } from "@/lib/router"
+interface NotFound404Props {
+  onNavigate: (page: string) => void
+}
 
-export function NotFound(): JSX.Element {
+export function NotFound404({ onNavigate }: NotFound404Props) {
   const { t } = useTranslation("errors")
 
   return (
@@ -20,12 +13,12 @@ export function NotFound(): JSX.Element {
       <p className="mb-16 max-w-[600px] px-4 text-center opacity-75">
         {t("notFound404.description")}
       </p>
-      <Link
-        href={ROUTES.HOME}
+      <button
+        onClick={() => onNavigate("home")}
         className="border border-black px-8 py-4 transition-colors hover:bg-black hover:text-white"
       >
         {t("notFound404.backToHome")}
-      </Link>
+      </button>
     </div>
   )
 }

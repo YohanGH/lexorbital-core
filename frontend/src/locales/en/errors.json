@@ -1,0 +1,22 @@
+{
+  "notFound404": {
+    "title": "404 — Page not found",
+    "description": "The requested resource does not exist in the current architecture.",
+    "backToHome": "Return to Home"
+  },
+  "forbidden403": {
+    "title": "403 — Forbidden Access",
+    "description": "Access to this module is restricted within the current permission structure.",
+    "backToHome": "Return to Home"
+  },
+  "serverError50x": {
+    "title": "50x — Server Error",
+    "description": "An internal system error occurred during processing.",
+    "backToHome": "Return to Home"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "defaultMessage": "An unexpected error occurred",
+    "backToHome": "Return to Home"
+  }
+}

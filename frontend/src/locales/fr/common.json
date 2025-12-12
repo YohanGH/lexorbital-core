@@ -7,5 +7,52 @@
     "home": "Accueil",
     "legal": "Mentions légales",
     "modules": "Modules"
+  },
+  "header": {
+    "home": "Accueil",
+    "modules": "Modules",
+    "about": "À propos",
+    "glossary": "Glossaire",
+    "contact": "Contact",
+    "trustCenter": "Centre de confiance",
+    "logoAlt": "Retour à l'accueil"
+  },
+  "footer": {
+    "devDocs": {
+      "ariaLabel": "Ouvrir la documentation développeur des pages explicatives",
+      "title": "[Documentation développeur]",
+      "cta": "Pages explicatives"
+    },
+    "links": {
+      "termsOfUse": "Conditions d’utilisation",
+      "accessibility": "Accessibilité",
+      "ecoConception": "Éco-conception",
+      "ethics": "Éthique",
+      "llmTxt": "LLM.txt",
+      "disclosure": "Divulgation",
+      "security": "Sécurité",
+      "sitemap": "Plan du site",
+      "references": "Références"
+    },
+    "utilities": {
+      "technicalGlossary": "Glossaire technique FR-EN",
+      "cookieManagement": "Gestion des cookies",
+      "trustCenter": "Centre de confiance"
+    },
+    "external": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
+    "meta": {
+      "copyright": "© LexOrbital. Tous droits réservés.",
+      "license": "Contenus sous licence ouverte lorsque précisé."
+    }
+  },
+  "language": {
+    "selectorAria": "Changer de langue",
+    "buttonLabel": {
+      "frFirst": "FR | EN",
+      "enFirst": "EN | FR"
+    }
   }
 }
