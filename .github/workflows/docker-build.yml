@@ -41,7 +41,7 @@ env:
 # Minimal required permissions
 permissions:
   contents: read
-  packages: write  # Required to push to GitHub Container Registry
+  packages: write # Required to push to GitHub Container Registry
 
 jobs:
   # ============================================================================
@@ -61,7 +61,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for better caching
+          fetch-depth: 0 # Full history for better caching
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -147,7 +147,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for better caching
+          fetch-depth: 0 # Full history for better caching
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -227,7 +227,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [build-backend, build-frontend]
-    if: always()  # Always run, even if builds fail
+    if: always() # Always run, even if builds fail
     permissions:
       contents: read
     steps:
@@ -235,33 +235,33 @@ jobs:
         run: |
           BACKEND_STATUS="${{ needs.build-backend.result }}"
           FRONTEND_STATUS="${{ needs.build-frontend.result }}"
-          
+
           echo "## 🐳 Docker Build Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Component | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "$BACKEND_STATUS" == "success" ]; then
             echo "| Backend | ✅ Success |" >> $GITHUB_STEP_SUMMARY
           else
             echo "| Backend | ❌ $BACKEND_STATUS |" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           if [ "$FRONTEND_STATUS" == "success" ]; then
             echo "| Frontend | ✅ Success |" >> $GITHUB_STEP_SUMMARY
           else
             echo "| Frontend | ❌ $FRONTEND_STATUS |" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           # Console output
           echo "## Build Summary"
           echo ""
           echo "- Backend: $BACKEND_STATUS"
           echo "- Frontend: $FRONTEND_STATUS"
           echo ""
-          
+
           if [ "$BACKEND_STATUS" != "success" ] || [ "$FRONTEND_STATUS" != "success" ]; then
             echo "❌ Some Docker builds failed"
             if [ "$BACKEND_STATUS" != "success" ]; then
@@ -274,4 +274,3 @@ jobs:
           else
             echo "✅ All Docker builds succeeded"
           fi
-

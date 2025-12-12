@@ -39,6 +39,10 @@ Ce document liste les sources consultées et les références utilisées pour la
 
 - **React Testing Library** : Bibliothèque de test pour React
   - Documentation officielle : https://testing-library.com/docs/react-testing-library/intro/
+- **Vitest** : Framework de test pour JavaScript
+  - Documentation officielle : https://vitest.dev/
+- **i18next** : Internationalisation pour React
+  - Documentation officielle : https://www.i18next.com/
 
 ### Infrastructure
 
