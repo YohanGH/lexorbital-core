@@ -7,6 +7,7 @@
 
 import type { JSX } from "react"
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Link } from "wouter"
 
 import { ROUTES } from "@/lib/router"
@@ -35,6 +36,7 @@ const getApiUrl = (): string => {
 const API_URL = getApiUrl()
 
 export function Home(): JSX.Element {
+  const { t } = useTranslation("common")
   const [health, setHealth] = useState<HealthStatus | null>(null)
   const [modules, setModules] = useState<Module[]>([])
   const [loading, setLoading] = useState(true)
@@ -81,10 +83,8 @@ export function Home(): JSX.Element {
   return (
     <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
       <header style={{ marginBottom: "2rem" }}>
-        <h1>🚀 LexOrbital - Console Orbitale</h1>
-        <p style={{ color: "#666" }}>
-          Meta-Kernel + BackRing + FrontRing - POC V1
-        </p>
+        <h1>{t("app.title")}</h1>
+        <p style={{ color: "#666" }}>{t("app.subtitle")}</p>
         <nav style={{ marginTop: "1rem" }}>
           <Link href={ROUTES.MODULES} style={{ marginRight: "1rem" }}>
             Modules

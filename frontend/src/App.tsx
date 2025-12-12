@@ -4,6 +4,10 @@
  * Sets up the Wouter router with all application routes.
  * Uses Switch for exclusive routing and ErrorBoundary for error handling.
  *
+ * Note: i18n is configured and available throughout the app.
+ * Use `useTranslation("namespace")` in child components to access translations.
+ * Example: `const { t } = useTranslation("common"); t("app.title")`
+ *
  * @module App
  */
 

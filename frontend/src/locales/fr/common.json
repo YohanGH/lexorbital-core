@@ -1,0 +1,11 @@
+{
+  "app": {
+    "title": "LexOrbital FrontRing",
+    "subtitle": "Console orbitale pour l'architecture et la conformité"
+  },
+  "nav": {
+    "home": "Accueil",
+    "legal": "Mentions légales",
+    "modules": "Modules"
+  }
+}
