@@ -81,7 +81,7 @@ export function VersionsList(): JSX.Element {
                 </div>
               </div>
               <Link
-                href={`/v/${version.id}/`}
+                href={`/v/${version.id}/home`}
                 className="ml-4 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
                 Ouvrir v{version.id}

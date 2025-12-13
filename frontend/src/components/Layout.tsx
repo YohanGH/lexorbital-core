@@ -12,91 +12,25 @@ import { Header } from "./Header"
 import { Footer } from "./Footer"
 import { OldVersionBanner } from "./versioning"
 
+import { getLatestVersion } from "@/versioning/versioning"
 import {
-  getLatestVersion,
-  resolveCanonicalPageIdFromPath,
-} from "@/versioning/versioning"
+  getPageFromPath,
+  getSlugForPage,
+  isVersionedPage,
+} from "@/lib/pageMapping"
 
 interface LayoutProps {
   children: ReactNode
 }
 
-/**
- * Maps page identifiers to their canonical route slugs
- * These will be resolved to versioned paths at runtime
- */
-const PAGE_TO_SLUG: Record<string, string> = {
-  home: "",
-  modules: "modules",
-  about: "about",
-  glossary: "glossary",
-  contact: "contact",
-  "trust-center": "trust-center",
-  "terms-of-use": "legal/terms-of-use",
-  accessibility: "legal/accessibility",
-  "eco-conception": "legal/eco-conception",
-  ethics: "legal/ethics",
-  disclosure: "legal/disclosure",
-  security: "legal/security",
-  sitemap: "sitemap",
-  references: "references",
-  "technical-glossary": "technical-glossary",
-  "cookie-management": "legal/cookie-management",
-  "explanatory-index": "explanatory",
-}
-
-/**
- * Extracts the current page identifier from the location path
- */
-function getCurrentPageFromLocation(location: string): string {
-  // Remove version prefix if present (/v/2.0/...)
-  const pathWithoutVersion = location.replace(/^\/v\/[^/]+/, "")
-  // Remove leading/trailing slashes
-  const cleanPath = pathWithoutVersion.replace(/^\/+|\/+$/g, "") || ""
-
-  // Direct mapping from path to page identifier
-  const pathToPage: Record<string, string> = {
-    "": "home",
-    about: "about",
-    modules: "modules",
-    glossary: "glossary",
-    contact: "contact",
-    "trust-center": "trust-center",
-    "legal/terms-of-use": "terms-of-use",
-    "legal/accessibility": "accessibility",
-    "legal/eco-conception": "eco-conception",
-    "legal/ethics": "ethics",
-    "legal/disclosure": "disclosure",
-    "legal/security": "security",
-    "legal/cookie-management": "cookie-management",
-    sitemap: "sitemap",
-    references: "references",
-    "technical-glossary": "technical-glossary",
-    explanatory: "explanatory-index",
-  }
-
-  // Try exact match first
-  if (pathToPage[cleanPath]) {
-    return pathToPage[cleanPath]
-  }
-
-  // For versioned routes, try to extract page ID
-  if (location.startsWith("/v/")) {
-    const pageId = resolveCanonicalPageIdFromPath(location)
-    const pageIdToIdentifier: Record<string, string> = {
-      landing: "home",
-      about: "about",
-      modules: "modules",
-    }
-    return pageIdToIdentifier[pageId ?? ""] ?? "home"
-  }
-
-  return "home"
-}
-
 export function Layout({ children }: LayoutProps): JSX.Element {
   const [location, setLocation] = useLocation()
   const [latestVersion, setLatestVersion] = useState<string | null>(null)
+
+  // Scroll restoration on route change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
 
   // Load latest version on mount
   useEffect(() => {
@@ -113,21 +47,16 @@ export function Layout({ children }: LayoutProps): JSX.Element {
   }, [])
 
   const handleNavigate = (page: string): void => {
-    const slug = PAGE_TO_SLUG[page]
+    const slug = getSlugForPage(page)
     if (slug === undefined) {
       console.warn(`Unknown page identifier: ${page}`)
       return
     }
 
-    // Check if this is a versioned page (home, modules, about from versioning system)
-    // or a direct route (contact, glossary, legal pages, etc.)
-    const isVersionedPage = ["home", "modules", "about"].includes(page)
-
-    if (isVersionedPage) {
+    if (isVersionedPage(page)) {
       // Use versioned route
       const targetVersion = latestVersion ?? "2.0"
-      const targetPath =
-        slug === "" ? `/v/${targetVersion}/` : `/v/${targetVersion}/${slug}`
+      const targetPath = `/v/${targetVersion}/${slug}`
       setLocation(targetPath)
     } else {
       // Use direct route (non-versioned pages)
@@ -136,7 +65,7 @@ export function Layout({ children }: LayoutProps): JSX.Element {
     }
   }
 
-  const currentPage = getCurrentPageFromLocation(location)
+  const currentPage = getPageFromPath(location)
 
   return (
     <div className="flex min-h-screen flex-col">

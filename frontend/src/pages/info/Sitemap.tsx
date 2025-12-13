@@ -6,10 +6,9 @@
 
 import type { JSX } from "react"
 import { useTranslation } from "react-i18next"
+import { useLocation } from "wouter"
 
-interface SitemapProps {
-  onNavigate: (page: string) => void
-}
+import { getLatestVersion } from "@/versioning/versioning"
 
 /**
  * Main pages keys in display order
@@ -70,8 +69,49 @@ const TRUST_CENTER_SECTION_KEYS = [
   "updates",
 ] as const
 
-export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
+export function Sitemap(): JSX.Element {
   const { t } = useTranslation(["info", "common"])
+  const [, setLocation] = useLocation()
+
+  const handleNavigate = async (page: string): Promise<void> => {
+    // Check if this is a versioned page (home, modules, about from versioning system)
+    // or a direct route (contact, glossary, legal pages, etc.)
+    const isVersionedPage = ["home", "modules", "about"].includes(page)
+
+    if (isVersionedPage) {
+      // Use versioned route
+      try {
+        const latestVersion = await getLatestVersion()
+        const targetPath = `/v/${latestVersion}/${page}`
+        setLocation(targetPath)
+      } catch (error) {
+        console.error("Failed to get latest version:", error)
+        // Fallback to a default version
+        const targetPath = `/v/2.0/${page}`
+        setLocation(targetPath)
+      }
+    } else {
+      // Use direct route (non-versioned pages)
+      // Map page identifiers to actual routes
+      const pageToRoute: Record<string, string> = {
+        "trust-center": "/trust-center",
+        "terms-of-use": "/legal/terms-of-use",
+        accessibility: "/legal/accessibility",
+        "eco-conception": "/legal/eco-conception",
+        ethics: "/legal/ethics",
+        "cookie-management": "/legal/cookie-management",
+        "llm-txt": "/llm-txt",
+        disclosure: "/legal/disclosure",
+        security: "/legal/security",
+        sitemap: "/sitemap",
+        references: "/references",
+        glossary: "/glossary",
+        contact: "/contact",
+      }
+      const targetPath = pageToRoute[page] || `/${page}`
+      setLocation(targetPath)
+    }
+  }
 
   const siteStructure = [
     {
@@ -131,7 +171,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                   >
                     <div className="md:col-span-3">
                       <button
-                        onClick={() => onNavigate(pageId)}
+                        onClick={() => void handleNavigate(pageId)}
                         className="text-left transition-opacity hover:opacity-50"
                       >
                         {t(
@@ -166,7 +206,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
               <ul className="space-y-2">
                 <li>
                   <button
-                    onClick={() => onNavigate("home")}
+                    onClick={() => void handleNavigate("home")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:header.home")}
@@ -174,7 +214,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("about")}
+                    onClick={() => void handleNavigate("about")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:header.about")}
@@ -182,7 +222,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("glossary")}
+                    onClick={() => void handleNavigate("glossary")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:header.glossary")}
@@ -190,7 +230,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("contact")}
+                    onClick={() => void handleNavigate("contact")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:header.contact")}
@@ -208,7 +248,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 {MODULE_KEYS.map(moduleKey => (
                   <li key={moduleKey}>
                     <button
-                      onClick={() => onNavigate("modules")}
+                      onClick={() => void handleNavigate("modules")}
                       className="transition-opacity hover:opacity-50"
                     >
                       {t(
@@ -229,7 +269,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 {TRUST_CENTER_SECTION_KEYS.map(sectionKey => (
                   <li key={sectionKey}>
                     <button
-                      onClick={() => onNavigate("trust-center")}
+                      onClick={() => void handleNavigate("trust-center")}
                       className="transition-opacity hover:opacity-50"
                     >
                       {t(
@@ -249,7 +289,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
               <ul className="space-y-2">
                 <li>
                   <button
-                    onClick={() => onNavigate("terms-of-use")}
+                    onClick={() => void handleNavigate("terms-of-use")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.termsOfUse")}
@@ -257,7 +297,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("accessibility")}
+                    onClick={() => void handleNavigate("accessibility")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.accessibility")}
@@ -265,7 +305,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("eco-conception")}
+                    onClick={() => void handleNavigate("eco-conception")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.ecoConception")}
@@ -273,7 +313,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("ethics")}
+                    onClick={() => void handleNavigate("ethics")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.ethics")}
@@ -281,7 +321,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("cookie-management")}
+                    onClick={() => void handleNavigate("cookie-management")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.utilities.cookieManagement")}
@@ -289,7 +329,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("llm-txt")}
+                    onClick={() => void handleNavigate("llm-txt")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.llmTxt")}
@@ -297,7 +337,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("disclosure")}
+                    onClick={() => void handleNavigate("disclosure")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.disclosure")}
@@ -305,7 +345,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("security")}
+                    onClick={() => void handleNavigate("security")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.security")}
@@ -313,7 +353,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("sitemap")}
+                    onClick={() => void handleNavigate("sitemap")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.sitemap")}
@@ -321,7 +361,7 @@ export function Sitemap({ onNavigate }: SitemapProps): JSX.Element {
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigate("references")}
+                    onClick={() => void handleNavigate("references")}
                     className="transition-opacity hover:opacity-50"
                   >
                     {t("common:footer.links.references")}

@@ -26,3 +26,4 @@ export {
   TrustCenter,
 } from "./compliance"
 export { References } from "./reference"
+export { VersionsList, VersionedPageRoute } from "./versioning"

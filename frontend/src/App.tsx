@@ -57,10 +57,7 @@ function App(): JSX.Element {
               <Redirect to="/llm.txt" />
             </Route>
 
-            {/* Versioned routes: /v/:versionId/* */}
-            <Route path="/v/:versionId/*" component={VersionedPageRoute} />
-
-            {/* Non-versioned pages - direct routes */}
+            {/* Non-versioned pages - direct routes (must be before versioned routes) */}
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/glossary" component={Glossary} />
@@ -82,6 +79,9 @@ function App(): JSX.Element {
 
             {/* Compliance pages */}
             <Route path="/trust-center" component={TrustCenter} />
+
+            {/* Versioned routes: /v/:versionId/* (must be after non-versioned routes) */}
+            <Route path="/v/:versionId/*" component={VersionedPageRoute} />
 
             {/* Legacy routes - redirect to latest version equivalent */}
             {/* These can be kept for backward compatibility or removed */}

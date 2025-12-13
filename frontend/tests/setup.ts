@@ -9,6 +9,9 @@ import { expect, afterEach, vi } from "vitest"
 import { cleanup } from "@testing-library/react"
 import * as matchers from "@testing-library/jest-dom/matchers"
 
+// Initialize i18next for tests to avoid warnings
+import "@/i18n"
+
 // Extend Vitest's expect with jest-dom matchers
 // This adds matchers like toBeInTheDocument(), toHaveAttribute(), etc.
 expect.extend(matchers)
@@ -54,3 +57,9 @@ global.IntersectionObserver = class IntersectionObserver {
   }
   unobserve() {}
 } as unknown as typeof IntersectionObserver
+
+// Mock window.scrollTo (used by scroll restoration)
+Object.defineProperty(window, "scrollTo", {
+  writable: true,
+  value: vi.fn(),
+})

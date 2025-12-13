@@ -15,16 +15,17 @@ import { ROUTES } from "@/lib/router"
 import {
   Home,
   NotFound,
-  Modules,
-  MentionsLegales,
-  RGPD,
-  Cookies,
+  About,
+  Contact,
+  Glossary,
   Explanatory,
+  TermsOfUse,
+  Accessibility,
 } from "@/pages"
 
 describe("Route Integration Tests", () => {
   describe("Home Route", () => {
-    it("should route to Home component at root path", () => {
+    it("should route to Home component at root path", async () => {
       const { hook } = memoryLocation({ path: ROUTES.HOME })
 
       const { container } = render(
@@ -32,6 +33,12 @@ describe("Route Integration Tests", () => {
           <App />
         </Router>
       )
+
+      // Wait for async operations (redirect, etc.)
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
 
       // Verify that the route is configured (not a 404)
       // Note: Component errors are acceptable - we only test routing
@@ -42,15 +49,20 @@ describe("Route Integration Tests", () => {
     })
   })
 
-  describe("Modules Route", () => {
-    it("should route to Modules component at /modules", () => {
-      const { hook } = memoryLocation({ path: ROUTES.MODULES })
+  describe("About Route", () => {
+    it("should route to About component at /about", async () => {
+      const { hook } = memoryLocation({ path: "/about" })
 
       const { container } = render(
         <Router hook={hook}>
           <App />
         </Router>
       )
+
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
 
       // Verify that the route is configured (not a 404)
       // Note: Component errors are acceptable - we only test routing
@@ -61,14 +73,19 @@ describe("Route Integration Tests", () => {
   })
 
   describe("Legal Routes", () => {
-    it("should route to MentionsLegales component at /legal/mentions-legales", () => {
-      const { hook } = memoryLocation({ path: ROUTES.LEGAL.MENTIONS })
+    it("should route to TermsOfUse component at /legal/terms-of-use", async () => {
+      const { hook } = memoryLocation({ path: "/legal/terms-of-use" })
 
       const { container } = render(
         <Router hook={hook}>
           <App />
         </Router>
       )
+
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
 
       // Verify that the route is configured (not a 404)
       // Note: Component errors are acceptable - we only test routing
@@ -77,14 +94,19 @@ describe("Route Integration Tests", () => {
       expect(container.firstChild).toBeTruthy()
     })
 
-    it("should route to RGPD component at /legal/rgpd", () => {
-      const { hook } = memoryLocation({ path: ROUTES.LEGAL.RGPD })
+    it("should route to Accessibility component at /legal/accessibility", async () => {
+      const { hook } = memoryLocation({ path: "/legal/accessibility" })
 
       const { container } = render(
         <Router hook={hook}>
           <App />
         </Router>
       )
+
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
 
       // Verify that the route is configured (not a 404)
       // Note: Component errors are acceptable - we only test routing
@@ -93,14 +115,19 @@ describe("Route Integration Tests", () => {
       expect(container.firstChild).toBeTruthy()
     })
 
-    it("should route to Cookies component at /legal/cookies", () => {
-      const { hook } = memoryLocation({ path: ROUTES.LEGAL.COOKIES })
+    it("should route to CookieManagement component at /legal/cookie-management", async () => {
+      const { hook } = memoryLocation({ path: "/legal/cookie-management" })
 
       const { container } = render(
         <Router hook={hook}>
           <App />
         </Router>
       )
+
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
 
       // Verify that the route is configured (not a 404)
       // Note: Component errors are acceptable - we only test routing
@@ -111,7 +138,7 @@ describe("Route Integration Tests", () => {
   })
 
   describe("Explanatory Routes", () => {
-    it("should route to Explanatory component at /explanatory", () => {
+    it("should route to Explanatory component at /explanatory", async () => {
       const { hook } = memoryLocation({ path: ROUTES.EXPLANATORY.ROOT })
 
       const { container } = render(
@@ -120,37 +147,10 @@ describe("Route Integration Tests", () => {
         </Router>
       )
 
-      // Verify that the route is configured (not a 404)
-      // Note: Component errors are acceptable - we only test routing
-      expect(screen.queryByText(/404/i)).not.toBeInTheDocument()
-      expect(screen.queryByText(/Page Not Found/i)).not.toBeInTheDocument()
-      expect(container.firstChild).toBeTruthy()
-    })
-
-    it("should route to Explanatory component at /explanatory/architecture", () => {
-      const { hook } = memoryLocation({ path: ROUTES.EXPLANATORY.ARCHITECTURE })
-
-      const { container } = render(
-        <Router hook={hook}>
-          <App />
-        </Router>
-      )
-
-      // Verify that the route is configured (not a 404)
-      // Note: Component errors are acceptable - we only test routing
-      expect(screen.queryByText(/404/i)).not.toBeInTheDocument()
-      expect(screen.queryByText(/Page Not Found/i)).not.toBeInTheDocument()
-      expect(container.firstChild).toBeTruthy()
-    })
-
-    it("should route to Explanatory component at /explanatory/compliance", () => {
-      const { hook } = memoryLocation({ path: ROUTES.EXPLANATORY.COMPLIANCE })
-
-      const { container } = render(
-        <Router hook={hook}>
-          <App />
-        </Router>
-      )
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
 
       // Verify that the route is configured (not a 404)
       // Note: Component errors are acceptable - we only test routing
@@ -161,7 +161,7 @@ describe("Route Integration Tests", () => {
   })
 
   describe("404 Route", () => {
-    it("should render NotFound component for unknown routes", () => {
+    it("should render NotFound component for unknown routes", async () => {
       const { hook } = memoryLocation({ path: "/unknown/route" })
 
       const { container } = render(
@@ -170,13 +170,20 @@ describe("Route Integration Tests", () => {
         </Router>
       )
 
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
+
       // Verify that NotFound component is rendered for unknown routes
       expect(container.firstChild).toBeTruthy()
       // Verify it's a 404 (routing test - 404 is expected for unknown routes)
-      expect(screen.getByText(/404/i)).toBeInTheDocument()
+      // Use getAllByText since there might be multiple elements with "404"
+      const elements = screen.getAllByText(/404/i)
+      expect(elements.length).toBeGreaterThan(0)
     })
 
-    it("should render NotFound with link to home", () => {
+    it("should render NotFound with link to home", async () => {
       const { hook } = memoryLocation({ path: "/unknown/route" })
 
       render(
@@ -185,16 +192,23 @@ describe("Route Integration Tests", () => {
         </Router>
       )
 
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        const elements = screen.getAllByText(/404/i)
+        expect(elements.length).toBeGreaterThan(0)
+      })
+
       // Verify that a link to home exists (routing works)
-      const homeLink = screen.getByText(/Return to Home/i)
+      // The link text is translated, so we check for the link by href attribute
+      const homeLink = document.querySelector(`a[href="${ROUTES.HOME}"]`)
       expect(homeLink).toBeInTheDocument()
-      expect(homeLink.closest("a")).toHaveAttribute("href", ROUTES.HOME)
+      expect(homeLink).toHaveAttribute("href", ROUTES.HOME)
     })
   })
 
   describe("Route Navigation", () => {
     it("should navigate between routes", async () => {
-      const { hook, navigate } = memoryLocation({ path: ROUTES.HOME })
+      const { hook, navigate } = memoryLocation({ path: "/about" })
 
       const { container } = render(
         <Router hook={hook}>
@@ -202,13 +216,19 @@ describe("Route Integration Tests", () => {
         </Router>
       )
 
-      // Initially on home - verify route exists (not 404)
+      // waitFor already handles act() internally
+      await waitFor(() => {
+        expect(container.firstChild).toBeTruthy()
+      })
+
+      // Initially on about - verify route exists (not 404)
       expect(screen.queryByText(/404/i)).not.toBeInTheDocument()
       expect(container.firstChild).toBeTruthy()
 
-      // Navigate to modules
-      navigate(ROUTES.MODULES)
+      // Navigate to contact
+      navigate("/contact")
 
+      // waitFor already handles act() internally
       await waitFor(() => {
         // Verify navigation worked (route exists, not 404)
         // Note: Component errors are acceptable - we only test routing
@@ -233,12 +253,12 @@ describe("Route Integration Tests", () => {
       expect(container.firstChild).toBeTruthy()
     })
 
-    it("should render Modules component independently", () => {
-      const { hook } = memoryLocation({ path: ROUTES.MODULES })
+    it("should render About component independently", () => {
+      const { hook } = memoryLocation({ path: "/about" })
 
       const { container } = render(
         <Router hook={hook}>
-          <Modules />
+          <About />
         </Router>
       )
 
@@ -247,12 +267,12 @@ describe("Route Integration Tests", () => {
       expect(container.firstChild).toBeTruthy()
     })
 
-    it("should render MentionsLegales component independently", () => {
-      const { hook } = memoryLocation({ path: ROUTES.LEGAL.MENTIONS })
+    it("should render Contact component independently", () => {
+      const { hook } = memoryLocation({ path: "/contact" })
 
       const { container } = render(
         <Router hook={hook}>
-          <MentionsLegales />
+          <Contact />
         </Router>
       )
 
@@ -261,12 +281,12 @@ describe("Route Integration Tests", () => {
       expect(container.firstChild).toBeTruthy()
     })
 
-    it("should render RGPD component independently", () => {
-      const { hook } = memoryLocation({ path: ROUTES.LEGAL.RGPD })
+    it("should render TermsOfUse component independently", () => {
+      const { hook } = memoryLocation({ path: "/legal/terms-of-use" })
 
       const { container } = render(
         <Router hook={hook}>
-          <RGPD />
+          <TermsOfUse />
         </Router>
       )
 
@@ -275,12 +295,12 @@ describe("Route Integration Tests", () => {
       expect(container.firstChild).toBeTruthy()
     })
 
-    it("should render Cookies component independently", () => {
-      const { hook } = memoryLocation({ path: ROUTES.LEGAL.COOKIES })
+    it("should render Accessibility component independently", () => {
+      const { hook } = memoryLocation({ path: "/legal/accessibility" })
 
       const { container } = render(
         <Router hook={hook}>
-          <Cookies />
+          <Accessibility />
         </Router>
       )
 
@@ -310,10 +330,11 @@ describe("Route Integration Tests", () => {
       // and can be imported without errors
       expect(Home).toBeDefined()
       expect(NotFound).toBeDefined()
-      expect(Modules).toBeDefined()
-      expect(MentionsLegales).toBeDefined()
-      expect(RGPD).toBeDefined()
-      expect(Cookies).toBeDefined()
+      expect(About).toBeDefined()
+      expect(Contact).toBeDefined()
+      expect(Glossary).toBeDefined()
+      expect(TermsOfUse).toBeDefined()
+      expect(Accessibility).toBeDefined()
       expect(Explanatory).toBeDefined()
     })
   })
