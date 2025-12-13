@@ -13,12 +13,14 @@ import errors_en from "../locales/en/errors.json"
 import info_en from "../locales/en/info.json"
 import legal_en from "../locales/en/legal.json"
 import reference_en from "../locales/en/reference.json"
+import trustCenter_en from "../locales/en/trustCenter.json"
 import common_fr from "../locales/fr/common.json"
 import home_fr from "../locales/fr/home.json"
 import errors_fr from "../locales/fr/errors.json"
 import info_fr from "../locales/fr/info.json"
 import legal_fr from "../locales/fr/legal.json"
 import reference_fr from "../locales/fr/reference.json"
+import trustCenter_fr from "../locales/fr/trustCenter.json"
 
 export const resources = {
   en: {
@@ -28,6 +30,7 @@ export const resources = {
     info: info_en,
     legal: legal_en,
     reference: reference_en,
+    trustCenter: trustCenter_en,
   },
   fr: {
     common: common_fr,
@@ -36,6 +39,7 @@ export const resources = {
     info: info_fr,
     legal: legal_fr,
     reference: reference_fr,
+    trustCenter: trustCenter_fr,
   },
 } as const
 

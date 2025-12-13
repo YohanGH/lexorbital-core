@@ -55,5 +55,9 @@
       "frFirst": "FR | EN",
       "enFirst": "EN | FR"
     }
+  },
+  "ui": {
+    "expand": "Expand",
+    "collapse": "Collapse"
   }
 }

@@ -6,168 +6,73 @@
  */
 
 import type { JSX } from "react"
-import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Link } from "wouter"
+import { useLocation } from "wouter"
 
-import { ROUTES } from "@/lib/router"
-
-interface HealthStatus {
-  status: string
-  service: string
-}
-
-interface Module {
-  name: string
-  type: string
-  status: string
-}
-
-// In development with Vite proxy, use /api which proxies to backend
-// In production or standalone, use VITE_API_URL env var or fallback
-const getApiUrl = (): string => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL
-  }
-  // Use proxy in dev mode, fallback to localhost in production
-  return import.meta.env.DEV ? "/api" : "http://localhost:4000"
-}
-
-const API_URL = getApiUrl()
+import { VersionButton } from "@/components/VersionButton"
 
 export function Home(): JSX.Element {
-  const { t } = useTranslation("common")
-  const [health, setHealth] = useState<HealthStatus | null>(null)
-  const [modules, setModules] = useState<Module[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { t } = useTranslation("home")
+  const [, setLocation] = useLocation()
 
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      try {
-        setLoading(true)
-        setError(null)
-
-        // Fetch health status
-        const healthRes = await fetch(`${API_URL}/health`)
-        if (!healthRes.ok) {
-          throw new Error("Failed to fetch health")
-        }
-        const healthData = (await healthRes.json()) as HealthStatus
-        setHealth(healthData)
-
-        // Fetch modules
-        const modulesRes = await fetch(`${API_URL}/modules`)
-        if (!modulesRes.ok) {
-          throw new Error("Failed to fetch modules")
-        }
-        const modulesData = (await modulesRes.json()) as Module[]
-        setModules(modulesData)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Unknown error")
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    void fetchData()
-    const interval = setInterval(() => {
-      void fetchData()
-    }, 5000) // Refresh every 5s
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
+  const handleNavigate = (page: string): void => {
+    setLocation(`/${page}`)
+  }
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>{t("app.title")}</h1>
-        <p style={{ color: "#666" }}>{t("app.subtitle")}</p>
-        <nav style={{ marginTop: "1rem" }}>
-          <Link href={ROUTES.MODULES} style={{ marginRight: "1rem" }}>
-            Modules
-          </Link>
-          <Link href={ROUTES.LEGAL.MENTIONS} style={{ marginRight: "1rem" }}>
-            Legal
-          </Link>
-          <Link href={ROUTES.EXPLANATORY.ROOT}>Explanatory</Link>
-        </nav>
-      </header>
+    <div className="mx-auto max-w-[1440px] px-4 py-12 md:px-8 md:py-16 lg:px-16 lg:py-24">
+      {/* Title Section */}
+      <div className="mb-16 md:mb-24 lg:mb-32">
+        <h1 className="mb-6">{t("home.title")}</h1>
+        <p className="max-w-[800px] opacity-75">{t("home.description")}</p>
+      </div>
 
-      {loading && <p>Loading...</p>}
+      {/* Version Selector */}
+      <div className="mb-16 md:mb-20 lg:mb-24">
+        <VersionButton />
+      </div>
 
-      {error !== null && (
-        <div
-          style={{
-            padding: "1rem",
-            background: "#fee",
-            border: "1px solid #fcc",
-            borderRadius: "4px",
-            marginBottom: "1rem",
-            color: "#c33",
-          }}
-        >
-          ❌ Error: {error}
-        </div>
-      )}
+      {/* Architecture Diagram Placeholder */}
+      <div className="mb-16 border border-black p-8 md:mb-24 md:p-12 lg:mb-32 lg:p-16">
+        <p className="opacity-50">
+          {t("home.architectureDiagram.placeholder")}
+        </p>
+      </div>
 
-      {!loading && error === null && (
-        <>
-          <section style={{ marginBottom: "2rem" }}>
-            <h2>📡 Service Status</h2>
-            {health !== null && (
+      {/* Placeholder Sections */}
+      <div className="mb-16 grid grid-cols-1 gap-6 md:mb-24 md:grid-cols-12 md:gap-8 lg:mb-32">
+        {/* Modules Overview Placeholder */}
+        <div className="min-h-[400px] border border-black p-8 md:col-span-12 md:p-12 lg:col-span-8 lg:p-16">
+          <h2 className="mb-6 md:mb-8">{t("home.modulesOverview.title")}</h2>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8">
+            {[1, 2, 3, 4].map(i => (
               <div
-                style={{
-                  padding: "1rem",
-                  background: "#eef",
-                  border: "1px solid #ccf",
-                  borderRadius: "4px",
-                }}
+                key={i}
+                className="border border-black p-6 opacity-25 md:p-8"
               >
-                <p>
-                  <strong>Status:</strong> {health.status}
-                </p>
-                <p>
-                  <strong>Service:</strong> {health.service}
-                </p>
+                <div className="mb-4 h-20 w-full bg-black opacity-10 md:h-24" />
+                <p>{t("home.modulesOverview.placeholder", { number: i })}</p>
               </div>
-            )}
-          </section>
+            ))}
+          </div>
+        </div>
 
-          <section>
-            <h2>📦 Modules (Mocked)</h2>
-            {modules.length === 0 ? (
-              <p>No modules found.</p>
-            ) : (
-              <div style={{ display: "grid", gap: "1rem" }}>
-                {modules.map((module, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      padding: "1rem",
-                      background: "#f9f9f9",
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    <p>
-                      <strong>Name:</strong> {module.name}
-                    </p>
-                    <p>
-                      <strong>Type:</strong> {module.type}
-                    </p>
-                    <p>
-                      <strong>Status:</strong> {module.status}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-        </>
-      )}
+        {/* About Architecture */}
+        <div className="flex min-h-[300px] flex-col justify-between border border-black p-8 md:col-span-12 md:min-h-[400px] md:p-12 lg:col-span-4 lg:p-16">
+          <div>
+            <h3 className="mb-4">{t("home.aboutArchitecture.title")}</h3>
+            <p className="mb-8 opacity-50">
+              {t("home.aboutArchitecture.description")}
+            </p>
+          </div>
+          <button
+            onClick={() => handleNavigate("about")}
+            className="w-full border border-black px-6 py-3 transition-colors hover:bg-black hover:text-white md:w-auto"
+          >
+            {t("home.aboutArchitecture.learnMore")}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

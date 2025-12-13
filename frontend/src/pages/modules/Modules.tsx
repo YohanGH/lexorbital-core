@@ -6,33 +6,35 @@
  */
 
 import type { JSX } from "react"
-import { Link } from "wouter"
+import { useTranslation } from "react-i18next"
 
-import { ROUTES } from "@/lib/router"
+import { ModuleCard } from "@/components/ModuleCard"
+
+/**
+ * Module keys in display order
+ */
+const MODULE_KEYS = ["a", "b", "c", "d", "e", "f"] as const
 
 export function Modules(): JSX.Element {
-  return (
-    <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>📦 Modules</h1>
-        <nav style={{ marginTop: "1rem" }}>
-          <Link href={ROUTES.HOME} style={{ marginRight: "1rem" }}>
-            Home
-          </Link>
-          <Link href={ROUTES.LEGAL.MENTIONS} style={{ marginRight: "1rem" }}>
-            Legal
-          </Link>
-          <Link href={ROUTES.EXPLANATORY.ROOT}>Explanatory</Link>
-        </nav>
-      </header>
+  const { t } = useTranslation("home")
 
-      <section>
-        <p>Modules overview coming soon...</p>
-        <p>
-          This page will display the orbital architecture visualization and
-          module management interface.
-        </p>
-      </section>
+  return (
+    <div className="mx-auto max-w-[1440px] px-4 py-12 md:px-8 md:py-16 lg:px-16 lg:py-24">
+      <div className="mb-12 md:mb-16">
+        <h1 className="mb-6">{t("modules.title")}</h1>
+        <p className="max-w-[800px] opacity-75">{t("modules.description")}</p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
+        {MODULE_KEYS.map(moduleKey => (
+          <ModuleCard
+            key={moduleKey}
+            name={t(`modules.items.${moduleKey}.name` as any)}
+            role={t(`modules.items.${moduleKey}.role` as any)}
+            details={t(`modules.items.${moduleKey}.details` as any)}
+          />
+        ))}
+      </div>
     </div>
   )
 }

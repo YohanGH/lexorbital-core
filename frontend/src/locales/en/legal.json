@@ -531,5 +531,191 @@
       "title": "Evolution of Ethics",
       "description": "This charter will evolve with the platform. As new features are introduced, ethical considerations will be documented and integrated into the development process. User feedback and emerging ethical standards will inform updates to this charter."
     }
+  },
+  "security": {
+    "title": "Security",
+    "overview": {
+      "title": "Security at LexOrbital",
+      "paragraph1": "Security is fundamental to LexOrbital's architecture and operations. We implement defense-in-depth strategies across all layers of our platform to protect user data and maintain service integrity.",
+      "paragraph2": "This page provides transparency about our security practices and offers channels for security researchers and users to report vulnerabilities."
+    },
+    "vulnerabilityDisclosure": {
+      "title": "Vulnerability Disclosure Program",
+      "howToReport": {
+        "title": "How to Report a Security Vulnerability",
+        "secureCommunication": {
+          "title": "1. Secure Communication",
+          "description": "Report security issues via encrypted email:",
+          "email": "security@lexorbital.com",
+          "emailLabel": "Send an email to security@lexorbital.com",
+          "pgpNote": "For sensitive reports, use our PGP key (available below)"
+        },
+        "whatToInclude": {
+          "title": "2. What to Include",
+          "items": {
+            "description": "• Detailed description of the vulnerability",
+            "steps": "• Step-by-step reproduction instructions",
+            "impact": "• Potential impact assessment (CVSS score if available)",
+            "proof": "• Proof of concept (code, screenshots, or video)",
+            "contact": "• Your contact information for follow-up",
+            "timeline": "• Preferred disclosure timeline"
+          }
+        },
+        "responseTimeline": {
+          "title": "3. Response Timeline",
+          "initialResponse": {
+            "label": "Initial Response",
+            "value": "48h"
+          },
+          "assessment": {
+            "label": "Assessment",
+            "value": "5 days"
+          },
+          "remediationCritical": {
+            "label": "Remediation (Critical)",
+            "value": "30 days"
+          },
+          "remediationMedium": {
+            "label": "Remediation (Medium)",
+            "value": "90 days"
+          }
+        }
+      }
+    },
+    "scope": {
+      "title": "Scope & Rules of Engagement",
+      "inScope": {
+        "title": "In Scope",
+        "items": {
+          "domain": "✓ lexorbital.com and all subdomains",
+          "api": "✓ API endpoints (api.lexorbital.com)",
+          "mobile": "✓ Mobile applications (if applicable)",
+          "trustCenter": "✓ Trust Center infrastructure"
+        }
+      },
+      "outOfScope": {
+        "title": "Out of Scope",
+        "items": {
+          "socialEngineering": "✗ Social engineering of employees",
+          "physical": "✗ Physical attacks on infrastructure",
+          "dos": "✗ Denial of Service (DoS/DDoS) attacks",
+          "thirdParty": "✗ Third-party services we don't control",
+          "spam": "✗ Spam or email header manipulation"
+        }
+      },
+      "rules": {
+        "title": "Rules of Engagement",
+        "items": {
+          "data": "• Do not access, modify, or delete user data beyond proof of concept",
+          "accounts": "• Limit testing to your own accounts when possible",
+          "exploit": "• Do not exploit vulnerabilities for personal gain",
+          "privacy": "• Respect user privacy and data protection regulations",
+          "disclosure": "• Provide reasonable time for remediation before public disclosure",
+          "goodFaith": "• Act in good faith to avoid service disruption"
+        }
+      }
+    },
+    "bugBounty": {
+      "title": "Bug Bounty Program",
+      "description": "We reward security researchers who help us identify vulnerabilities.",
+      "table": {
+        "headers": {
+          "severity": "Severity",
+          "cvss": "CVSS Score",
+          "examples": "Examples",
+          "reward": "Reward Range"
+        },
+        "rows": {
+          "critical": {
+            "severity": "Critical",
+            "cvss": "9.0 - 10.0",
+            "examples": "RCE, SQL Injection, Auth bypass",
+            "reward": "€2,000 - €5,000"
+          },
+          "high": {
+            "severity": "High",
+            "cvss": "7.0 - 8.9",
+            "examples": "XSS (stored), CSRF, IDOR",
+            "reward": "€500 - €2,000"
+          },
+          "medium": {
+            "severity": "Medium",
+            "cvss": "4.0 - 6.9",
+            "examples": "XSS (reflected), Info disclosure",
+            "reward": "€100 - €500"
+          },
+          "low": {
+            "severity": "Low",
+            "cvss": "0.1 - 3.9",
+            "examples": "Security misconfigurations",
+            "reward": "€50 - €100"
+          }
+        }
+      },
+      "note": "* Rewards are determined based on severity, quality of report, and novelty. Duplicate reports receive reduced rewards on a first-come basis."
+    },
+    "hallOfFame": {
+      "title": "Security Hall of Fame",
+      "description": "We thank the following security researchers for their responsible disclosure:",
+      "researchers": {
+        "alice": {
+          "name": "Alice Chen — Dec 2024",
+          "description": "Critical: Authentication bypass vulnerability"
+        },
+        "bob": {
+          "name": "Bob Mueller — Nov 2024",
+          "description": "High: Stored XSS in module annotations"
+        },
+        "carol": {
+          "name": "Carol Zhang — Oct 2024",
+          "description": "Medium: Information disclosure in API responses"
+        }
+      },
+      "more": "More researchers to be added as reports are resolved"
+    },
+    "pgp": {
+      "title": "PGP Public Key",
+      "description": "For encrypted communications, use our PGP public key:",
+      "key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmQINBGXYZ1cBEAC9... [truncated for display]\n[Full PGP key available via download]\n\n-----END PGP PUBLIC KEY BLOCK-----",
+      "download": "Download Full PGP Key",
+      "verify": "Verify Key Fingerprint"
+    },
+    "bestPractices": {
+      "title": "Security Best Practices for Users",
+      "accountSecurity": {
+        "title": "Account Security",
+        "items": {
+          "2fa": "• Enable two-factor authentication (2FA)",
+          "password": "• Use strong, unique passwords (minimum 12 characters)",
+          "sessions": "• Regularly review active sessions and authorized applications",
+          "credentials": "• Never share your credentials or API keys"
+        }
+      },
+      "dataProtection": {
+        "title": "Data Protection",
+        "items": {
+          "classify": "• Classify your data appropriately before uploading",
+          "rbac": "• Use role-based access controls (RBAC) for team members",
+          "audit": "• Regularly audit who has access to sensitive architectures",
+          "logging": "• Enable audit logging for compliance requirements"
+        }
+      },
+      "suspiciousActivity": {
+        "title": "Suspicious Activity",
+        "items": {
+          "report": "• Report unusual account activity immediately",
+          "verify": "• Verify email authenticity (check sender domain)",
+          "phishing": "• Be cautious of phishing attempts impersonating LexOrbital",
+          "contact": "• Contact support if you suspect a security incident"
+        }
+      }
+    },
+    "resources": {
+      "title": "Security Resources",
+      "reportVulnerability": "Report Vulnerability",
+      "viewTrustCenter": "View Trust Center",
+      "advisories": "Security Advisories",
+      "certifications": "Compliance Certifications"
+    }
   }
 }

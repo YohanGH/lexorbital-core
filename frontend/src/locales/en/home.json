@@ -2,5 +2,57 @@
   "hero": {
     "title": "Welcome aboard the LexOrbital station",
     "description": "Explore the orbital architecture and its modules."
+  },
+  "home": {
+    "title": "LexOrbital — Modular Architecture Explorer",
+    "description": "A conceptual platform for visualizing software architecture evolution across versions, exploring module interactions, and understanding the structural foundations of digital systems.",
+    "architectureDiagram": {
+      "placeholder": "Architecture Diagram — Coming Soon"
+    },
+    "modulesOverview": {
+      "title": "Modules Overview",
+      "placeholder": "Module {{number}}"
+    },
+    "aboutArchitecture": {
+      "title": "About the Architecture",
+      "description": "Understand the structural principles behind LexOrbital's modular design system.",
+      "learnMore": "Learn More"
+    }
+  },
+  "modules": {
+    "title": "Modules",
+    "description": "Schematic representation of LexOrbital's modular architecture. Each module represents a distinct functional layer with specific responsibilities and interfaces.",
+    "items": {
+      "a": {
+        "name": "Module A — Interface Layer",
+        "role": "Functional role: User interaction and display orchestration",
+        "details": "Handles all visual presentation logic, component rendering, and user input processing. Manages the interface state and delegates data operations to lower-level modules."
+      },
+      "b": {
+        "name": "Module B — Data Structure",
+        "role": "Functional role: Information architecture and organization",
+        "details": "Defines the structural schema for all data entities. Ensures consistency across modules through standardized data models and type definitions."
+      },
+      "c": {
+        "name": "Module C — Logic Engine",
+        "role": "Functional role: Business rules and computational operations",
+        "details": "Implements core algorithmic logic, validation rules, and computational transformations. Operates independently of interface concerns."
+      },
+      "d": {
+        "name": "Module D — State Management",
+        "role": "Functional role: Application state coordination",
+        "details": "Maintains global application state, manages state transitions, and ensures data consistency across module boundaries."
+      },
+      "e": {
+        "name": "Module E — Documentation System",
+        "role": "Functional role: Technical and user documentation",
+        "details": "Provides structured access to technical specifications, user guides, and architectural documentation. Self-documenting through metadata."
+      },
+      "f": {
+        "name": "Module F — Legal Framework",
+        "role": "Functional role: Compliance and regulatory structure",
+        "details": "Manages legal documents, accessibility standards, ethical guidelines, and regulatory compliance requirements."
+      }
+    }
   }
 }

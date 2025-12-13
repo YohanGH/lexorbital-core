@@ -531,5 +531,191 @@
       "title": "Évolution de l'Éthique",
       "description": "Cette charte évoluera avec la plateforme. Au fur et à mesure que de nouvelles fonctionnalités sont introduites, les considérations éthiques seront documentées et intégrées dans le processus de développement. Les retours des utilisateurs et les normes éthiques émergentes informeront les mises à jour de cette charte."
     }
+  },
+  "security": {
+    "title": "Sécurité",
+    "overview": {
+      "title": "Sécurité chez LexOrbital",
+      "paragraph1": "La sécurité est fondamentale pour l'architecture et les opérations de LexOrbital. Nous mettons en œuvre des stratégies de défense en profondeur à travers toutes les couches de notre plateforme pour protéger les données utilisateur et maintenir l'intégrité du service.",
+      "paragraph2": "Cette page fournit de la transparence sur nos pratiques de sécurité et offre des canaux pour que les chercheurs en sécurité et les utilisateurs signalent des vulnérabilités."
+    },
+    "vulnerabilityDisclosure": {
+      "title": "Programme de Divulgation de Vulnérabilités",
+      "howToReport": {
+        "title": "Comment Signaler une Vulnérabilité de Sécurité",
+        "secureCommunication": {
+          "title": "1. Communication Sécurisée",
+          "description": "Signaler les problèmes de sécurité par email chiffré :",
+          "email": "security@lexorbital.com",
+          "emailLabel": "Envoyer un email à security@lexorbital.com",
+          "pgpNote": "Pour les rapports sensibles, utilisez notre clé PGP (disponible ci-dessous)"
+        },
+        "whatToInclude": {
+          "title": "2. Ce qu'il faut Inclure",
+          "items": {
+            "description": "• Description détaillée de la vulnérabilité",
+            "steps": "• Instructions de reproduction étape par étape",
+            "impact": "• Évaluation de l'impact potentiel (score CVSS si disponible)",
+            "proof": "• Preuve de concept (code, captures d'écran ou vidéo)",
+            "contact": "• Vos informations de contact pour le suivi",
+            "timeline": "• Calendrier de divulgation préféré"
+          }
+        },
+        "responseTimeline": {
+          "title": "3. Calendrier de Réponse",
+          "initialResponse": {
+            "label": "Réponse Initiale",
+            "value": "48h"
+          },
+          "assessment": {
+            "label": "Évaluation",
+            "value": "5 jours"
+          },
+          "remediationCritical": {
+            "label": "Correction (Critique)",
+            "value": "30 jours"
+          },
+          "remediationMedium": {
+            "label": "Correction (Moyenne)",
+            "value": "90 jours"
+          }
+        }
+      }
+    },
+    "scope": {
+      "title": "Portée et Règles d'Engagement",
+      "inScope": {
+        "title": "Dans la Portée",
+        "items": {
+          "domain": "✓ lexorbital.com et tous les sous-domaines",
+          "api": "✓ Points de terminaison API (api.lexorbital.com)",
+          "mobile": "✓ Applications mobiles (si applicable)",
+          "trustCenter": "✓ Infrastructure du Centre de confiance"
+        }
+      },
+      "outOfScope": {
+        "title": "Hors de la Portée",
+        "items": {
+          "socialEngineering": "✗ Ingénierie sociale des employés",
+          "physical": "✗ Attaques physiques sur l'infrastructure",
+          "dos": "✗ Attaques par déni de service (DoS/DDoS)",
+          "thirdParty": "✗ Services tiers que nous ne contrôlons pas",
+          "spam": "✗ Spam ou manipulation des en-têtes email"
+        }
+      },
+      "rules": {
+        "title": "Règles d'Engagement",
+        "items": {
+          "data": "• Ne pas accéder, modifier ou supprimer des données utilisateur au-delà de la preuve de concept",
+          "accounts": "• Limiter les tests à vos propres comptes lorsque possible",
+          "exploit": "• Ne pas exploiter les vulnérabilités à des fins personnelles",
+          "privacy": "• Respecter la vie privée des utilisateurs et les réglementations de protection des données",
+          "disclosure": "• Fournir un délai raisonnable pour la correction avant la divulgation publique",
+          "goodFaith": "• Agir de bonne foi pour éviter les perturbations de service"
+        }
+      }
+    },
+    "bugBounty": {
+      "title": "Programme Bug Bounty",
+      "description": "Nous récompensons les chercheurs en sécurité qui nous aident à identifier des vulnérabilités.",
+      "table": {
+        "headers": {
+          "severity": "Sévérité",
+          "cvss": "Score CVSS",
+          "examples": "Exemples",
+          "reward": "Gamme de Récompense"
+        },
+        "rows": {
+          "critical": {
+            "severity": "Critique",
+            "cvss": "9.0 - 10.0",
+            "examples": "RCE, Injection SQL, Bypass d'authentification",
+            "reward": "2 000 € - 5 000 €"
+          },
+          "high": {
+            "severity": "Élevée",
+            "cvss": "7.0 - 8.9",
+            "examples": "XSS (stocké), CSRF, IDOR",
+            "reward": "500 € - 2 000 €"
+          },
+          "medium": {
+            "severity": "Moyenne",
+            "cvss": "4.0 - 6.9",
+            "examples": "XSS (réfléchi), Divulgation d'informations",
+            "reward": "100 € - 500 €"
+          },
+          "low": {
+            "severity": "Faible",
+            "cvss": "0.1 - 3.9",
+            "examples": "Mauvaises configurations de sécurité",
+            "reward": "50 € - 100 €"
+          }
+        }
+      },
+      "note": "* Les récompenses sont déterminées en fonction de la sévérité, de la qualité du rapport et de la nouveauté. Les rapports en double reçoivent des récompenses réduites sur la base du premier arrivé."
+    },
+    "hallOfFame": {
+      "title": "Hall of Fame de Sécurité",
+      "description": "Nous remercions les chercheurs en sécurité suivants pour leur divulgation responsable :",
+      "researchers": {
+        "alice": {
+          "name": "Alice Chen — Déc 2024",
+          "description": "Critique : Vulnérabilité de bypass d'authentification"
+        },
+        "bob": {
+          "name": "Bob Mueller — Nov 2024",
+          "description": "Élevée : XSS stocké dans les annotations de modules"
+        },
+        "carol": {
+          "name": "Carol Zhang — Oct 2024",
+          "description": "Moyenne : Divulgation d'informations dans les réponses API"
+        }
+      },
+      "more": "Plus de chercheurs seront ajoutés au fur et à mesure que les rapports sont résolus"
+    },
+    "pgp": {
+      "title": "Clé Publique PGP",
+      "description": "Pour les communications chiffrées, utilisez notre clé publique PGP :",
+      "key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmQINBGXYZ1cBEAC9... [tronqué pour l'affichage]\n[Clé PGP complète disponible via téléchargement]\n\n-----END PGP PUBLIC KEY BLOCK-----",
+      "download": "Télécharger la Clé PGP Complète",
+      "verify": "Vérifier l'Empreinte de la Clé"
+    },
+    "bestPractices": {
+      "title": "Meilleures Pratiques de Sécurité pour les Utilisateurs",
+      "accountSecurity": {
+        "title": "Sécurité du Compte",
+        "items": {
+          "2fa": "• Activer l'authentification à deux facteurs (2FA)",
+          "password": "• Utiliser des mots de passe forts et uniques (minimum 12 caractères)",
+          "sessions": "• Examiner régulièrement les sessions actives et les applications autorisées",
+          "credentials": "• Ne jamais partager vos identifiants ou clés API"
+        }
+      },
+      "dataProtection": {
+        "title": "Protection des Données",
+        "items": {
+          "classify": "• Classifier vos données de manière appropriée avant le téléchargement",
+          "rbac": "• Utiliser des contrôles d'accès basés sur les rôles (RBAC) pour les membres de l'équipe",
+          "audit": "• Auditer régulièrement qui a accès aux architectures sensibles",
+          "logging": "• Activer l'enregistrement d'audit pour les exigences de conformité"
+        }
+      },
+      "suspiciousActivity": {
+        "title": "Activité Suspecte",
+        "items": {
+          "report": "• Signaler immédiatement toute activité de compte inhabituelle",
+          "verify": "• Vérifier l'authenticité de l'email (vérifier le domaine de l'expéditeur)",
+          "phishing": "• Être prudent face aux tentatives de phishing imitant LexOrbital",
+          "contact": "• Contacter le support si vous suspectez un incident de sécurité"
+        }
+      }
+    },
+    "resources": {
+      "title": "Ressources de Sécurité",
+      "reportVulnerability": "Signaler une Vulnérabilité",
+      "viewTrustCenter": "Voir le Centre de Confiance",
+      "advisories": "Avis de Sécurité",
+      "certifications": "Certifications de Conformité"
+    }
   }
 }

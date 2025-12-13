@@ -12,47 +12,87 @@
  */
 
 import type { JSX } from "react"
-import { Router, Switch, Route } from "wouter"
+import { Router, Switch, Route, Redirect } from "wouter"
 
 import {
   ErrorBoundary,
-  Home,
   NotFound,
-  Modules,
-  MentionsLegales,
-  RGPD,
-  Cookies,
+  VersionsList,
+  VersionedPageRoute,
+  About,
+  Contact,
+  Glossary,
+  Sitemap,
+  References,
+  TermsOfUse,
+  Accessibility,
+  EcoConception,
+  Ethics,
+  Disclosure,
+  Security,
+  CookieManagement,
+  TrustCenter,
   Explanatory,
 } from "@/pages"
 import { ROUTES, defaultRouterConfig } from "@/lib/router"
+import { Layout } from "@/components/Layout"
+import { RedirectToLatest } from "@/components/RedirectToLatest"
 
 function App(): JSX.Element {
   return (
     <ErrorBoundary>
       <Router {...defaultRouterConfig}>
-        <Switch>
-          {/* Home route */}
-          <Route path={ROUTES.HOME} component={Home} />
+        <Layout>
+          <Switch>
+            {/* Root redirects to latest version */}
+            <Route path={ROUTES.HOME}>
+              <RedirectToLatest />
+            </Route>
 
-          {/* Modules route */}
-          <Route path={ROUTES.MODULES} component={Modules} />
+            {/* Versions list page */}
+            <Route path="/versions" component={VersionsList} />
 
-          {/* Legal routes */}
-          <Route path={ROUTES.LEGAL.MENTIONS} component={MentionsLegales} />
-          <Route path={ROUTES.LEGAL.RGPD} component={RGPD} />
-          <Route path={ROUTES.LEGAL.COOKIES} component={Cookies} />
+            {/* llm.txt redirect - served directly by server, redirect for compatibility */}
+            <Route path="/llm-txt">
+              <Redirect to="/llm.txt" />
+            </Route>
 
-          {/* Explanatory routes */}
-          <Route path={ROUTES.EXPLANATORY.ROOT} component={Explanatory} />
-          <Route
-            path={ROUTES.EXPLANATORY.ARCHITECTURE}
-            component={Explanatory}
-          />
-          <Route path={ROUTES.EXPLANATORY.COMPLIANCE} component={Explanatory} />
+            {/* Versioned routes: /v/:versionId/* */}
+            <Route path="/v/:versionId/*" component={VersionedPageRoute} />
 
-          {/* 404 fallback - must be last */}
-          <Route component={NotFound} />
-        </Switch>
+            {/* Non-versioned pages - direct routes */}
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/glossary" component={Glossary} />
+            <Route path="/sitemap" component={Sitemap} />
+            <Route path="/references" component={References} />
+            <Route path="/explanatory" component={Explanatory} />
+
+            {/* Legal pages */}
+            <Route path="/legal/terms-of-use" component={TermsOfUse} />
+            <Route path="/legal/accessibility" component={Accessibility} />
+            <Route path="/legal/eco-conception" component={EcoConception} />
+            <Route path="/legal/ethics" component={Ethics} />
+            <Route path="/legal/disclosure" component={Disclosure} />
+            <Route path="/legal/security" component={Security} />
+            <Route
+              path="/legal/cookie-management"
+              component={CookieManagement}
+            />
+
+            {/* Compliance pages */}
+            <Route path="/trust-center" component={TrustCenter} />
+
+            {/* Legacy routes - redirect to latest version equivalent */}
+            {/* These can be kept for backward compatibility or removed */}
+            <Route path={ROUTES.MODULES}>
+              <RedirectToLatest />
+            </Route>
+
+            {/* 404 fallback - must be last */}
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
       </Router>
     </ErrorBoundary>
   )
