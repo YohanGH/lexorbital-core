@@ -1,0 +1,83 @@
+{
+  "title": "References",
+  "description": "Citations, influences, and attributions that inform the LexOrbital V1 architecture, design philosophy, and technical implementation.",
+  "categories": {
+    "designPrinciples": {
+      "title": "Design Principles",
+      "items": {
+        "brutalist": {
+          "title": "Brutalist Web Design",
+          "description": "Philosophical foundation for minimal, structural web interfaces",
+          "type": "Conceptual Framework"
+        },
+        "wcag": {
+          "title": "WCAG 2.1 Level AA Guidelines",
+          "description": "Web Content Accessibility Guidelines informing accessibility approach",
+          "type": "Standards"
+        }
+      }
+    },
+    "technicalArchitecture": {
+      "title": "Technical Architecture",
+      "items": {
+        "modular": {
+          "title": "Modular Design Patterns",
+          "description": "Software engineering principles for component-based architecture",
+          "type": "Methodology"
+        },
+        "html5": {
+          "title": "Semantic HTML5",
+          "description": "W3C standards for meaningful markup structure",
+          "type": "Standards"
+        }
+      }
+    },
+    "sustainability": {
+      "title": "Sustainability",
+      "items": {
+        "ecoConception": {
+          "title": "Digital Eco-conception Principles",
+          "description": "Guidelines for environmentally responsible web development",
+          "type": "Framework"
+        },
+        "greenWeb": {
+          "title": "Green Web Foundation",
+          "description": "Research on sustainable digital infrastructure",
+          "type": "Research"
+        }
+      }
+    },
+    "typography": {
+      "title": "Typography",
+      "items": {
+        "roboto": {
+          "title": "Roboto Font Family",
+          "description": "Google Fonts — neutral, geometric sans-serif typeface",
+          "type": "Resource"
+        }
+      }
+    }
+  },
+  "attribution": {
+    "title": "Attribution Policy",
+    "description": "LexOrbital acknowledges the collective nature of knowledge and design practice. This references page documents the conceptual, technical, and aesthetic influences that shape the platform.",
+    "principles": {
+      "intellectualHonesty": {
+        "title": "Intellectual Honesty:",
+        "description": "All external influences are properly cited and credited."
+      },
+      "openStandards": {
+        "title": "Open Standards:",
+        "description": "Where possible, open standards and publicly accessible resources are prioritized."
+      },
+      "evolvingDocumentation": {
+        "title": "Evolving Documentation:",
+        "description": "This references page will expand as the platform develops and incorporates additional influences."
+      }
+    }
+  },
+  "contributing": {
+    "title": "Contributing References",
+    "description": "If you believe a reference or attribution is missing or should be added, please use the contact form to suggest additions to this documentation."
+  }
+}

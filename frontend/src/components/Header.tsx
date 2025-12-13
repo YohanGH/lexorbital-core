@@ -14,7 +14,6 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
     { label: t("header.home"), page: "home" },
     { label: t("header.modules"), page: "modules" },
     { label: t("header.about"), page: "about" },
-    { label: t("header.glossary"), page: "glossary" },
     { label: t("header.contact"), page: "contact" },
     { label: t("header.trustCenter"), page: "trust-center" },
   ]

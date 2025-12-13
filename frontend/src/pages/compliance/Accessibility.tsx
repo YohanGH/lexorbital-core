@@ -5,45 +5,70 @@
  */
 
 import type { JSX } from "react"
-import { Link } from "wouter"
+import { useTranslation } from "react-i18next"
 
-import { ROUTES } from "@/lib/router"
+/**
+ * Accessibility features keys in display order
+ */
+const FEATURE_KEYS = [
+  "semantic",
+  "contrast",
+  "keyboard",
+  "focus",
+  "labels",
+  "navigation",
+] as const
+
+/**
+ * Known limitations keys in display order
+ */
+const LIMITATION_KEYS = ["screenReader", "altText", "responsive"] as const
 
 export function Accessibility(): JSX.Element {
+  const { t } = useTranslation("legal")
+
   return (
-    <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>♿ Accessibilité</h1>
-        <nav style={{ marginTop: "1rem" }}>
-          <Link href={ROUTES.HOME} style={{ marginRight: "1rem" }}>
-            Accueil
-          </Link>
-        </nav>
-      </header>
+    <div className="mx-auto max-w-[900px] px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32">
+      <h1 className="mb-12 md:mb-16">{t("accessibility.title")}</h1>
 
-      <main>
-        <section style={{ marginBottom: "2rem" }}>
-          <h2>Accessibilité numérique</h2>
-          <p>
-            Contenu à venir... Cette page présentera les mesures
-            d'accessibilité, la déclaration d'accessibilité et les informations
-            de conformité RGAA/WCAG de LexOrbital.
-          </p>
-        </section>
+      <section className="mb-12">
+        <h2 className="mb-6">{t("accessibility.commitment.title")}</h2>
+        <p className="mb-4">{t("accessibility.commitment.paragraph1")}</p>
+        <p>{t("accessibility.commitment.paragraph2")}</p>
+      </section>
 
-        <section
-          style={{
-            padding: "1.5rem",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
-            border: "2px dashed #ccc",
-          }}
-        >
-          <p style={{ color: "#666", fontStyle: "italic" }}>
-            ⚠️ Page en cours de développement - Rendu visuel temporaire
-          </p>
-        </section>
-      </main>
+      <section className="mb-12">
+        <h2 className="mb-6">{t("accessibility.features.title")}</h2>
+        <div className="space-y-4 border-l-2 border-black pl-6 md:pl-8">
+          {FEATURE_KEYS.map(featureKey => (
+            <p key={featureKey}>
+              {t(`accessibility.features.items.${featureKey}` as any)}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-6">{t("accessibility.limitations.title")}</h2>
+        <p className="mb-4">{t("accessibility.limitations.description")}</p>
+        <div className="space-y-4 border-l-2 border-black pl-6 md:pl-8">
+          {LIMITATION_KEYS.map(limitationKey => (
+            <p key={limitationKey}>
+              {t(`accessibility.limitations.items.${limitationKey}` as any)}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-6">{t("accessibility.feedback.title")}</h2>
+        <p>{t("accessibility.feedback.description")}</p>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-6">{t("accessibility.improvements.title")}</h2>
+        <p>{t("accessibility.improvements.description")}</p>
+      </section>
     </div>
   )
 }

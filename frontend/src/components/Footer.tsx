@@ -29,6 +29,10 @@ export function Footer({ onNavigate }: FooterProps) {
 
   const utilityLinks = [
     {
+      label: t("footer.utilities.glossary"),
+      page: "glossary",
+    },
+    {
       label: t("footer.utilities.technicalGlossary"),
       page: "technical-glossary",
     },

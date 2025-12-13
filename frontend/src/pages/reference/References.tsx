@@ -5,44 +5,105 @@
  */
 
 import type { JSX } from "react"
-import { Link } from "wouter"
+import { useTranslation } from "react-i18next"
 
-import { ROUTES } from "@/lib/router"
+/**
+ * Category keys in display order
+ */
+const CATEGORY_KEYS = [
+  "designPrinciples",
+  "technicalArchitecture",
+  "sustainability",
+  "typography",
+] as const
+
+/**
+ * Item keys for each category
+ */
+const ITEM_KEYS: Record<(typeof CATEGORY_KEYS)[number], readonly string[]> = {
+  designPrinciples: ["brutalist", "wcag"],
+  technicalArchitecture: ["modular", "html5"],
+  sustainability: ["ecoConception", "greenWeb"],
+  typography: ["roboto"],
+} as const
+
+/**
+ * Attribution principle keys
+ */
+const ATTRIBUTION_PRINCIPLES = [
+  "intellectualHonesty",
+  "openStandards",
+  "evolvingDocumentation",
+] as const
 
 export function References(): JSX.Element {
+  const { t } = useTranslation("reference")
+
   return (
-    <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>📚 Références</h1>
-        <nav style={{ marginTop: "1rem" }}>
-          <Link href={ROUTES.HOME} style={{ marginRight: "1rem" }}>
-            Accueil
-          </Link>
-        </nav>
-      </header>
+    <div className="mx-auto max-w-[900px] px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32">
+      <h1 className="mb-12 md:mb-16">{t("title")}</h1>
 
-      <main>
-        <section style={{ marginBottom: "2rem" }}>
-          <h2>Sources et références</h2>
-          <p>
-            Contenu à venir... Cette page contiendra la bibliographie, les
-            sources et les références utilisées dans LexOrbital.
-          </p>
-        </section>
+      <p className="mb-12 opacity-75 md:mb-16">{t("description")}</p>
 
-        <section
-          style={{
-            padding: "1.5rem",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
-            border: "2px dashed #ccc",
-          }}
-        >
-          <p style={{ color: "#666", fontStyle: "italic" }}>
-            ⚠️ Page en cours de développement - Rendu visuel temporaire
-          </p>
-        </section>
-      </main>
+      <div className="space-y-12 md:space-y-16">
+        {CATEGORY_KEYS.map(categoryKey => {
+          const itemKeys = ITEM_KEYS[categoryKey]
+          return (
+            <section key={categoryKey}>
+              <h2 className="mb-6 md:mb-8">
+                {t(`categories.${categoryKey}.title`)}
+              </h2>
+              <div className="space-y-6">
+                {itemKeys.map(itemKey => (
+                  <div
+                    key={itemKey}
+                    className="border-l-2 border-black pb-6 pl-6 last:pb-0 md:pl-8"
+                  >
+                    <h4 className="mb-2">
+                      {t(
+                        `categories.${categoryKey}.items.${itemKey}.title` as any
+                      )}
+                    </h4>
+                    <p className="mb-2 opacity-75">
+                      {t(
+                        `categories.${categoryKey}.items.${itemKey}.description` as any
+                      )}
+                    </p>
+                    <p className="opacity-50">
+                      {t(
+                        `categories.${categoryKey}.items.${itemKey}.type` as any
+                      )}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        })}
+      </div>
+
+      <section className="mt-16 border-t border-black pt-12 md:mt-24 md:pt-16">
+        <h2 className="mb-6 md:mb-8">{t("attribution.title")}</h2>
+        <p className="mb-6 opacity-75">{t("attribution.description")}</p>
+        <div className="space-y-4 border-l-2 border-black pl-6 md:pl-8">
+          {ATTRIBUTION_PRINCIPLES.map(principleKey => (
+            <p key={principleKey}>
+              <span className="opacity-100">
+                {t(`attribution.principles.${principleKey}.title`)}
+              </span>
+              <span className="opacity-75">
+                {" "}
+                {t(`attribution.principles.${principleKey}.description`)}
+              </span>
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12 md:mt-16">
+        <h2 className="mb-6 md:mb-8">{t("contributing.title")}</h2>
+        <p className="opacity-75">{t("contributing.description")}</p>
+      </section>
     </div>
   )
 }

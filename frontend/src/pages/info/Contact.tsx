@@ -5,44 +5,24 @@
  */
 
 import type { JSX } from "react"
-import { Link } from "wouter"
-
-import { ROUTES } from "@/lib/router"
+import { useTranslation } from "react-i18next"
 
 export function Contact(): JSX.Element {
+  const { t } = useTranslation("info")
+
   return (
-    <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>📧 Contact</h1>
-        <nav style={{ marginTop: "1rem" }}>
-          <Link href={ROUTES.HOME} style={{ marginRight: "1rem" }}>
-            Accueil
-          </Link>
-        </nav>
-      </header>
-
-      <main>
-        <section style={{ marginBottom: "2rem" }}>
-          <h2>Nous contacter</h2>
-          <p>
-            Contenu à venir... Cette page contiendra les informations de contact
-            et un formulaire de contact.
-          </p>
-        </section>
-
-        <section
-          style={{
-            padding: "1.5rem",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
-            border: "2px dashed #ccc",
-          }}
+    <div className="mx-auto max-w-[800px] px-4 py-12 md:px-8 md:py-16 lg:px-16 lg:py-24">
+      <h1 className="mb-12 md:mb-16">{t("contact.title")}</h1>
+      <div className="space-y-6 md:space-y-8">
+        <p>{t("contact.description")}</p>
+        <a
+          href={`mailto:${t("contact.email")}`}
+          className="inline-block border border-black px-6 py-3 transition-colors hover:bg-black hover:text-white"
+          aria-label={t("contact.emailLabel")}
         >
-          <p style={{ color: "#666", fontStyle: "italic" }}>
-            ⚠️ Page en cours de développement - Rendu visuel temporaire
-          </p>
-        </section>
-      </main>
+          {t("contact.email")}
+        </a>
+      </div>
     </div>
   )
 }

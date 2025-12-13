@@ -5,44 +5,99 @@
  */
 
 import type { JSX } from "react"
-import { Link } from "wouter"
+import { useTranslation } from "react-i18next"
 
-import { ROUTES } from "@/lib/router"
+/**
+ * Strategy item keys in display order
+ */
+const STRATEGY_KEYS = [
+  "visualComplexity",
+  "codeStructure",
+  "typography",
+  "staticContent",
+] as const
+
+/**
+ * Performance metrics keys in display order
+ */
+const METRICS_KEYS = [
+  "pageWeight",
+  "httpRequests",
+  "tracking",
+  "caching",
+  "markup",
+] as const
+
+/**
+ * Future goals keys in display order
+ */
+const FUTURE_GOALS_KEYS = [
+  "monitoring",
+  "carbonFootprint",
+  "optimization",
+  "hosting",
+] as const
 
 export function EcoConception(): JSX.Element {
+  const { t } = useTranslation("legal")
+
   return (
-    <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>🌱 Éco-conception</h1>
-        <nav style={{ marginTop: "1rem" }}>
-          <Link href={ROUTES.HOME} style={{ marginRight: "1rem" }}>
-            Accueil
-          </Link>
-        </nav>
-      </header>
+    <div className="mx-auto max-w-[900px] px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32">
+      <h1 className="mb-12 md:mb-16">{t("ecoConception.title")}</h1>
 
-      <main>
-        <section style={{ marginBottom: "2rem" }}>
-          <h2>Engagement environnemental</h2>
-          <p>
-            Contenu à venir... Cette page présentera les principes
-            d'éco-conception et les engagements environnementaux de LexOrbital.
-          </p>
-        </section>
+      <section className="mb-12">
+        <h2 className="mb-6">{t("ecoConception.sustainability.title")}</h2>
+        <p className="mb-4">{t("ecoConception.sustainability.paragraph1")}</p>
+        <p>{t("ecoConception.sustainability.paragraph2")}</p>
+      </section>
 
-        <section
-          style={{
-            padding: "1.5rem",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
-            border: "2px dashed #ccc",
-          }}
-        >
-          <p style={{ color: "#666", fontStyle: "italic" }}>
-            ⚠️ Page en cours de développement - Rendu visuel temporaire
-          </p>
-        </section>
-      </main>
+      <section className="mb-12">
+        <h2 className="mb-6">{t("ecoConception.strategies.title")}</h2>
+        <div className="space-y-6">
+          {STRATEGY_KEYS.map(strategyKey => (
+            <div key={strategyKey}>
+              <h4 className="mb-2">
+                {t(
+                  `ecoConception.strategies.items.${strategyKey}.title` as any
+                )}
+              </h4>
+              <p className="opacity-75">
+                {t(
+                  `ecoConception.strategies.items.${strategyKey}.description` as any
+                )}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-6">{t("ecoConception.metrics.title")}</h2>
+        <div className="space-y-4 border border-black p-6 md:p-8">
+          {METRICS_KEYS.map(metricKey => (
+            <p key={metricKey}>
+              {t(`ecoConception.metrics.items.${metricKey}` as any)}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-6">{t("ecoConception.futureGoals.title")}</h2>
+        <p className="mb-4">{t("ecoConception.futureGoals.description")}</p>
+        <div className="space-y-4 border-l-2 border-black pl-6 md:pl-8">
+          {FUTURE_GOALS_KEYS.map(goalKey => (
+            <p key={goalKey}>
+              {t(`ecoConception.futureGoals.items.${goalKey}` as any)}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-6">{t("ecoConception.userContribution.title")}</h2>
+        <p>{t("ecoConception.userContribution.description")}</p>
+      </section>
     </div>
   )
 }

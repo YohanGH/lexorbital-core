@@ -1,48 +1,54 @@
 /**
  * Glossary page component
  *
- * Displays a glossary of terms used in LexOrbital.
+ * Displays a glossary of technical terms used in the LexOrbital platform.
  */
 
 import type { JSX } from "react"
-import { Link } from "wouter"
+import { useTranslation } from "react-i18next"
 
-import { ROUTES } from "@/lib/router"
+/**
+ * List of term keys in the order they should be displayed
+ */
+const TERM_KEYS = [
+  "architecture",
+  "module",
+  "version",
+  "interfaceLayer",
+  "dataStructure",
+  "logicEngine",
+  "stateManagement",
+  "dependency",
+  "schema",
+  "structuralNeutrality",
+  "modularTransparency",
+  "framework",
+] as const
 
 export function Glossary(): JSX.Element {
+  const { t } = useTranslation("info")
+
   return (
-    <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>📚 Glossaire</h1>
-        <nav style={{ marginTop: "1rem" }}>
-          <Link href={ROUTES.HOME} style={{ marginRight: "1rem" }}>
-            Accueil
-          </Link>
-        </nav>
-      </header>
+    <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16 lg:px-16 lg:py-24">
+      <h1 className="mb-12 md:mb-16">{t("glossary.title")}</h1>
 
-      <main>
-        <section style={{ marginBottom: "2rem" }}>
-          <h2>Glossaire des termes</h2>
-          <p>
-            Contenu à venir... Cette page contiendra les définitions des termes
-            techniques et métier utilisés dans LexOrbital.
-          </p>
-        </section>
-
-        <section
-          style={{
-            padding: "1.5rem",
-            backgroundColor: "#f5f5f5",
-            borderRadius: "8px",
-            border: "2px dashed #ccc",
-          }}
-        >
-          <p style={{ color: "#666", fontStyle: "italic" }}>
-            ⚠️ Page en cours de développement - Rendu visuel temporaire
-          </p>
-        </section>
-      </main>
+      <dl className="space-y-6 md:space-y-8">
+        {TERM_KEYS.map(termKey => (
+          <div
+            key={termKey}
+            className="grid grid-cols-1 gap-4 border-b border-black pb-6 last:border-b-0 md:grid-cols-12 md:gap-8 md:pb-8"
+          >
+            <dt className="md:col-span-3">
+              <h4>{t(`glossary.terms.${termKey}.term`)}</h4>
+            </dt>
+            <dd className="md:col-span-9">
+              <p className="opacity-75">
+                {t(`glossary.terms.${termKey}.definition`)}
+              </p>
+            </dd>
+          </div>
+        ))}
+      </dl>
     </div>
   )
 }
