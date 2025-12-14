@@ -59,5 +59,13 @@
   "ui": {
     "expand": "Expand",
     "collapse": "Collapse"
+  },
+  "versioning": {
+    "loading": "Loading version {{version}}...",
+    "error": {
+      "title": "Version not found",
+      "description": "Version {{version}} does not exist or could not be loaded.",
+      "backToVersions": "Back to version selection"
+    }
   }
 }

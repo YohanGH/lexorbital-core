@@ -59,5 +59,13 @@
   "ui": {
     "expand": "Développer",
     "collapse": "Réduire"
+  },
+  "versioning": {
+    "loading": "Chargement de la version {{version}}...",
+    "error": {
+      "title": "Version introuvable",
+      "description": "La version {{version}} n'existe pas ou n'a pas pu être chargée.",
+      "backToVersions": "Retour à la sélection de version"
+    }
   }
 }

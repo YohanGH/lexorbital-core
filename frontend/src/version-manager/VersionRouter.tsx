@@ -11,11 +11,10 @@ import { useState, useEffect } from "react"
 import { Router, useLocation } from "wouter"
 import { useTranslation } from "react-i18next"
 
-import { useVersion } from "./VersionContext"
-import { versionImports } from "./versionImports"
-import { extractVersionFromPath, getVersionById } from "./versionUtils"
-
-import { VersionHistoryPage } from "@/core/pages/versioning/VersionHistoryPage"
+import { useVersion } from "@/version-manager/VersionContext"
+import { versionImports } from "@/version-manager/versionImports"
+import { extractVersionFromPath, getVersionById } from "@/version-manager/versionUtils"
+import { VersionsList } from "@/versions/v1/pages/versioning/VersionsList"
 
 type LoadingState = "loading" | "error" | "loaded"
 
@@ -93,7 +92,7 @@ export function VersionRouter(): JSX.Element {
 
   // If no version is detected, show VersionHistoryPage
   if (!versionToLoad) {
-    return <VersionHistoryPage />
+    return <VersionsList />
   }
 
   // If version failed to load, show error page
