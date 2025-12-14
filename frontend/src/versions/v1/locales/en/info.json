@@ -1,0 +1,239 @@
+{
+  "contact": {
+    "title": "Contact",
+    "description": "You can contact us by email:",
+    "email": "contact@lexorbital.com",
+    "emailLabel": "Send an email to contact@lexorbital.com"
+  },
+  "glossary": {
+    "title": "Glossary",
+    "terms": {
+      "architecture": {
+        "term": "Architecture",
+        "definition": "The fundamental structural organization of a software system, including its components, relationships, and governing principles."
+      },
+      "module": {
+        "term": "Module",
+        "definition": "A discrete, self-contained functional unit within the larger system, with defined interfaces and responsibilities."
+      },
+      "version": {
+        "term": "Version",
+        "definition": "A specific state or iteration of the platform, representing a point in its evolutionary timeline."
+      },
+      "interfaceLayer": {
+        "term": "Interface Layer",
+        "definition": "The presentation and interaction boundary between users and the underlying system logic."
+      },
+      "dataStructure": {
+        "term": "Data Structure",
+        "definition": "The organized format in which information is stored, accessed, and manipulated within the system."
+      },
+      "logicEngine": {
+        "term": "Logic Engine",
+        "definition": "The computational core responsible for processing business rules and algorithmic operations."
+      },
+      "stateManagement": {
+        "term": "State Management",
+        "definition": "The systematic coordination and persistence of application state across components and user sessions."
+      },
+      "dependency": {
+        "term": "Dependency",
+        "definition": "A relationship where one module relies on another to function correctly."
+      },
+      "schema": {
+        "term": "Schema",
+        "definition": "A formal definition of data organization, types, and constraints."
+      },
+      "structuralNeutrality": {
+        "term": "Structural Neutrality",
+        "definition": "A design approach that prioritizes architectural clarity over aesthetic or branding considerations."
+      },
+      "modularTransparency": {
+        "term": "Modular Transparency",
+        "definition": "The principle of making system components and their relationships explicitly visible and understandable."
+      },
+      "framework": {
+        "term": "Framework",
+        "definition": "A foundational structure that supports and organizes the development and operation of a system."
+      }
+    }
+  },
+  "about": {
+    "title": "About",
+    "whatIs": {
+      "title": "What is LexOrbital?",
+      "paragraph1": "LexOrbital is a conceptual framework for visualizing and understanding software architecture as a modular, evolving system. It provides a structural approach to mapping how digital platforms are constructed, how their components interact, and how they transform across versions.",
+      "paragraph2": "Rather than focusing on visual design or branding, LexOrbital V1 emphasizes the architectural foundation—the skeletal structure that supports all subsequent iterations and enhancements.",
+      "paragraph3": "This platform demonstrates how technical systems can be represented in pure structural terms, making complex architectures comprehensible through minimal, schematic interfaces."
+    },
+    "goals": {
+      "title": "Goals of the Project (V1)",
+      "structuralClarity": {
+        "title": "Structural Clarity",
+        "description": "Establish a neutral, non-decorative foundation that prioritizes architectural understanding over aesthetic expression."
+      },
+      "modularTransparency": {
+        "title": "Modular Transparency",
+        "description": "Make visible the relationships between discrete functional modules and their roles within the larger system."
+      },
+      "versionAwareness": {
+        "title": "Version Awareness",
+        "description": "Create infrastructure for tracking and comparing architectural evolution across multiple platform versions."
+      },
+      "documentationIntegration": {
+        "title": "Documentation Integration",
+        "description": "Unify technical, legal, and ethical documentation within the same structural framework as the functional architecture."
+      }
+    },
+    "futureVersions": {
+      "title": "Future Versions (Placeholder)",
+      "subtitle": "Version 2.0 — Conceptual Direction",
+      "description": "Future iterations will introduce visual identity, interactive architectural diagrams, and enhanced module inspection capabilities.",
+      "plannedEnhancements": {
+        "title": "Planned Enhancements",
+        "items": {
+          "dynamicVisualization": "• Dynamic module visualization",
+          "comparisonTools": "• Version comparison tools",
+          "dependencyMapping": "• Interactive dependency mapping",
+          "documentationSystem": "• Enhanced documentation system"
+        }
+      },
+      "visualEvolution": {
+        "title": "Visual Evolution",
+        "items": {
+          "colorSystem": "• Introduction of color system",
+          "iconography": "• Custom iconography",
+          "visualLanguage": "• Branded visual language",
+          "typography": "• Refined typography hierarchy"
+        }
+      }
+    }
+  },
+  "sitemap": {
+    "title": "Sitemap",
+    "description": "Complete structural overview of LexOrbital V1. All pages and their organizational hierarchy.",
+    "categories": {
+      "mainPages": "Main Pages",
+      "legalCompliance": "Legal & Compliance",
+      "errorPages": "Error Pages"
+    },
+    "pages": {
+      "main": {
+        "home": {
+          "label": "Home",
+          "description": "Landing page and overview"
+        },
+        "modules": {
+          "label": "Modules",
+          "description": "Modular architecture explorer"
+        },
+        "about": {
+          "label": "About",
+          "description": "Project information and goals"
+        },
+        "glossary": {
+          "label": "Glossary",
+          "description": "Technical terminology"
+        },
+        "contact": {
+          "label": "Contact",
+          "description": "Contact information"
+        },
+        "trustCenter": {
+          "label": "Trust Center",
+          "description": "Security and compliance hub"
+        }
+      },
+      "legal": {
+        "termsOfUse": {
+          "label": "Terms of Use",
+          "description": "General terms of use"
+        },
+        "accessibility": {
+          "label": "Accessibility",
+          "description": "Accessibility statement"
+        },
+        "ecoConception": {
+          "label": "Eco-conception",
+          "description": "Environmental principles"
+        },
+        "ethics": {
+          "label": "Ethics & Deontology",
+          "description": "Ethical charter"
+        },
+        "lexiqueCookies": {
+          "label": "Lexique & Cookies",
+          "description": "FR-EN glossary and cookie management"
+        },
+        "llmTxt": {
+          "label": "LLM.txt",
+          "description": "AI training policy"
+        },
+        "disclosure": {
+          "label": "Disclosure",
+          "description": "Legal disclosure and transparency"
+        },
+        "security": {
+          "label": "Security",
+          "description": "Security policy and bug bounty"
+        },
+        "sitemap": {
+          "label": "Sitemap",
+          "description": "Site structure (this page)"
+        },
+        "references": {
+          "label": "References",
+          "description": "Citations and attributions"
+        }
+      },
+      "errors": {
+        "404": {
+          "label": "404 — Page Not Found",
+          "description": "Resource not found"
+        },
+        "403": {
+          "label": "403 — Forbidden Access",
+          "description": "Access restriction"
+        },
+        "50x": {
+          "label": "50x — Server Error",
+          "description": "Internal system error"
+        }
+      }
+    },
+    "architecture": {
+      "title": "Site Architecture",
+      "sections": {
+        "homeCore": "Home & Core Pages",
+        "modules": "Modules",
+        "trustCenter": "Trust Center",
+        "legalCompliance": "Legal & Compliance"
+      },
+      "modules": {
+        "a": "Module A — Interface Layer",
+        "b": "Module B — Data Structure",
+        "c": "Module C — Logic Engine",
+        "d": "Module D — State Management",
+        "e": "Module E — Documentation System",
+        "f": "Module F — Legal Framework"
+      },
+      "trustCenterSections": {
+        "overview": "Overview",
+        "compliance": "Compliance",
+        "documents": "Documents",
+        "reports": "Reports",
+        "selfAssessments": "Self-Assessments",
+        "dataSecurity": "Data Security",
+        "appSecurity": "App Security",
+        "legal": "Legal",
+        "infrastructure": "Infrastructure",
+        "endpointSecurity": "Endpoint Security",
+        "networkSecurity": "Network Security",
+        "policies": "Policies",
+        "securityGrade": "Security Grade",
+        "knowledgeBase": "Knowledge Base",
+        "updates": "Updates"
+      }
+    }
+  }
+}

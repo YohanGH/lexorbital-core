@@ -1,0 +1,721 @@
+{
+  "cookieManagement": {
+    "title": "Cookie Management",
+    "description": "Control your privacy on LexOrbital. Choose which cookies we can use to improve your experience.",
+    "activeCookies": {
+      "title": "Currently active cookies",
+      "subtitle": "Total number of cookies allowed on this site"
+    },
+    "whatIsCookie": {
+      "title": "What is a cookie?",
+      "paragraph1": "Cookies are small text files stored on your device when you visit a website. They allow the site to remember your actions and preferences over a period of time.",
+      "paragraph2": "LexOrbital is not designed to collect sensitive personal data. We only use essential cookies for site functionality and, with your consent, cookies to improve your experience."
+    },
+    "categories": {
+      "title": "Cookie categories",
+      "necessary": {
+        "title": "🔵 Necessary Cookies",
+        "subtitle": "(Required)",
+        "description": "These cookies are essential for the site to function. They cannot be disabled as they provide essential functions such as security and authentication.",
+        "cookies": {
+          "session": {
+            "name": "lexorbital-session",
+            "purpose": "User session",
+            "duration": "Session"
+          },
+          "language": {
+            "name": "lexorbital-language",
+            "purpose": "Language preference FR/EN",
+            "duration": "1 year"
+          },
+          "consent": {
+            "name": "lexorbital-cookie-consent",
+            "purpose": "Your cookie preferences",
+            "duration": "1 year"
+          }
+        }
+      },
+      "functional": {
+        "title": "🟢 Functional Cookies",
+        "subtitle": "(Optional)",
+        "description": "These cookies enhance your experience by remembering your preferences and choices (theme, interface layout).",
+        "cookies": {
+          "theme": {
+            "name": "lexorbital-theme",
+            "purpose": "Visual theme preference",
+            "duration": "1 year"
+          },
+          "sidebar": {
+            "name": "lexorbital-sidebar-state",
+            "purpose": "Sidebar state (open/closed)",
+            "duration": "30 days"
+          }
+        }
+      },
+      "analytics": {
+        "title": "🟠 Analytics Cookies",
+        "subtitle": "(Optional)",
+        "description": "These cookies collect anonymous data about site usage to help us improve our services and understand how users interact with LexOrbital.",
+        "cookies": {
+          "ga": {
+            "name": "_ga",
+            "purpose": "Google Analytics - Unique user identifier",
+            "duration": "2 years"
+          },
+          "gaSession": {
+            "name": "_ga_*",
+            "purpose": "Google Analytics - Session data",
+            "duration": "2 years"
+          }
+        }
+      },
+      "marketing": {
+        "title": "🔴 Marketing Cookies",
+        "subtitle": "(Optional)",
+        "description": "These cookies would be used to display relevant advertisements. LexOrbital currently does not use any marketing cookies."
+      }
+    },
+    "actions": {
+      "acceptAll": "Accept All",
+      "acceptAllAria": "Accept all cookies",
+      "rejectAll": "Reject All",
+      "rejectAllAria": "Reject all optional cookies",
+      "save": "Save My Choices",
+      "saveAria": "Save my preferences",
+      "note": "You can modify your preferences at any time by returning to this page."
+    },
+    "cookieDetails": {
+      "used": "Cookies used:",
+      "duration": "Duration:",
+      "none": "No cookies",
+      "count": "{{count}} cookie",
+      "count_plural": "{{count}} cookies",
+      "showDetails": "Show details",
+      "hideDetails": "Hide details"
+    },
+    "legal": {
+      "title": "Legal information",
+      "retention": {
+        "title": "Retention period",
+        "description": "Cookies are retained for the duration specified in each category. Upon expiration, they are automatically deleted."
+      },
+      "recipients": {
+        "title": "Data recipients",
+        "description": "Only LexOrbital has access to data from necessary and functional cookies. Analytics cookies may be shared with Google Analytics (anonymized)."
+      },
+      "gdpr": {
+        "title": "Your GDPR rights",
+        "description": "You have the right to access, rectify, delete and object to the processing of your personal data. To exercise these rights, please see our Contact page."
+      }
+    },
+    "modal": {
+      "title": "Preferences saved",
+      "message": "Your cookie preferences have been successfully saved. {{count}} cookie is currently active.",
+      "message_plural": "Your cookie preferences have been successfully saved. {{count}} cookies are currently active.",
+      "close": "Close",
+      "closeAria": "Close"
+    }
+  },
+  "termsOfUse": {
+    "title": "Terms of Use",
+    "version": {
+      "version": "Version 1.2",
+      "effectiveDate": "Effective Date: December 7, 2025",
+      "current": "Current"
+    },
+    "tableOfContents": {
+      "title": "Table of Contents:",
+      "object": "1. Object and Scope",
+      "access": "2. Access and Use",
+      "ip": "3. Intellectual Property",
+      "liability": "4. Limitations of Liability",
+      "modifications": "5. Modifications",
+      "data": "6. Data Protection",
+      "termination": "7. Termination"
+    },
+    "sections": {
+      "object": {
+        "title": "1. Object and Scope",
+        "paragraph1": "These Terms of Use govern access to and use of the LexOrbital platform and services. By accessing this platform, users acknowledge having read and accepted these terms in their entirety.",
+        "paragraph2": "LexOrbital is a platform for visualizing software architecture evolution and module interactions. The service is provided on a subscription basis with different access levels depending on user role."
+      },
+      "access": {
+        "title": "2. Access and Use",
+        "description": "Access to the platform requires user authentication. Users are responsible for:",
+        "items": {
+          "credentials": "• Maintaining the confidentiality of their credentials",
+          "equipment": "• Ensuring their equipment meets technical requirements",
+          "laws": "• Using the platform in accordance with applicable laws",
+          "security": "• Not attempting to circumvent security measures"
+        }
+      },
+      "ip": {
+        "title": "3. Intellectual Property",
+        "description": "All content, structure, design elements, and software code of the LexOrbital platform are protected by intellectual property rights. Unless explicitly authorized:",
+        "items": {
+          "reproduce": "• Users may not reproduce, modify, or distribute platform content",
+          "proprietary": "• The modular architecture and conceptual framework remain proprietary",
+          "api": "• API access is governed by separate licensing agreements",
+          "opensource": "• Open-source components are governed by their respective licenses (see References)"
+        }
+      },
+      "liability": {
+        "title": "4. Limitations of Liability",
+        "description": "LexOrbital strives to provide reliable service but makes no guarantees regarding:",
+        "items": {
+          "availability": "• Continuous, uninterrupted availability (SLA terms apply separately)",
+          "accuracy": "• Accuracy or completeness of visualizations (data is provided as-is)",
+          "compatibility": "• Compatibility with all third-party systems",
+          "outcomes": "• Outcomes resulting from architectural decisions made using platform insights"
+        },
+        "acknowledgment": "Users acknowledge that LexOrbital is a tool for analysis and visualization, not a substitute for professional architectural consultation."
+      },
+      "modifications": {
+        "title": "5. Modifications",
+        "description": "LexOrbital reserves the right to modify these Terms of Use at any time. Users will be notified of material changes via:",
+        "items": {
+          "email": "• Email notification to registered account",
+          "banner": "• In-platform notification banner",
+          "trustCenter": "• Update published in Trust Center"
+        },
+        "acceptance": "Continued use of the platform after notification constitutes acceptance of modified terms. Users who disagree may terminate their account as outlined in Section 7."
+      },
+      "data": {
+        "title": "6. Data Protection",
+        "description": "User data is processed in accordance with our Privacy Policy and applicable data protection regulations (GDPR, CCPA). Key principles:",
+        "items": {
+          "minimal": "• Minimal data collection (only what is necessary for service provision)",
+          "transparent": "• Transparent processing (see Privacy Policy for details)",
+          "rights": "• User rights (access, rectification, deletion, portability)",
+          "security": "• Secure storage and transmission (encryption at rest and in transit)"
+        },
+        "contact": "For data protection inquiries, contact:",
+        "email": "privacy@lexorbital.com",
+        "emailLabel": "Send an email to privacy@lexorbital.com"
+      },
+      "termination": {
+        "title": "7. Termination",
+        "description": "Users may terminate their account at any time via account settings. Upon termination:",
+        "items": {
+          "access": "• Access to the platform will cease immediately",
+          "deletion": "• User data will be deleted within 30 days (unless legal retention required)",
+          "refund": "• Prepaid subscription fees are non-refundable (pro-rata basis)"
+        },
+        "suspension": "LexOrbital may suspend or terminate accounts for violations of these Terms, with notice where feasible."
+      }
+    },
+    "contact": {
+      "title": "Questions or Concerns",
+      "description": "For questions regarding these Terms of Use, please contact our legal department:",
+      "email": "legal@lexorbital.com",
+      "emailLabel": "Send an email to legal@lexorbital.com"
+    }
+  },
+  "ecoConception": {
+    "title": "Eco-conception Principles",
+    "sustainability": {
+      "title": "Digital Sustainability Approach",
+      "paragraph1": "LexOrbital V1 has been designed with environmental impact in mind, following principles of digital eco-conception to minimize resource consumption and energy usage.",
+      "paragraph2": "The minimalist, structural approach serves both functional and environmental purposes, reducing unnecessary data transfer and computational overhead."
+    },
+    "strategies": {
+      "title": "Implementation Strategies",
+      "items": {
+        "visualComplexity": {
+          "title": "Minimal Visual Complexity",
+          "description": "Black and white color scheme eliminates unnecessary color processing. No images, gradients, or complex visual effects reduce rendering requirements."
+        },
+        "codeStructure": {
+          "title": "Optimized Code Structure",
+          "description": "Modular architecture prevents code duplication. Semantic HTML reduces markup overhead. No external dependencies for visual effects or animations."
+        },
+        "typography": {
+          "title": "Efficient Typography",
+          "description": "Single font family (Roboto) minimizes font loading. System fonts reduce external resource requests."
+        },
+        "staticContent": {
+          "title": "Static Content Priority",
+          "description": "V1 focuses on static content that can be efficiently cached and served with minimal server processing."
+        }
+      }
+    },
+    "metrics": {
+      "title": "Performance Metrics",
+      "items": {
+        "pageWeight": "• Target page weight: < 100KB per page",
+        "httpRequests": "• Minimal HTTP requests through consolidated resources",
+        "tracking": "• No external tracking or analytics scripts",
+        "caching": "• Aggressive caching strategies for static content",
+        "markup": "• Semantic markup reduces DOM complexity"
+      }
+    },
+    "futureGoals": {
+      "title": "Future Eco-conception Goals",
+      "description": "Subsequent versions will maintain these core efficiency principles while introducing necessary features:",
+      "items": {
+        "monitoring": "• Continued monitoring of page weight and performance",
+        "carbonFootprint": "• Carbon footprint assessment for platform operations",
+        "optimization": "• Optimization of any dynamic features introduced in V2+",
+        "hosting": "• Energy-efficient hosting infrastructure selection"
+      }
+    },
+    "userContribution": {
+      "title": "User Contribution",
+      "description": "Users contribute to eco-conception by experiencing a fast-loading, low-bandwidth platform that respects both their time and environmental resources. The structural simplicity of V1 demonstrates that effective digital experiences need not rely on resource-intensive design."
+    }
+  },
+  "accessibility": {
+    "title": "Accessibility Statement",
+    "commitment": {
+      "title": "Commitment to Accessibility",
+      "paragraph1": "LexOrbital is committed to ensuring digital accessibility for all users, including those with disabilities. We strive to meet WCAG 2.1 Level AA standards as our minimum baseline.",
+      "paragraph2": "The V1 architecture has been designed with structural clarity and semantic HTML to support assistive technologies and ensure accessible navigation."
+    },
+    "features": {
+      "title": "Accessibility Features (V1)",
+      "items": {
+        "semantic": "• Semantic HTML structure with proper heading hierarchy",
+        "contrast": "• High contrast black and white color scheme (21:1 ratio)",
+        "keyboard": "• Keyboard navigable interface",
+        "focus": "• Clear focus indicators on interactive elements",
+        "labels": "• Descriptive labels and ARIA attributes where appropriate",
+        "navigation": "• Consistent navigation structure across all pages"
+      }
+    },
+    "limitations": {
+      "title": "Known Limitations",
+      "description": "As a V1 prototype, certain accessibility features remain under development:",
+      "items": {
+        "screenReader": "• Screen reader optimization in progress",
+        "altText": "• Alternative text for placeholder visual elements not yet complete",
+        "responsive": "• Responsive design for mobile screen readers requires enhancement"
+      }
+    },
+    "feedback": {
+      "title": "Feedback and Assistance",
+      "description": "We welcome feedback on accessibility issues or barriers encountered while using the platform. Please use the contact form to report any accessibility concerns, and we will work to address them in future iterations."
+    },
+    "improvements": {
+      "title": "Ongoing Improvements",
+      "description": "Accessibility is an evolving priority. Each version of LexOrbital will incorporate enhanced accessibility features based on user feedback and updated standards."
+    }
+  },
+  "disclosure": {
+    "title": "Legal Disclosure & Transparency",
+    "company": {
+      "title": "Company Information",
+      "items": {
+        "legalEntity": {
+          "label": "Legal Entity:",
+          "value": "LexOrbital SAS"
+        },
+        "registrationNumber": {
+          "label": "Registration Number:",
+          "value": "XXX XXX XXX RCS Paris"
+        },
+        "vatNumber": {
+          "label": "VAT Number:",
+          "value": "FR XX XXX XXX XXX"
+        },
+        "headquarters": {
+          "label": "Headquarters:",
+          "value": "Paris, France"
+        },
+        "publicationDirector": {
+          "label": "Publication Director:",
+          "value": "[Name], CEO"
+        }
+      }
+    },
+    "hosting": {
+      "title": "Hosting & Infrastructure",
+      "primaryHosting": {
+        "title": "Primary Hosting",
+        "description": "Amazon Web Services (AWS)<br />Data centers: EU-West-1 (Ireland), EU-Central-1 (Frankfurt)<br />Compliance: ISO 27001, SOC 2 Type 2, GDPR"
+      },
+      "cdn": {
+        "title": "CDN & Edge Computing",
+        "description": "Cloudflare, Inc.<br />Global edge network with European data residency<br />Security: DDoS protection, WAF, SSL/TLS encryption"
+      },
+      "backup": {
+        "title": "Backup & Disaster Recovery",
+        "description": "Geographic redundancy across multiple EU regions<br />RTO: 4 hours | RPO: 15 minutes<br />Encrypted backups with versioning"
+      }
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "platform": {
+        "title": "LexOrbital Platform",
+        "paragraph1": "All rights reserved. The LexOrbital platform, including its modular architecture framework, visualization engine, and proprietary algorithms are protected by copyright and trade secret law.",
+        "paragraph2": "Unauthorized reproduction, modification, or commercial exploitation is prohibited and may result in legal action."
+      },
+      "openSource": {
+        "title": "Open Source Components",
+        "description": "LexOrbital incorporates open source software governed by their respective licenses. Full attribution and license information available in our References page.",
+        "licenses": "• React (MIT License)<br />• Tailwind CSS (MIT License)<br />• TypeScript (Apache 2.0 License)<br />• Additional dependencies listed in package.json"
+      },
+      "trademarks": {
+        "title": "Trademarks",
+        "description": "\"LexOrbital\" and the LexOrbital logo are trademarks of LexOrbital SAS. Use of these marks without permission is prohibited."
+      }
+    },
+    "security": {
+      "title": "Responsible Disclosure — Security Vulnerabilities",
+      "description": "LexOrbital is committed to security and welcomes responsible disclosure of vulnerabilities.",
+      "reporting": {
+        "title": "Reporting Process",
+        "step1": {
+          "label": "1. Report via secure channel:",
+          "email": "Email:",
+          "emailValue": "security@lexorbital.com",
+          "emailLabel": "Send an email to security@lexorbital.com",
+          "pgp": "PGP key available on our Security page"
+        },
+        "step2": {
+          "label": "2. Include details:",
+          "items": {
+            "description": "• Vulnerability description and impact assessment",
+            "steps": "• Steps to reproduce",
+            "proof": "• Proof of concept (if applicable)",
+            "contact": "• Your contact information for follow-up"
+          }
+        },
+        "step3": {
+          "label": "3. Expected response:",
+          "items": {
+            "acknowledgment": "• Acknowledgment within 48 hours",
+            "assessment": "• Initial assessment within 5 business days",
+            "updates": "• Regular updates throughout remediation process"
+          }
+        }
+      },
+      "safeHarbor": {
+        "title": "Safe Harbor",
+        "description": "We will not pursue legal action against security researchers who:",
+        "items": {
+          "goodFaith": "• Report vulnerabilities in good faith",
+          "privacy": "• Avoid privacy violations and data destruction",
+          "exploit": "• Do not exploit vulnerabilities beyond proof of concept",
+          "time": "• Allow reasonable time for remediation before public disclosure"
+        }
+      },
+      "recognition": {
+        "title": "Recognition",
+        "description": "With your permission, we will acknowledge your contribution in our Security Hall of Fame (see Security page)."
+      }
+    },
+    "limitations": {
+      "title": "Limitations & Disclaimers",
+      "items": {
+        "availability": {
+          "label": "Service Availability:",
+          "description": "While we strive for 99.9% uptime, LexOrbital is provided \"as is\" without guarantees of uninterrupted service. Planned maintenance windows are announced 72 hours in advance."
+        },
+        "accuracy": {
+          "label": "Data Accuracy:",
+          "description": "Architecture visualizations are generated from user-provided data. LexOrbital does not warranty the accuracy or completeness of visualizations."
+        },
+        "thirdParty": {
+          "label": "Third-Party Services:",
+          "description": "Integrations with third-party tools are subject to their availability and terms of service. LexOrbital is not responsible for third-party service failures."
+        },
+        "professional": {
+          "label": "Professional Advice:",
+          "description": "LexOrbital is a technical tool, not a substitute for professional architectural consultation, legal advice, or security auditing services."
+        }
+      }
+    },
+    "dispute": {
+      "title": "Dispute Resolution",
+      "governingLaw": {
+        "title": "Governing Law",
+        "description": "These terms and any disputes arising from use of LexOrbital are governed by French law."
+      },
+      "mediation": {
+        "title": "Mediation",
+        "description": "In case of dispute, parties agree to attempt good-faith mediation before legal proceedings. Contact our legal department to initiate mediation."
+      },
+      "jurisdiction": {
+        "title": "Jurisdiction",
+        "description": "Exclusive jurisdiction for legal proceedings: Commercial Courts of Paris, France."
+      }
+    },
+    "contact": {
+      "title": "Contact for Legal Matters",
+      "legal": {
+        "label": "Legal Department",
+        "email": "legal@lexorbital.com",
+        "emailLabel": "Send an email to legal department"
+      },
+      "security": {
+        "label": "Security Team",
+        "email": "security@lexorbital.com",
+        "emailLabel": "Send an email to security team"
+      },
+      "privacy": {
+        "label": "Privacy Officer",
+        "email": "privacy@lexorbital.com",
+        "emailLabel": "Send an email to privacy officer"
+      }
+    }
+  },
+  "ethics": {
+    "title": "Ethical & Deontological Charter",
+    "corePrinciples": {
+      "title": "Core Ethical Principles",
+      "description": "LexOrbital operates according to principles of transparency, user respect, and responsible technology development. This charter outlines our ethical commitments and deontological obligations."
+    },
+    "transparency": {
+      "title": "1. Transparency and Honesty",
+      "architectural": {
+        "title": "Architectural Transparency",
+        "description": "All system structures, module relationships, and architectural decisions are documented and made visible to users. No hidden functionality or opaque operations."
+      },
+      "honest": {
+        "title": "Honest Representation",
+        "description": "V1 is clearly identified as a conceptual prototype. Placeholder elements are explicitly labeled. Future capabilities are marked as such, not presented as current features."
+      }
+    },
+    "privacy": {
+      "title": "2. User Privacy and Data Protection",
+      "minimal": {
+        "title": "Minimal Data Collection",
+        "description": "V1 collects no user data, stores no personal information, and uses no tracking mechanisms. This principle will guide all future versions."
+      },
+      "byDesign": {
+        "title": "Privacy by Design",
+        "description": "Privacy considerations are integrated into the architectural foundation, not added as an afterthought."
+      }
+    },
+    "accessibility": {
+      "title": "3. Accessibility and Inclusion",
+      "universal": {
+        "title": "Universal Access",
+        "description": "The platform is designed to be accessible to users of all abilities, with high contrast, semantic structure, and keyboard navigation as foundational elements."
+      },
+      "language": {
+        "title": "Language Neutrality",
+        "description": "While V1 uses English/French, the structural approach is language-agnostic, facilitating future internationalization."
+      }
+    },
+    "environmental": {
+      "title": "4. Environmental Responsibility",
+      "description": "Digital sustainability is a core ethical obligation. The minimalist design approach reflects our commitment to reducing environmental impact through efficient code, minimal resources, and thoughtful technical choices."
+    },
+    "integrity": {
+      "title": "5. Intellectual Integrity",
+      "attribution": {
+        "title": "Attribution and Recognition",
+        "description": "All external contributions, influences, and references are properly documented and credited."
+      },
+      "documentation": {
+        "title": "Open Documentation",
+        "description": "Technical documentation and architectural decisions are openly shared to contribute to collective knowledge."
+      }
+    },
+    "userAgency": {
+      "title": "6. User Agency and Control",
+      "description": "Users maintain full control over their interaction with the platform. No manipulative design patterns, dark patterns, or coercive elements. Clear navigation and explicit functionality respect user autonomy."
+    },
+    "enforcement": {
+      "title": "Enforcement and Accountability",
+      "description": "This charter guides all development decisions and feature implementations. Violations of these principles are taken seriously and addressed through:",
+      "items": {
+        "audits": "• Regular ethical audits of platform features",
+        "feedback": "• User feedback mechanisms for ethical concerns",
+        "documentation": "• Transparent documentation of ethical decision-making",
+        "refinement": "• Continuous refinement of ethical guidelines"
+      }
+    },
+    "evolution": {
+      "title": "Evolution of Ethics",
+      "description": "This charter will evolve with the platform. As new features are introduced, ethical considerations will be documented and integrated into the development process. User feedback and emerging ethical standards will inform updates to this charter."
+    }
+  },
+  "security": {
+    "title": "Security",
+    "overview": {
+      "title": "Security at LexOrbital",
+      "paragraph1": "Security is fundamental to LexOrbital's architecture and operations. We implement defense-in-depth strategies across all layers of our platform to protect user data and maintain service integrity.",
+      "paragraph2": "This page provides transparency about our security practices and offers channels for security researchers and users to report vulnerabilities."
+    },
+    "vulnerabilityDisclosure": {
+      "title": "Vulnerability Disclosure Program",
+      "howToReport": {
+        "title": "How to Report a Security Vulnerability",
+        "secureCommunication": {
+          "title": "1. Secure Communication",
+          "description": "Report security issues via encrypted email:",
+          "email": "security@lexorbital.com",
+          "emailLabel": "Send an email to security@lexorbital.com",
+          "pgpNote": "For sensitive reports, use our PGP key (available below)"
+        },
+        "whatToInclude": {
+          "title": "2. What to Include",
+          "items": {
+            "description": "• Detailed description of the vulnerability",
+            "steps": "• Step-by-step reproduction instructions",
+            "impact": "• Potential impact assessment (CVSS score if available)",
+            "proof": "• Proof of concept (code, screenshots, or video)",
+            "contact": "• Your contact information for follow-up",
+            "timeline": "• Preferred disclosure timeline"
+          }
+        },
+        "responseTimeline": {
+          "title": "3. Response Timeline",
+          "initialResponse": {
+            "label": "Initial Response",
+            "value": "48h"
+          },
+          "assessment": {
+            "label": "Assessment",
+            "value": "5 days"
+          },
+          "remediationCritical": {
+            "label": "Remediation (Critical)",
+            "value": "30 days"
+          },
+          "remediationMedium": {
+            "label": "Remediation (Medium)",
+            "value": "90 days"
+          }
+        }
+      }
+    },
+    "scope": {
+      "title": "Scope & Rules of Engagement",
+      "inScope": {
+        "title": "In Scope",
+        "items": {
+          "domain": "✓ lexorbital.com and all subdomains",
+          "api": "✓ API endpoints (api.lexorbital.com)",
+          "mobile": "✓ Mobile applications (if applicable)",
+          "trustCenter": "✓ Trust Center infrastructure"
+        }
+      },
+      "outOfScope": {
+        "title": "Out of Scope",
+        "items": {
+          "socialEngineering": "✗ Social engineering of employees",
+          "physical": "✗ Physical attacks on infrastructure",
+          "dos": "✗ Denial of Service (DoS/DDoS) attacks",
+          "thirdParty": "✗ Third-party services we don't control",
+          "spam": "✗ Spam or email header manipulation"
+        }
+      },
+      "rules": {
+        "title": "Rules of Engagement",
+        "items": {
+          "data": "• Do not access, modify, or delete user data beyond proof of concept",
+          "accounts": "• Limit testing to your own accounts when possible",
+          "exploit": "• Do not exploit vulnerabilities for personal gain",
+          "privacy": "• Respect user privacy and data protection regulations",
+          "disclosure": "• Provide reasonable time for remediation before public disclosure",
+          "goodFaith": "• Act in good faith to avoid service disruption"
+        }
+      }
+    },
+    "bugBounty": {
+      "title": "Bug Bounty Program",
+      "description": "We reward security researchers who help us identify vulnerabilities.",
+      "table": {
+        "headers": {
+          "severity": "Severity",
+          "cvss": "CVSS Score",
+          "examples": "Examples",
+          "reward": "Reward Range"
+        },
+        "rows": {
+          "critical": {
+            "severity": "Critical",
+            "cvss": "9.0 - 10.0",
+            "examples": "RCE, SQL Injection, Auth bypass",
+            "reward": "€2,000 - €5,000"
+          },
+          "high": {
+            "severity": "High",
+            "cvss": "7.0 - 8.9",
+            "examples": "XSS (stored), CSRF, IDOR",
+            "reward": "€500 - €2,000"
+          },
+          "medium": {
+            "severity": "Medium",
+            "cvss": "4.0 - 6.9",
+            "examples": "XSS (reflected), Info disclosure",
+            "reward": "€100 - €500"
+          },
+          "low": {
+            "severity": "Low",
+            "cvss": "0.1 - 3.9",
+            "examples": "Security misconfigurations",
+            "reward": "€50 - €100"
+          }
+        }
+      },
+      "note": "* Rewards are determined based on severity, quality of report, and novelty. Duplicate reports receive reduced rewards on a first-come basis."
+    },
+    "hallOfFame": {
+      "title": "Security Hall of Fame",
+      "description": "We thank the following security researchers for their responsible disclosure:",
+      "researchers": {
+        "alice": {
+          "name": "Alice Chen — Dec 2024",
+          "description": "Critical: Authentication bypass vulnerability"
+        },
+        "bob": {
+          "name": "Bob Mueller — Nov 2024",
+          "description": "High: Stored XSS in module annotations"
+        },
+        "carol": {
+          "name": "Carol Zhang — Oct 2024",
+          "description": "Medium: Information disclosure in API responses"
+        }
+      },
+      "more": "More researchers to be added as reports are resolved"
+    },
+    "pgp": {
+      "title": "PGP Public Key",
+      "description": "For encrypted communications, use our PGP public key:",
+      "key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmQINBGXYZ1cBEAC9... [truncated for display]\n[Full PGP key available via download]\n\n-----END PGP PUBLIC KEY BLOCK-----",
+      "download": "Download Full PGP Key",
+      "verify": "Verify Key Fingerprint"
+    },
+    "bestPractices": {
+      "title": "Security Best Practices for Users",
+      "accountSecurity": {
+        "title": "Account Security",
+        "items": {
+          "2fa": "• Enable two-factor authentication (2FA)",
+          "password": "• Use strong, unique passwords (minimum 12 characters)",
+          "sessions": "• Regularly review active sessions and authorized applications",
+          "credentials": "• Never share your credentials or API keys"
+        }
+      },
+      "dataProtection": {
+        "title": "Data Protection",
+        "items": {
+          "classify": "• Classify your data appropriately before uploading",
+          "rbac": "• Use role-based access controls (RBAC) for team members",
+          "audit": "• Regularly audit who has access to sensitive architectures",
+          "logging": "• Enable audit logging for compliance requirements"
+        }
+      },
+      "suspiciousActivity": {
+        "title": "Suspicious Activity",
+        "items": {
+          "report": "• Report unusual account activity immediately",
+          "verify": "• Verify email authenticity (check sender domain)",
+          "phishing": "• Be cautious of phishing attempts impersonating LexOrbital",
+          "contact": "• Contact support if you suspect a security incident"
+        }
+      }
+    },
+    "resources": {
+      "title": "Security Resources",
+      "reportVulnerability": "Report Vulnerability",
+      "viewTrustCenter": "View Trust Center",
+      "advisories": "Security Advisories",
+      "certifications": "Compliance Certifications"
+    }
+  }
+}

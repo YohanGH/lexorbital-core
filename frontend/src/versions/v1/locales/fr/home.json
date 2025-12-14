@@ -1,0 +1,58 @@
+{
+  "hero": {
+    "title": "Bienvenue à bord de la station LexOrbital",
+    "description": "Explore l'architecture orbitale et ses modules."
+  },
+  "home": {
+    "title": "LexOrbital — Explorateur d'Architecture Modulaire",
+    "description": "Une plateforme conceptuelle pour visualiser l'évolution de l'architecture logicielle à travers les versions, explorer les interactions entre modules et comprendre les fondations structurelles des systèmes numériques.",
+    "architectureDiagram": {
+      "placeholder": "Diagramme d'Architecture — À venir"
+    },
+    "modulesOverview": {
+      "title": "Aperçu des Modules",
+      "placeholder": "Module {{number}}"
+    },
+    "aboutArchitecture": {
+      "title": "À propos de l'Architecture",
+      "description": "Comprenez les principes structurels derrière le système de design modulaire de LexOrbital.",
+      "learnMore": "En savoir plus"
+    }
+  },
+  "modules": {
+    "title": "Modules",
+    "description": "Représentation schématique de l'architecture modulaire de LexOrbital. Chaque module représente une couche fonctionnelle distincte avec des responsabilités et interfaces spécifiques.",
+    "items": {
+      "a": {
+        "name": "Module A — Couche d'Interface",
+        "role": "Rôle fonctionnel : Orchestration de l'interaction utilisateur et de l'affichage",
+        "details": "Gère toute la logique de présentation visuelle, le rendu des composants et le traitement des entrées utilisateur. Gère l'état de l'interface et délègue les opérations de données aux modules de niveau inférieur."
+      },
+      "b": {
+        "name": "Module B — Structure de Données",
+        "role": "Rôle fonctionnel : Architecture et organisation de l'information",
+        "details": "Définit le schéma structurel pour toutes les entités de données. Assure la cohérence entre les modules grâce à des modèles de données standardisés et des définitions de types."
+      },
+      "c": {
+        "name": "Module C — Moteur Logique",
+        "role": "Rôle fonctionnel : Règles métier et opérations computationnelles",
+        "details": "Implémente la logique algorithmique principale, les règles de validation et les transformations computationnelles. Fonctionne indépendamment des préoccupations d'interface."
+      },
+      "d": {
+        "name": "Module D — Gestion d'État",
+        "role": "Rôle fonctionnel : Coordination de l'état de l'application",
+        "details": "Maintient l'état global de l'application, gère les transitions d'état et assure la cohérence des données à travers les frontières des modules."
+      },
+      "e": {
+        "name": "Module E — Système de Documentation",
+        "role": "Rôle fonctionnel : Documentation technique et utilisateur",
+        "details": "Fournit un accès structuré aux spécifications techniques, guides utilisateur et documentation architecturale. Auto-documenté via les métadonnées."
+      },
+      "f": {
+        "name": "Module F — Cadre Légal",
+        "role": "Rôle fonctionnel : Structure de conformité et réglementaire",
+        "details": "Gère les documents légaux, les standards d'accessibilité, les lignes directrices éthiques et les exigences de conformité réglementaire."
+      }
+    }
+  }
+}
