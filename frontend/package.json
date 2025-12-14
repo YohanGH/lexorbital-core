@@ -14,7 +14,8 @@
     "tests:watch": "vitest",
     "tests:ui": "vitest --ui",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "archive-version": "tsx scripts/archive-version.ts"
   },
   "keywords": [
     "lexorbital",
@@ -47,6 +48,7 @@
     "@vitejs/plugin-react": "4.3.4",
     "jsdom": "25.0.1",
     "tailwindcss": "4.1.17",
+    "tsx": "4.19.2",
     "vite": "7.2.4"
   },
   "engines": {
