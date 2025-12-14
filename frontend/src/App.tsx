@@ -18,7 +18,9 @@ import { Router, Switch, Route } from "wouter"
 
 import { VersionProvider } from "@/version-manager/VersionContext"
 import { VersionRouter } from "@/version-manager/VersionRouter"
-import { ErrorBoundary } from "@/core/pages/errors"
+import { ErrorBoundary, NotFound } from "@/core/pages/errors"
+
+import { VersionHistoryPage } from "./core/pages/versioning/VersionHistoryPage"
 
 function App(): JSX.Element {
   return (
@@ -26,8 +28,34 @@ function App(): JSX.Element {
       <VersionProvider>
         <Router>
           <Switch>
+            {/* Version history page */}
+            <Route path="/">
+              <VersionHistoryPage />
+            </Route>
+            {/* Versioned app routes */}
             <Route path="/:rest*">
               <VersionRouter />
+            </Route>
+
+            {/* Fallback 404 pour les routes de version non trouvées */}
+            <Route>
+              <div className="p-8 text-center">
+                <h2 className="mb-4 text-2xl font-bold">Version non trouvée</h2>
+                <p className="mb-4">
+                  La version demandée n'existe pas ou la route est incorrecte.
+                </p>
+                <a
+                  href="/version-demo"
+                  className="font-semibold text-blue-600 hover:underline"
+                >
+                  Retour au sélecteur de version
+                </a>
+              </div>
+            </Route>
+
+            {/* Fallback 404 pour les routes de version non trouvées */}
+            <Route>
+              <NotFound />
             </Route>
           </Switch>
         </Router>

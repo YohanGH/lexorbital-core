@@ -10,7 +10,7 @@ import { cleanup } from "@testing-library/react"
 import * as matchers from "@testing-library/jest-dom/matchers"
 
 // Initialize i18next for tests to avoid warnings
-import "@/i18n"
+import "@/core/i18n"
 
 // Extend Vitest's expect with jest-dom matchers
 // This adds matchers like toBeInTheDocument(), toHaveAttribute(), etc.

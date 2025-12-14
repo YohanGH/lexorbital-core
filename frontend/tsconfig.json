@@ -50,6 +50,6 @@
     // - Compatibility options
     // ============================================================================
   },
-  "include": ["src/**/*", "tests/**/*", "scripts/**/*", "*.ts", "*.tsx"],
+  "include": ["src/**/*", "src/versions/v1/components/tests/**/*", "scripts/**/*", "*.ts", "*.tsx"],
   "exclude": ["node_modules", "dist", "vitest.config.ts"]
 }
