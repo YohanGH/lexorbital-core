@@ -1,0 +1,20 @@
+{
+  "versions": [
+    {
+      "id": "v1",
+      "date": "2023-06-01",
+      "description": "Initial version of the site",
+      "dependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
+      },
+      "entryPoint": "./v1/App.tsx",
+      "compatibility": {
+        "dataFormat": "v1",
+        "api": "v1"
+      },
+      "status": "latest"
+    }
+  ],
+  "current": "v1"
+}
