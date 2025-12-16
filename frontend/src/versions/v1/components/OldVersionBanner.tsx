@@ -3,7 +3,7 @@
  *
  * Shows a warning that the user is viewing an old/archived version
  * and provides a link to go to the latest version.
- * 
+ *
  * The banner is displayed when:
  * - The current version is not the latest version (from manifest)
  * - OR the current version has status "archived" in the manifest
@@ -33,11 +33,11 @@ export function OldVersionBanner(): JSX.Element | null {
     const checkVersion = (): void => {
       try {
         const latestVersion = getLatestVersion()
-        
+
         // Use currentVersion from context (set by VersionRouter based on path)
         const versionId = currentVersion || latestVersion
         const versionData = getVersionById(versionId)
-        
+
         if (!versionData) {
           setShowBanner(false)
           setCurrentVersionData(null)
@@ -54,7 +54,7 @@ export function OldVersionBanner(): JSX.Element | null {
         // 2. OR current version has status "archived"
         const isNotLatest = versionId !== latestVersion
         const isArchived = versionData.status === "archived"
-        
+
         setShowBanner(isNotLatest || isArchived)
       } catch (error) {
         console.error("Failed to check version:", error)
@@ -75,13 +75,13 @@ export function OldVersionBanner(): JSX.Element | null {
       // Get the current path without version prefix
       // Since we're in a Router with base="/v1", location is already relative
       const pathWithoutVersion = location === "/" ? "/" : location
-      
+
       const resolved = resolveTargetPath({
         fromVersion: currentVersionData.id,
         toVersion: latestVersion,
         pathname: `/${currentVersionData.id}${pathWithoutVersion}`,
       })
-      
+
       // Navigate to the resolved path (which includes the version prefix)
       setLocation(resolved.path.replace(`/${latestVersion}`, "") || "/")
     } catch (error) {
@@ -97,8 +97,8 @@ export function OldVersionBanner(): JSX.Element | null {
         <div className="flex items-center gap-2">
           <span className="text-sm text-yellow-800">
             ⚠️ Vous consultez une version{" "}
-            {currentVersionData.status === "archived" ? "archivée" : "ancienne"} (
-            {currentVersionData.id}). Version actuelle: {latestVersion}.
+            {currentVersionData.status === "archived" ? "archivée" : "ancienne"}{" "}
+            ({currentVersionData.id}). Version actuelle: {latestVersion}.
           </span>
         </div>
         <button

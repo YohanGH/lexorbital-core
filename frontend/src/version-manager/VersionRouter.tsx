@@ -13,7 +13,10 @@ import { useTranslation } from "react-i18next"
 
 import { useVersion } from "@/version-manager/VersionContext"
 import { versionImports } from "@/version-manager/versionImports"
-import { extractVersionFromPath, getVersionById } from "@/version-manager/versionUtils"
+import {
+  extractVersionFromPath,
+  getVersionById,
+} from "@/version-manager/versionUtils"
 import { VersionsList } from "@/versions/v1/pages/versioning/VersionsList"
 
 type LoadingState = "loading" | "error" | "loaded"

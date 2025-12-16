@@ -43,9 +43,7 @@ function VersionRouterV1(): JSX.Element {
             const Component = getComponentForRoute(slug)
             if (!Component) return null
 
-            return (
-              <Route key={slug} path={`/${slug}`} component={Component} />
-            )
+            return <Route key={slug} path={`/${slug}`} component={Component} />
           })}
 
           {/* 404 fallback - must be last */}

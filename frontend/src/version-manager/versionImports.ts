@@ -20,7 +20,7 @@ export const versionImports: Record<
   string,
   () => Promise<{ default: ComponentType }>
 > = {
-  "v1": async () => ({ default: V100App }),
+  v1: async () => ({ default: V100App }),
   // Add new versions here:
   // "v2": async () => ({ default: V200App }),
 }

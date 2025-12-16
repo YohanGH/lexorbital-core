@@ -13,7 +13,6 @@ import manifest from "../versions/manifest.json"
 import type { VersionManifest } from "./types"
 import { getVersionById } from "./versionUtils"
 
-
 interface VersionContextValue {
   currentVersion: string | null
   switchVersion: (versionId: string) => void

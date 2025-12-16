@@ -28,7 +28,7 @@ vi.mock("@/version-manager/versionImports", async () => {
   const V1App = await import("@/versions/v1/App")
   return {
     versionImports: {
-      "v1": () => Promise.resolve({ default: V1App.default }),
+      v1: () => Promise.resolve({ default: V1App.default }),
     },
   }
 })
