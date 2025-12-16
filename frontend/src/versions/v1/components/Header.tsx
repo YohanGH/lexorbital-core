@@ -12,6 +12,7 @@ export function Header({ onNavigate }: HeaderProps) {
 
   // Use useRoute to detect active routes (like in lexorbital-lab-wouter)
   const [isHomeActive] = useRoute("/")
+  const [isModulesActive] = useRoute("/modules")
   const [isAboutActive] = useRoute("/about")
   const [isContactActive] = useRoute("/contact")
   const [isTrustCenterActive] = useRoute("/trust-center")
@@ -25,7 +26,7 @@ export function Header({ onNavigate }: HeaderProps) {
     {
       label: t("header.modules"),
       page: "modules",
-      isActive: false, // modules redirects to home, so never active
+      isActive: isModulesActive,
     },
     {
       label: t("header.about"),

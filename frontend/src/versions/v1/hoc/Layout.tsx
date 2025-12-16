@@ -33,8 +33,8 @@ export function Layout({ children }: LayoutProps): JSX.Element {
     }
 
     // Since we're inside a Router with base="/v1", location is already relative
-    // Wouter handles base path concatenation, so we just need the relative path
-    const targetPath = slug === "" || slug === "home" ? "/" : `/${slug}`
+    // We just need to navigate to the slug directly
+    const targetPath = slug === "" ? "/" : `/${slug}`
     setLocation(targetPath)
   }
 

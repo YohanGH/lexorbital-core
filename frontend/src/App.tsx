@@ -31,8 +31,9 @@ function App(): JSX.Element {
             <Route path="/">
               <VersionsList />
             </Route>
-            {/* Versioned app routes */}
-            <Route path="/:rest*">
+
+            {/* Versioned app routes - capture /v* patterns (e.g., /v1, /v1/, /v1/about, /v2, /v/1/, etc.) */}
+            <Route path="/*">
               <VersionRouter />
             </Route>
 

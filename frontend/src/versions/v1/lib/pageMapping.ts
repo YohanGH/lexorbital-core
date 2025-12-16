@@ -25,6 +25,7 @@ import {
   TrustCenter,
   Explanatory,
   VersionsList,
+  Modules,
 } from "@/versions/v1/pages"
 
 // ============================================================================
@@ -86,6 +87,7 @@ export const SLUG_TO_PAGE: Record<string, string> = {
  */
 export const ROUTE_TO_COMPONENT: Record<string, ComponentType> = {
   home: Home,
+  modules: Modules,
   about: About,
   contact: Contact,
   glossary: Glossary,
@@ -108,7 +110,6 @@ export const ROUTE_TO_COMPONENT: Record<string, ComponentType> = {
  */
 export const SPECIAL_ROUTES: Record<string, { type: "redirect"; to: string }> =
   {
-    modules: { type: "redirect", to: "/" },
     "llm-txt": { type: "redirect", to: "/llm.txt" },
   } as const
 
