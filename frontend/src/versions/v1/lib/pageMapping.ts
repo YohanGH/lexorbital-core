@@ -35,7 +35,7 @@ import {
  * Maps page identifiers to their canonical route slugs
  */
 export const PAGE_TO_SLUG: Record<string, string> = {
-  home: "home",
+  home: "/",
   modules: "modules",
   about: "about",
   glossary: "glossary",
@@ -58,7 +58,7 @@ export const PAGE_TO_SLUG: Record<string, string> = {
  * Maps path slugs to page identifiers
  */
 export const SLUG_TO_PAGE: Record<string, string> = {
-  home: "home",
+  home: "/",
   about: "about",
   modules: "modules",
   glossary: "glossary",
@@ -106,34 +106,15 @@ export const ROUTE_TO_COMPONENT: Record<string, ComponentType> = {
 /**
  * Special routes that need custom handling (redirects, etc.)
  */
-export const SPECIAL_ROUTES: Record<string, { type: "redirect"; to: string }> = {
-  modules: { type: "redirect", to: "/" },
-  "llm-txt": { type: "redirect", to: "/llm.txt" },
-} as const
-
-// ============================================================================
-// VERSIONED PAGES
-// ============================================================================
-
-/**
- * Pages that are versioned (require /v/:versionId/ prefix)
- */
-export const VERSIONED_PAGES: readonly string[] = [
-  "home",
-  "modules",
-  "about",
-] as const
+export const SPECIAL_ROUTES: Record<string, { type: "redirect"; to: string }> =
+  {
+    modules: { type: "redirect", to: "/" },
+    "llm-txt": { type: "redirect", to: "/llm.txt" },
+  } as const
 
 // ============================================================================
 // UTILITY FUNCTIONS - PAGE MAPPING
 // ============================================================================
-
-/**
- * Check if a page identifier is versioned
- */
-export function isVersionedPage(pageId: string): boolean {
-  return VERSIONED_PAGES.includes(pageId as (typeof VERSIONED_PAGES)[number])
-}
 
 /**
  * Get slug for a page identifier

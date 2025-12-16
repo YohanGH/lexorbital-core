@@ -33,11 +33,27 @@ export function getVersionById(versionId: string): VersionEntry | undefined {
 /**
  * Extract version ID from a pathname
  * Returns null if no version is present in the path
- * Matches format: /v1/, /v1_1/, /v1/about
+ * Matches formats:
+ * - /v1/, /v1/about (compact format)
+ * - /v/1/, /v/1/about (expanded format)
+ * - /v1_1/, /v/1_1/ (with sub-version)
  */
 export function extractVersionFromPath(pathname: string): string | null {
-  const match = pathname.match(/^\/(v\d{1,3}(?:_\d{1,3})?)(?:\/|$)/)
-  return match?.[1] ?? null
+  // Try compact format first: /v1/, /v1/home, /v1_1/
+  // Match /v1 or /v1/ or /v1/anything
+  let match = pathname.match(/^\/(v\d{1,3}(?:_\d{1,3})?)(?:\/|$)/)
+  if (match) {
+    return match[1] ?? null
+  }
+
+  // Try expanded format: /v/1/, /v/1/home, /v/1_1/
+  match = pathname.match(/^\/v\/(\d{1,3}(?:_\d{1,3})?)(?:\/|$)/)
+  if (match) {
+    // Convert to compact format: "1" -> "v1"
+    return `v${match[1]}`
+  }
+
+  return null
 }
 
 /**
@@ -51,12 +67,26 @@ export function resolveTargetPath(params: {
 }): { path: string; fallbackReason?: string } {
   const { toVersion, pathname } = params
 
-  // Extract the path after version prefix (e.g., /v1/about -> /about)
-  const pathWithoutVersion = pathname.replace(/^\/v\d{1,3}(?:_\d{1,3})?\//, "/")
-  // If path is just the version (e.g., /v1), go to home
-  const targetPath = pathWithoutVersion === `/${toVersion}` || pathWithoutVersion === `/${toVersion}/` 
-    ? `/${toVersion}/` 
-    : `/${toVersion}${pathWithoutVersion}`
+  // Extract the path after version prefix
+  // Support both formats: /v1/about and /v/1/about
+  let pathWithoutVersion = pathname
+    .replace(/^\/v\d{1,3}(?:_\d{1,3})?\//, "/") // Compact format: /v1/...
+    .replace(/^\/v\/\d{1,3}(?:_\d{1,3})?\//, "/") // Expanded format: /v/1/...
+
+  // If path is just the version (e.g., /v1 or /v/1), go to home
+  if (
+    pathWithoutVersion === `/${toVersion}` ||
+    pathWithoutVersion === `/${toVersion}/` ||
+    pathWithoutVersion === `/v/${toVersion.replace(/^v/, "")}` ||
+    pathWithoutVersion === `/v/${toVersion.replace(/^v/, "")}/`
+  ) {
+    return {
+      path: `/${toVersion}/`,
+    }
+  }
+
+  // Use compact format for target path
+  const targetPath = `/${toVersion}${pathWithoutVersion}`
 
   return {
     path: targetPath,

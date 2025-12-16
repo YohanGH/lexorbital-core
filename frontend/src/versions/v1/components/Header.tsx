@@ -19,7 +19,7 @@ export function Header({ onNavigate }: HeaderProps) {
   const navItems = [
     {
       label: t("header.home"),
-      page: "home",
+      page: "/",
       isActive: isHomeActive,
     },
     {
@@ -50,7 +50,7 @@ export function Header({ onNavigate }: HeaderProps) {
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row md:gap-0">
           {/* Logo */}
           <button
-            onClick={() => onNavigate("home")}
+            onClick={() => onNavigate("/")}
             className="group relative h-10 w-10 bg-black md:h-12 md:w-12"
             aria-label={t("header.logoAlt")}
           >

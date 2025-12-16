@@ -11,7 +11,7 @@
 
 import type { ComponentType } from "react"
 
-import V100App from "../versions/v1/VersionRouterV1"
+import V100App from "@/versions/v1/VersionRouterV1"
 
 /**
  * Mapping of version IDs to their App components

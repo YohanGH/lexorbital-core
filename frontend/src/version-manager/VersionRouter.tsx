@@ -121,6 +121,7 @@ export function VersionRouter(): JSX.Element {
   }
 
   // Render the loaded version app with Router base path
+  // Base path should NOT have trailing slash to avoid double slashes in URLs
   if (loadingState === "loaded" && VersionApp) {
     return (
       <Router base={`/${versionToLoad}`}>

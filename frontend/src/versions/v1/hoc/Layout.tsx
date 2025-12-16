@@ -10,7 +10,6 @@ import { useLocation } from "wouter"
 
 import { Header } from "../components/Header"
 import { Footer } from "../components/Footer"
-import { OldVersionBanner } from "../components/OldVersionBanner"
 
 import { getSlugForPage } from "@/versions/v1/lib/pageMapping"
 
@@ -34,15 +33,14 @@ export function Layout({ children }: LayoutProps): JSX.Element {
     }
 
     // Since we're inside a Router with base="/v1", location is already relative
-    // We just need to navigate to the slug directly
-    const targetPath = slug === "" ? "/" : `/${slug}`
+    // Wouter handles base path concatenation, so we just need the relative path
+    const targetPath = slug === "" || slug === "home" ? "/" : `/${slug}`
     setLocation(targetPath)
   }
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header onNavigate={handleNavigate} />
-      <OldVersionBanner />
       <main className="flex-1">{children}</main>
       <Footer onNavigate={handleNavigate} />
     </div>

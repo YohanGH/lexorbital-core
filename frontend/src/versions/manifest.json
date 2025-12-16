@@ -2,7 +2,7 @@
   "versions": [
     {
       "id": "v1",
-      "date": "2023-06-01",
+      "date": "2025-12-01",
       "description": "Initial version of the site",
       "dependencies": {
         "react": "^19.2.0",
@@ -13,6 +13,15 @@
         "dataFormat": "v1",
         "api": "v1"
       },
+      "routes": [
+        {
+          "id": "home",
+          "slug": "",
+          "title": "Home",
+          "canonicalPath": "/",
+          "availableInVersions": ["v1"]
+        }
+      ],
       "status": "latest"
     }
   ],

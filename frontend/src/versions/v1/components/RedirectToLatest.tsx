@@ -18,7 +18,7 @@ export function RedirectToLatest(): JSX.Element {
       try {
         const latest = getLatestVersion() // Already has 'v' prefix (e.g., "v1")
         setError(null)
-        setLocation(`/${latest}/home`)
+        setLocation(`/${latest}/`)
       } catch (err) {
         console.error("Failed to get latest version:", err)
 
@@ -62,7 +62,7 @@ export function RedirectToLatest(): JSX.Element {
               setError(null)
               try {
                 const latest = getLatestVersion() // Already has 'v' prefix (e.g., "v1")
-                setLocation(`/${latest}/home`)
+                setLocation(`/${latest}/`)
               } catch {
                 setError("Erreur lors du rechargement")
               } finally {

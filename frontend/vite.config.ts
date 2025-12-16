@@ -20,11 +20,13 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/api/, ""),
       },
       // Proxy direct pour les routes backend (dev only)
-      "/health": {
+      // Note: Ne pas proxy les routes versionnées (/v1/*, /v2/*, etc.) - elles sont gérées par Wouter
+      "api/v1/health": {
         target: process.env["VITE_API_BACKEND_URL"] || "http://localhost:4000",
         changeOrigin: true,
       },
-      "/modules": {
+      // Proxy pour les routes backend /modules
+      "api/v1/modules": {
         target: process.env["VITE_API_BACKEND_URL"] || "http://localhost:4000",
         changeOrigin: true,
       },
