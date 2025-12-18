@@ -18,15 +18,18 @@ export default defineConfig({
     alias: {
       // Frontend path alias
       "@": path.resolve(__dirname, "./frontend/src"),
+      // Ensure React is resolved from frontend node_modules
+      react: path.resolve(__dirname, "./frontend/node_modules/react"),
+      "react-dom": path.resolve(__dirname, "./frontend/node_modules/react-dom"),
     },
   },
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: ["./frontend/tests/setup.ts"],
+    setupFiles: ["./frontend/src/versions/v1/tests/setup.ts"],
     include: [
       "tests/**/*.{test,spec}.{ts,tsx}",
-      "frontend/tests/**/*.{test,spec}.{ts,tsx}",
+      "frontend/src/**/*.{test,spec}.{ts,tsx}",
     ],
     exclude: ["node_modules", "dist", "**/*.config.*"],
     coverage: {
@@ -35,7 +38,7 @@ export default defineConfig({
       exclude: [
         "node_modules/",
         "tests/",
-        "frontend/tests/",
+        "frontend/src/versions/v1/tests/",
         "**/*.d.ts",
         "**/*.config.*",
         "**/dist/**",
