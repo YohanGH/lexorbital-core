@@ -9,7 +9,7 @@ import type { JSX } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "wouter"
 
-import { VersionButton } from "@/versions/v1/components/VersionButton"
+import { VersionButton } from "@/versions/v1/components/molecules/VersionButton"
 
 export function Home(): JSX.Element {
   const { t } = useTranslation("home")

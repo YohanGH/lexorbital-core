@@ -54,6 +54,7 @@
     "src/**/*",
     "src/versions/v1/components/tests/**/*",
     "scripts/**/*",
+    ".storybook/**/*",
     "*.ts",
     "*.tsx"
   ],

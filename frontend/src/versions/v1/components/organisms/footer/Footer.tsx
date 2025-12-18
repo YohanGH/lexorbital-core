@@ -3,7 +3,7 @@
  */
 import { useTranslation } from "react-i18next"
 
-interface FooterProps {
+export interface FooterProps {
   onNavigate: (page: string) => void
 }
 

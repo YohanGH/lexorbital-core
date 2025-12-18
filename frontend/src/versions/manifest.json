@@ -16,7 +16,7 @@
       "routes": [
         {
           "id": "home",
-          "slug": "",
+          "slug": "/",
           "title": "Home",
           "canonicalPath": "/",
           "availableInVersions": ["v1"]

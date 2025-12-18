@@ -8,7 +8,7 @@
 import type { JSX } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ModuleCard } from "@/versions/v1/components/ModuleCard"
+import { ModuleCard } from "@/versions/v1/components/molecules/ModuleCard"
 
 /**
  * Module keys in display order

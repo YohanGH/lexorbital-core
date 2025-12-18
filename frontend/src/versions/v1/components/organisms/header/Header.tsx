@@ -1,9 +1,9 @@
 import { useRoute } from "wouter"
 import { useTranslation } from "react-i18next"
 
-import { LanguageSelector } from "@/versions/v1/components/LanguageSelector"
+import { LanguageSelector } from "@/versions/v1/components/molecules/LanguageSelector"
 
-interface HeaderProps {
+export interface HeaderProps {
   onNavigate: (page: string) => void
 }
 

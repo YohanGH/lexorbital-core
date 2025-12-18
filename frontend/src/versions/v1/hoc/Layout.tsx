@@ -8,8 +8,8 @@ import type { JSX, ReactNode } from "react"
 import { useEffect } from "react"
 import { useLocation } from "wouter"
 
-import { Header } from "../components/Header"
-import { Footer } from "../components/Footer"
+import { Header } from "../components/organisms/header/Header"
+import { Footer } from "../components/organisms/footer/Footer"
 
 import { getSlugForPage } from "@/versions/v1/lib/pageMapping"
 
@@ -26,6 +26,13 @@ export function Layout({ children }: LayoutProps): JSX.Element {
   }, [location])
 
   const handleNavigate = (page: string): void => {
+    // Handle direct path navigation (e.g., "/" for home)
+    if (page === "/") {
+      setLocation("/")
+      return
+    }
+
+    // Handle page identifier (e.g., "home", "about", etc.)
     const slug = getSlugForPage(page)
     if (slug === undefined) {
       console.warn(`Unknown page identifier: ${page}`)
@@ -33,8 +40,8 @@ export function Layout({ children }: LayoutProps): JSX.Element {
     }
 
     // Since we're inside a Router with base="/v1", location is already relative
-    // We just need to navigate to the slug directly
-    const targetPath = slug === "" ? "/" : `/${slug}`
+    // Handle home page (slug is "/") and other pages
+    const targetPath = slug === "/" ? "/" : `/${slug}`
     setLocation(targetPath)
   }
 

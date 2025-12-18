@@ -7,9 +7,14 @@
 import type { JSX } from "react"
 import { useTranslation } from "react-i18next"
 
-/**
- * List of goal keys in the order they should be displayed
- */
+import { Container } from "@/versions/v1/components/atoms/layout/container/Container"
+import { Section } from "@/versions/v1/components/atoms/layout/section/Section"
+import { Title } from "@/versions/v1/components/atoms/typography/title/Title"
+import { Paragraph } from "@/versions/v1/components/atoms/typography/paragraph/Paragraph"
+import { Blockquote } from "@/versions/v1/components/atoms/typography/blockquote/Blockquote"
+import { List } from "@/versions/v1/components/atoms/typography/list/List"
+
+// Constants for translation keys
 const GOAL_KEYS = [
   "structuralClarity",
   "modularTransparency",
@@ -17,9 +22,6 @@ const GOAL_KEYS = [
   "documentationIntegration",
 ] as const
 
-/**
- * List of planned enhancement item keys
- */
 const PLANNED_ENHANCEMENT_KEYS = [
   "dynamicVisualization",
   "comparisonTools",
@@ -27,9 +29,6 @@ const PLANNED_ENHANCEMENT_KEYS = [
   "documentationSystem",
 ] as const
 
-/**
- * List of visual evolution item keys
- */
 const VISUAL_EVOLUTION_KEYS = [
   "colorSystem",
   "iconography",
@@ -41,65 +40,92 @@ export function About(): JSX.Element {
   const { t } = useTranslation("info")
 
   return (
-    <div className="mx-auto max-w-[900px] px-4 py-12 md:px-8 md:py-16 lg:px-16 lg:py-24">
-      <h1 className="mb-12 md:mb-16">{t("about.title")}</h1>
+    <Container size="lg" padding="lg" id="about-page">
+      <Title level={1} margin="xl" align="center" id="main-heading">
+        {t("about.title")}
+      </Title>
 
-      <section className="mb-12 md:mb-16">
-        <h2 className="mb-6">{t("about.whatIs.title")}</h2>
-        <p className="mb-4">{t("about.whatIs.paragraph1")}</p>
-        <p className="mb-4">{t("about.whatIs.paragraph2")}</p>
-        <p>{t("about.whatIs.paragraph3")}</p>
-      </section>
+      <Section id="what-is" title={t("about.whatIs.title")} spacing="lg">
+        <Paragraph size="lg" margin="lg">
+          {t("about.whatIs.paragraph1")}
+        </Paragraph>
+        <Paragraph size="lg" margin="lg">
+          {t("about.whatIs.paragraph2")}
+        </Paragraph>
+        <Paragraph size="lg" margin="none">
+          {t("about.whatIs.paragraph3")}
+        </Paragraph>
+      </Section>
 
-      <section className="mb-12 md:mb-16">
-        <h2 className="mb-6">{t("about.goals.title")}</h2>
-        <div className="space-y-6 border-l-2 border-black pl-6 md:pl-8">
+      <Section
+        id="goals"
+        title={t("about.goals.title")}
+        spacing="lg"
+        background="light"
+      >
+        <Blockquote side="left" accentColor="primary" size="lg">
+          {t("about.goals.structuralClarity.description")}
+        </Blockquote>
+
+        <div className="mt-8 space-y-6">
           {GOAL_KEYS.map(goalKey => (
-            <div key={goalKey}>
-              <h4 className="mb-2">{t(`about.goals.${goalKey}.title`)}</h4>
-              <p className="opacity-75">
+            <div key={goalKey} className="border-primary-500 border-l-4 pl-6">
+              <Title level={4} margin="sm">
+                {t(`about.goals.${goalKey}.title`)}
+              </Title>
+              <Paragraph color="muted">
                 {t(`about.goals.${goalKey}.description`)}
-              </p>
+              </Paragraph>
             </div>
           ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="mb-12 md:mb-16">
-        <h2 className="mb-6">{t("about.futureVersions.title")}</h2>
-        <div className="border border-black p-8 opacity-50 md:p-12">
-          <h3 className="mb-4">{t("about.futureVersions.subtitle")}</h3>
-          <p className="mb-6">{t("about.futureVersions.description")}</p>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+      <Section
+        id="future-versions"
+        title={t("about.futureVersions.title")}
+        spacing="lg"
+      >
+        <div className="rounded-lg border-2 border-dashed border-gray-300 p-8">
+          <Title level={3} margin="md" align="center" color="muted">
+            {t("about.futureVersions.subtitle")}
+          </Title>
+
+          <Paragraph align="center" margin="lg" color="muted">
+            {t("about.futureVersions.description")}
+          </Paragraph>
+
+          <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
-              <h4 className="mb-2">
+              <Title level={4} margin="md">
                 {t("about.futureVersions.plannedEnhancements.title")}
-              </h4>
-              <ul className="space-y-2 opacity-75">
+              </Title>
+              <List type="unordered" spacing="tight">
                 {PLANNED_ENHANCEMENT_KEYS.map(itemKey => (
-                  <li key={itemKey}>
+                  <List.Item key={itemKey} icon="•">
                     {t(
                       `about.futureVersions.plannedEnhancements.items.${itemKey}`
                     )}
-                  </li>
+                  </List.Item>
                 ))}
-              </ul>
+              </List>
             </div>
+
             <div>
-              <h4 className="mb-2">
+              <Title level={4} margin="md">
                 {t("about.futureVersions.visualEvolution.title")}
-              </h4>
-              <ul className="space-y-2 opacity-75">
+              </Title>
+              <List type="unordered" spacing="tight">
                 {VISUAL_EVOLUTION_KEYS.map(itemKey => (
-                  <li key={itemKey}>
+                  <List.Item key={itemKey} icon="•">
                     {t(`about.futureVersions.visualEvolution.items.${itemKey}`)}
-                  </li>
+                  </List.Item>
                 ))}
-              </ul>
+              </List>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </Section>
+    </Container>
   )
 }

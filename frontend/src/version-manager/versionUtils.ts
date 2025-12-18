@@ -67,19 +67,25 @@ export function resolveTargetPath(params: {
 }): { path: string; fallbackReason?: string } {
   const { toVersion, pathname } = params
 
+  // Check if pathname is just the version root (compact or expanded format)
+  const compactVersionMatch = pathname.match(/^\/v\d{1,3}(?:_\d{1,3})?\/?$/)
+  const expandedVersionMatch = pathname.match(/^\/v\/\d{1,3}(?:_\d{1,3})?\/?$/)
+
+  // If path is just the version (e.g., /v1, /v1/, /v/1, /v/1/), go to home
+  if (compactVersionMatch || expandedVersionMatch) {
+    return {
+      path: `/${toVersion}/`,
+    }
+  }
+
   // Extract the path after version prefix
   // Support both formats: /v1/about and /v/1/about
   let pathWithoutVersion = pathname
     .replace(/^\/v\d{1,3}(?:_\d{1,3})?\//, "/") // Compact format: /v1/...
     .replace(/^\/v\/\d{1,3}(?:_\d{1,3})?\//, "/") // Expanded format: /v/1/...
 
-  // If path is just the version (e.g., /v1 or /v/1), go to home
-  if (
-    pathWithoutVersion === `/${toVersion}` ||
-    pathWithoutVersion === `/${toVersion}/` ||
-    pathWithoutVersion === `/v/${toVersion.replace(/^v/, "")}` ||
-    pathWithoutVersion === `/v/${toVersion.replace(/^v/, "")}/`
-  ) {
+  // If pathWithoutVersion is empty or just "/", it means we're at the root
+  if (pathWithoutVersion === "/" || pathWithoutVersion === "") {
     return {
       path: `/${toVersion}/`,
     }

@@ -18,6 +18,7 @@ const baseIgnoreConfig = {
     "**/*.config.{ts,js}",
     "**/vite.config.ts",
     "**/vitest.config.ts",
+    "**/.storybook/**",
   ],
 }
 
