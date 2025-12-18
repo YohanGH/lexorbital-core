@@ -54,4 +54,3 @@ export const PrimaryAccent: Story = {
     accentColor: "primary",
   },
 }
-

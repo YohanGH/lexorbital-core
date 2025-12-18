@@ -55,4 +55,3 @@ export const Primary: Story = {
     color: "primary",
   },
 }
-

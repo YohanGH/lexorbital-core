@@ -58,4 +58,3 @@ export const Centered: Story = {
     align: "center",
   },
 }
-

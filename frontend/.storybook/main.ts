@@ -6,10 +6,7 @@ import { fileURLToPath } from "url"
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const config: StorybookConfig = {
-  stories: [
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
-    "./introduction.mdx",
-  ],
+  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)", "./introduction.mdx"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-docs",
