@@ -26,19 +26,19 @@ export interface TitleProps {
 }
 
 const visualStyles: Record<TitleLevel, string> = {
-  1: "text-5xl md:text-6xl font-bold tracking-tight",
-  2: "text-4xl md:text-5xl font-bold",
-  3: "text-3xl md:text-4xl font-semibold",
-  4: "text-2xl md:text-3xl font-semibold",
-  5: "text-xl md:text-2xl font-medium",
-  6: "text-lg md:text-xl font-medium",
+  1: "text-3xl md:text-4xl font-bold",
+  2: "text-2xl md:text-3xl font-bold",
+  3: "text-xl md:text-2xl font-semibold",
+  4: "text-lg md:text-xl font-semibold",
+  5: "text-base md:text-lg font-medium",
+  6: "text-sm md:text-base font-medium",
 }
 
 const marginStyles = {
   none: "mb-0",
-  sm: "mb-4",
-  md: "mb-6 md:mb-8",
-  lg: "mb-8 md:mb-12",
+  sm: "mb-2",
+  md: "mb-4",
+  lg: "mb-6",
   xl: "mb-12 md:mb-16",
 }
 
@@ -67,7 +67,7 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
       className = "",
       visualLevel,
       color = "default",
-      margin = "lg",
+      margin = "none",
     },
     ref
   ) => {

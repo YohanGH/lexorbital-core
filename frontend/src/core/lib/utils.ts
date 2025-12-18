@@ -31,6 +31,7 @@ export function mergeClasses(
 
   // Basic Tailwind conflict resolution:
   // Remove duplicate classes, keep the last one
+  // Classes with responsive modifiers (md:, lg:, etc.) are treated as distinct
   const classMap = new Map<string, string>()
 
   for (const cls of validClasses) {
@@ -38,19 +39,24 @@ export function mergeClasses(
     const individualClasses = cls.split(/\s+/).filter(Boolean)
 
     for (const individualClass of individualClasses) {
-      // Extract base class name (before any modifiers like hover:, focus:, etc.)
-      // This is a simplified approach - full tailwind-merge would be more sophisticated
-      const baseMatch = individualClass.match(
-        /^(?:[a-z-]+:)*([a-z-]+(?:-\d+)?)/
-      )
-      if (baseMatch && baseMatch[1]) {
-        const baseClass = baseMatch[1]
-        // For common Tailwind patterns, we can do basic deduplication
-        // Full implementation would require parsing all Tailwind utilities
-        classMap.set(baseClass, individualClass)
-      } else {
-        // For non-standard classes, just add them
+      // Check if the class has responsive modifiers (md:, lg:, sm:, xl:, etc.)
+      const hasModifier = /^(?:[a-z-]+:)+/.test(individualClass)
+      
+      if (hasModifier) {
+        // Classes with modifiers are unique and should not be deduplicated
+        // Use the full class name as the key
         classMap.set(individualClass, individualClass)
+      } else {
+        // Extract base class name for classes without modifiers
+        const baseMatch = individualClass.match(/^([a-z-]+(?:-\d+)?)/)
+        if (baseMatch && baseMatch[1]) {
+          const baseClass = baseMatch[1]
+          // Only deduplicate classes without modifiers
+          classMap.set(baseClass, individualClass)
+        } else {
+          // For non-standard classes, just add them
+          classMap.set(individualClass, individualClass)
+        }
       }
     }
   }

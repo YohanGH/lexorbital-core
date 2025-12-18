@@ -21,16 +21,16 @@ export interface ContainerProps {
 const sizeStyles = {
   sm: "max-w-3xl",
   md: "max-w-4xl",
-  lg: "max-w-5xl",
+  lg: "max-w-[900px]",
   xl: "max-w-7xl",
   full: "max-w-full",
 }
 
 const paddingStyles = {
   none: "p-0",
-  sm: "px-4 py-8 sm:px-6",
-  md: "px-6 py-12 sm:px-8",
-  lg: "px-8 py-16 lg:px-12",
+  sm: "px-6 py-8 sm:px-6",
+  md: "px-6 py-12 md:px-8 md:py-16",
+  lg: "px-6 py-12 md:px-8 md:py-16 lg:px-16 lg:py-24",
   xl: "px-12 py-20 lg:px-16",
 }
 
